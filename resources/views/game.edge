@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Up Game - Argya Store</title>
+  <link rel="icon" type="image/png" href="/image/store.png">
+  <link rel="stylesheet" href="/game.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="image/logo.png" alt="Argya Store" style="width: 56px; height: 56px; object-fit: contain;">
+        <span>Argya Store</span>
+      </div>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <div class="user-menu">
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section class="game-hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1><i class="fas fa-gamepad"></i> Top Up Game Favorit</h1>
+          <p>Diamond Mobile Legends, UC PUBG, Genesis Crystal Genshin Impact, dan masih banyak lagi!</p>
+          <div class="game-stats">
+            <div class="stat">
+              <i class="fas fa-bolt"></i>
+              <span>Proses Instan</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-shield-alt"></i>
+              <span>100% Legal</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-tags"></i>
+              <span>Harga Termurah</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Games Grid -->
+    <section class="games-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Pilih Game Favoritmu</h2>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Cari game..." id="gameSearch">
+          </div>
+        </div>
+        
+        <div class="games-grid">
+          <!-- Mobile Legends -->
+          <div class="game-card popular" onclick="selectGame('mobile-legends')">
+            <div class="game-image">
+              <div class="game-icon">🏆</div>
+              <div class="popular-badge">POPULER</div>
+            </div>
+            <div class="game-info">
+              <h3>Mobile Legends</h3>
+              <p>Diamond ML • Bang Bang</p>
+              <div class="game-rating">
+                <i class="fas fa-star"></i>
+                <span>4.9</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Free Fire -->
+          <div class="game-card popular" onclick="selectGame('free-fire')">
+            <div class="game-image">
+              <div class="game-icon">🔥</div>
+              <div class="popular-badge">POPULER</div>
+            </div>
+            <div class="game-info">
+              <h3>Free Fire</h3>
+              <p>Diamond FF • Battlegrounds</p>
+              <div class="game-rating">
+                <i class="fas fa-star"></i>
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PUBG Mobile -->
+          <div class="game-card" onclick="selectGame('pubg')">
+            <div class="game-image">
+              <div class="game-icon">🎯</div>
+            </div>
+            <div class="game-info">
+              <h3>PUBG Mobile</h3>
+              <p>UC • Unknown Cash</p>
+              <div class="game-rating">
+                <i class="fas fa-star"></i>
+                <span>4.7</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Genshin Impact -->
+          <div class="game-card popular" onclick="selectGame('genshin')">
+            <div class="game-image">
+              <div class="game-icon">⚔️</div>
+              <div class="trending-badge">TRENDING</div>
+            </div>
+            <div class="game-info">
+              <h3>Genshin Impact</h3>
+              <p>Genesis Crystal • Primogems</p>
+              <div class="game-rating">
+                <i class="fas fa-star"></i>
+                <span>4.9</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Valorant -->
+          <div class="game-card" onclick="selectGame('valorant')">
+            <div class="game-image">
+              <div class="game-icon">🎪</div>
+            </div>
+            <div class="game-info">
+              <h3>Valorant</h3>
+              <p>VP • Valorant Points</p>
+              <div class="game-rating">
+                <i class="fas fa-star"></i>
+                <span>4.6</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Clash of Clans -->
+          <div class="game-card" onclick="selectGame('coc')">
+            <div class="game-image">
+              <div class="game-icon">🏰</div>
+            </div>
+            <div class="game-info">
+              <h3>Clash of Clans</h3>
+              <p>Gems • Supercell</p>
+              <div class="game-rating">
+                <i class="fas fa-star"></i>
+                <span>4.5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Popular Games Section -->
+        <div class="popular-section">
+          <h3><i class="fas fa-fire"></i> Game Paling Populer</h3>
+          <div class="popular-games">
+            <div class="popular-item">
+              <span class="rank">#1</span>
+              <div class="popular-info">
+                <div class="popular-name">Mobile Legends</div>
+                <div class="popular-desc">86.7K transaksi hari ini</div>
+              </div>
+            </div>
+            <div class="popular-item">
+              <span class="rank">#2</span>
+              <div class="popular-info">
+                <div class="popular-name">Free Fire</div>
+                <div class="popular-desc">71.2K transaksi hari ini</div>
+              </div>
+            </div>
+            <div class="popular-item">
+              <span class="rank">#3</span>
+              <div class="popular-info">
+                <div class="popular-name">Genshin Impact</div>
+                <div class="popular-desc">45.8K transaksi hari ini</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Game Selection Modal -->
+  <div id="gameModal" class="modal">
+    <div class="modal-content game-modal">
+      <div class="modal-header">
+        <h2 id="gameTitle"><i class="fas fa-gamepad"></i> Mobile Legends</h2>
+        <span class="close" onclick="closeGameModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="game-form">
+          <div class="form-group">
+            <label>User ID</label>
+            <input type="text" placeholder="Masukkan User ID" class="form-input" id="userId">
+          </div>
+          <div class="form-group">
+            <label>Server ID</label>
+            <input type="text" placeholder="Masukkan Server ID" class="form-input" id="serverId">
+          </div>
+          
+          <div class="diamond-packages" id="packages">
+            <!-- Packages will be populated by JavaScript -->
+          </div>
+          
+          <div class="payment-method">
+            <h4>Pilih Metode Pembayaran</h4>
+            <div class="payment-options">
+              <div class="payment-btn active">
+                <i class="fas fa-wallet"></i>
+                <span>E-Wallet</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-credit-card"></i>
+                <span>Credit Card</span>
+              </div>
+            </div>
+          </div>
+          
+          <button class="btn-primary" onclick="processTopUp()">
+            <i class="fas fa-shopping-cart"></i>
+            Beli Sekarang
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tambahkan script JavaScript terpisah -->
+  <script src="/js/game.js"></script>
+</body>
+</html>

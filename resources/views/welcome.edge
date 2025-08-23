@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Argya Store - Toko Produk Digital Terpercaya</title>
+  <link rel="icon" type="image/png" href="/image/store.png">
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="image/logo.png" alt="Argya Store" style="width: 56px; height: 56px; object-fit: contain;">
+        <span>Argya Store</span>
+      </div>
+      <nav class="nav">
+        <a href="/support">Support</a>
+        <div class="user-menu">
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Toko Produk Digital #1 di Indonesia</h1>
+          <p>Beli pulsa, paket data, top up game, dan produk digital lainnya dengan mudah dan aman!</p>
+          <div class="hero-stats">
+            <div class="stat">
+              <i class="fas fa-wallet"></i>
+              <span>Ramah Di Kantong</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-shield-alt"></i>
+              <span>100% Aman</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-clock"></i>
+              <span>24/7 Support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products">
+      <div class="container">
+        <h2 class="section-title">Produk Digital Terlengkap</h2>
+        
+        <div class="products-grid">
+          <!-- Pulsa -->
+          <div class="product-card" onclick="openModal('pulsaModal')">
+            <div class="product-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3>Pulsa</h3>
+            <p>Isi pulsa semua operator</p>
+            <div class="product-badge">Populer</div>
+          </div>
+
+          <!-- Paket Data -->
+          <div class="product-card" onclick="openModal('dataModal')">
+            <div class="product-icon">
+              <i class="fas fa-wifi"></i>
+            </div>
+            <h3>Paket Data</h3>
+            <p>Paket internet terjangkau</p>
+          </div>
+
+          <!-- Top Up Game -->
+          <div class="product-card" onclick="window.location.href='/game'">
+            <div class="product-icon">
+              <i class="fas fa-gamepad"></i>
+            </div>
+            <h3>Top Up Game</h3>
+            <p>Diamond, UC, Genesis Crystal</p>
+            <div class="product-badge trending">Trending</div>
+          </div>
+
+          <!-- App Streaming -->
+          <div class="product-card" onclick="window.location.href='/entertainment'">
+            <div class="product-icon">
+              <i class="fas fa-play-circle"></i>
+            </div>
+            <h3>App Streaming</h3>
+            <p>Netflix, Spotify, YouTube</p>
+          </div>
+
+          <!-- Token Listrik -->
+          <div class="product-card" onclick="openModal('tokenModal')">
+            <div class="product-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3>Token Listrik</h3>
+            <p>PLN Prabayar instan</p>
+          </div>
+
+          <!-- E-SIM -->
+          <div class="product-card" onclick="openModal('esimModal')">
+            <div class="product-icon">
+              <i class="fas fa-sim-card"></i>
+            </div>
+            <h3>Beli E-SIM</h3>
+            <p>Kartu digital praktis</p>
+            <div class="product-badge new">New</div>
+          </div>
+
+          <!-- E-Wallet -->
+          <div class="product-card" onclick="openModal('ewalletModal')">
+            <div class="product-icon">
+              <i class="fas fa-wallet"></i>
+            </div>
+            <h3>Top Up E-Wallet</h3>
+            <p>OVO, GoPay, DANA, ShopeePay</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature">
+            <i class="fas fa-bolt"></i>
+            <h3>Proses Instan</h3>
+            <p>Transaksi diproses dalam hitungan menit</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-tags"></i>
+            <h3>Harga Terjangkau</h3>
+            <p>Dapatkan harga terbaik dengan berbagai promo</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-headset"></i>
+            <h3>Customer Service 24/7</h3>
+            <p>Tim support siap membantu kapan saja</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Pulsa -->
+  <div id="pulsaModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-mobile-alt"></i> Beli Pulsa</h2>
+        <span class="close" onclick="closeModal('pulsaModal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nomor HP</label>
+          <input type="text" placeholder="08xx-xxxx-xxxx" class="form-input">
+        </div>
+        <div class="denomination-grid">
+          <div class="denomination-item">
+            <div class="amount">Rp 100.000</div>
+            <div class="price">Rp 99.000</div>
+            <div class="discount">Hemat 1%</div>
+          </div>
+          <div class="denomination-item">
+            <div class="amount">Rp 80.000</div>
+            <div class="price">Rp 79.000</div>
+            <div class="discount">Hemat 1.25%</div>
+          </div>
+          <div class="denomination-item">
+            <div class="amount">Rp 50.000</div>
+            <div class="price">Rp 49.500</div>
+            <div class="discount">Hemat 1%</div>
+          </div>
+        </div>
+        <button class="btn-primary">Beli Sekarang</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Paket Data -->
+  <div id="dataModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-wifi"></i> Paket Data</h2>
+        <span class="close" onclick="closeModal('dataModal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nomor HP</label>
+          <input type="text" placeholder="08xx-xxxx-xxxx" class="form-input">
+        </div>
+        <div class="data-packages">
+          <div class="package-item">
+            <div class="package-info">
+              <div class="package-name">1GB - 30 Hari</div>
+              <div class="package-provider">Telkomsel</div>
+            </div>
+            <div class="package-price">Rp 15.000</div>
+          </div>
+          <div class="package-item">
+            <div class="package-info">
+              <div class="package-name">3GB - 30 Hari</div>
+              <div class="package-provider">XL Axiata</div>
+            </div>
+            <div class="package-price">Rp 35.000</div>
+          </div>
+          <div class="package-item">
+            <div class="package-info">
+              <div class="package-name">5GB - 30 Hari</div>
+              <div class="package-provider">Indosat</div>
+            </div>
+            <div class="package-price">Rp 50.000</div>
+          </div>
+        </div>
+        <button class="btn-primary">Beli Paket</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal E-Wallet -->
+  <div id="ewalletModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-wallet"></i> Top Up E-Wallet</h2>
+        <span class="close" onclick="closeModal('ewalletModal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="ewallet-options">
+          <div class="ewallet-btn active">
+            <img src="https://via.placeholder.com/40x40/00AA5B/white?text=OVO" alt="OVO">
+            OVO
+          </div>
+          <div class="ewallet-btn">
+            <img src="https://via.placeholder.com/40x40/00AED6/white?text=GP" alt="GoPay">
+            GoPay
+          </div>
+          <div class="ewallet-btn">
+            <img src="https://via.placeholder.com/40x40/118EEA/white?text=D" alt="DANA">
+            DANA
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Nomor HP</label>
+          <input type="text" placeholder="08xx-xxxx-xxxx" class="form-input">
+        </div>
+        <div class="denomination-grid">
+          <div class="denomination-item">
+            <div class="amount">Rp 100.000</div>
+            <div class="price">Rp 99.500</div>
+            <div class="fee">Fee: Rp 500</div>
+          </div>
+          <div class="denomination-item">
+            <div class="amount">Rp 50.000</div>
+            <div class="price">Rp 49.750</div>
+            <div class="fee">Fee: Rp 250</div>
+          </div>
+          <div class="denomination-item">
+            <div class="amount">Rp 20.000</div>
+            <div class="price">Rp 19.900</div>
+            <div class="fee">Fee: Rp 100</div>
+          </div>
+        </div>
+        <button class="btn-primary">Top Up Sekarang</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Token Listrik -->
+  <div id="tokenModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-bolt"></i> Token Listrik PLN</h2>
+        <span class="close" onclick="closeModal('tokenModal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>ID Pelanggan</label>
+          <input type="text" placeholder="Masukkan ID Pelanggan PLN" class="form-input">
+        </div>
+        <div class="denomination-grid">
+          <div class="denomination-item">
+            <div class="amount">Rp 100.000</div>
+            <div class="price">Rp 101.000</div>
+            <div class="admin">Admin: Rp 1.000</div>
+          </div>
+          <div class="denomination-item">
+            <div class="amount">Rp 50.000</div>
+            <div class="price">Rp 51.000</div>
+            <div class="admin">Admin: Rp 1.000</div>
+          </div>
+          <div class="denomination-item">
+            <div class="amount">Rp 20.000</div>
+            <div class="price">Rp 21.000</div>
+            <div class="admin">Admin: Rp 1.000</div>
+          </div>
+        </div>
+        <button class="btn-primary">Beli Token</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal E-SIM -->
+  <div id="esimModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-sim-card"></i> Beli E-SIM</h2>
+        <span class="close" onclick="closeModal('esimModal')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="esim-info">
+          <div class="info-card">
+            <h4>Apa itu E-SIM?</h4>
+            <p>Kartu SIM digital yang dapat diaktivasi langsung di perangkat Anda tanpa perlu kartu fisik.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Pilih Provider</label>
+          <select class="form-input">
+            <option>Telkomsel E-SIM</option>
+            <option>XL E-SIM</option>
+            <option>Indosat E-SIM</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="email@example.com" class="form-input">
+        </div>
+        <div class="esim-price">
+          <div class="price-info">
+            <span>Harga E-SIM</span>
+            <span class="price">Rp 5.000</span>
+          </div>
+        </div>
+        <button class="btn-primary">Beli E-SIM</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      });
+    }
+
+    // E-wallet selection
+    document.querySelectorAll('.ewallet-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.ewallet-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Denomination selection
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.denomination-item')) {
+        const container = e.target.closest('.denomination-grid, .data-packages');
+        if (container) {
+          container.querySelectorAll('.denomination-item, .package-item').forEach(item => {
+            item.classList.remove('selected');
+          });
+          e.target.closest('.denomination-item, .package-item').classList.add('selected');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
