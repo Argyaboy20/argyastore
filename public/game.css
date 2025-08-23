@@ -739,7 +739,7 @@ body {
 /* Smartphones */
 @media (max-width: 640px) {
   .header .container {
-    padding: 0.1rem 10px;
+    padding: 0.1rem 20px;
     flex-wrap: nowrap;
   }
 

@@ -28,19 +28,6 @@ class HomeController {
     return view.render('welcome', { products })
   }
 
-  async entertainment ({ view }) {
-    const apps = [
-      { name: 'Netflix', price: 54000, duration: '1 Bulan', icon: '🎬' },
-      { name: 'Spotify Premium', price: 17000, duration: '1 Bulan', icon: '🎵' },
-      { name: 'YouTube Premium', price: 35000, duration: '1 Bulan', icon: '📺' },
-      { name: 'Disney+ Hotstar', price: 39000, duration: '1 Bulan', icon: '🏰' },
-      { name: 'Vidio Premier', price: 29000, duration: '1 Bulan', icon: '📹' },
-      { name: 'WeTV VIP', price: 25000, duration: '1 Bulan', icon: '📱' }
-    ]
-    
-    return view.render('entertainment', { apps })
-  }
-
  async support ({ view }) {
 
  }

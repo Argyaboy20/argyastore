@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Streaming - ArgyaStore</title>
+  <link rel="icon" type="image/png" href="/image/store.png">
+  <link rel="stylesheet" href="/entertainment.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <span>ArgyaStore</span>
+      </div>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <div class="user-menu">
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section class="entertainment-hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1><i class="fas fa-play-circle"></i> Berlangganan App Streaming</h1>
+          <p>Netflix, Spotify, YouTube Premium, dan platform hiburan favorit lainnya. Nikmati konten unlimited!</p>
+          <div class="entertainment-stats">
+            <div class="stat">
+              <i class="fas fa-film"></i>
+              <span>1000+ Movies</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-music"></i>
+              <span>50M+ Songs</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-tv"></i>
+              <span>HD Streaming</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Apps Grid -->
+    <section class="apps-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Platform Hiburan Terpopuler</h2>
+          <div class="filter-tabs">
+            <button class="tab-btn active" onclick="filterApps('all')">Semua</button>
+            <button class="tab-btn" onclick="filterApps('video')">Video</button>
+            <button class="tab-btn" onclick="filterApps('music')">Musik</button>
+          </div>
+        </div>
+        
+        <div class="apps-grid">
+          <!-- Netflix -->
+          <div class="app-card video popular" onclick="selectApp('netflix')">
+            <div class="app-image">
+              <div class="app-icon netflix-icon">📺</div>
+              <div class="popular-badge">POPULER</div>
+            </div>
+            <div class="app-info">
+              <h3>Netflix</h3>
+              <p>Movies & TV Series</p>
+              <div class="app-price">Rp 54.000<span>/bulan</span></div>
+              <div class="app-rating">
+                <i class="fas fa-star"></i>
+                <span>4.9</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spotify -->
+          <div class="app-card music popular" onclick="selectApp('spotify')">
+            <div class="app-image">
+              <div class="app-icon spotify-icon">🎵</div>
+              <div class="popular-badge">POPULER</div>
+            </div>
+            <div class="app-info">
+              <h3>Spotify Premium</h3>
+              <p>Music Streaming</p>
+              <div class="app-price">Rp 17.000<span>/bulan</span></div>
+              <div class="app-rating">
+                <i class="fas fa-star"></i>
+                <span>4.8</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- YouTube Premium -->
+          <div class="app-card video" onclick="selectApp('youtube')">
+            <div class="app-image">
+              <div class="app-icon youtube-icon">📹</div>
+              <div class="trending-badge">NO ADS</div>
+            </div>
+            <div class="app-info">
+              <h3>YouTube Premium</h3>
+              <p>Ad-free & Offline</p>
+              <div class="app-price">Rp 35.000<span>/bulan</span></div>
+              <div class="app-rating">
+                <i class="fas fa-star"></i>
+                <span>4.7</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vidio Premier -->
+          <div class="app-card video" onclick="selectApp('vidio')">
+            <div class="app-image">
+              <div class="app-icon vidio-icon">📺</div>
+              <div class="local-badge">LOCAL</div>
+            </div>
+            <div class="app-info">
+              <h3>Vidio Premier</h3>
+              <p>Indonesian Content</p>
+              <div class="app-price">Rp 29.000<span>/bulan</span></div>
+              <div class="app-rating">
+                <i class="fas fa-star"></i>
+                <span>4.5</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- WeTV VIP -->
+          <div class="app-card video" onclick="selectApp('wetv')">
+            <div class="app-image">
+              <div class="app-icon wetv-icon">📱</div>
+            </div>
+            <div class="app-info">
+              <h3>WeTV VIP</h3>
+              <p>Asian Drama & Movies</p>
+              <div class="app-price">Rp 25.000<span>/bulan</span></div>
+              <div class="app-rating">
+                <i class="fas fa-star"></i>
+                <span>4.4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Popular Subscriptions -->
+        <div class="popular-subscriptions">
+          <h3><i class="fas fa-crown"></i> Paket Berlangganan Terpopuler</h3>
+          <div class="subscription-deals">
+            <div class="deal-card">
+              <div class="deal-header">
+                <h4>Entertainment Bundle</h4>
+                <div class="deal-discount">Hemat 25%</div>
+              </div>
+              <div class="deal-content">
+                <p>Netflix + Spotify + YouTube Premium</p>
+                <div class="deal-price">
+                  <span class="original-price">Rp 106.000</span>
+                  <span class="final-price">Rp 79.500</span>
+                </div>
+              </div>
+              <button class="deal-btn">Berlangganan Sekarang</button>
+            </div>
+
+            <div class="deal-card">
+              <div class="deal-header">
+                <h4>Music Lover</h4>
+                <div class="deal-discount">Hemat 20%</div>
+              </div>
+              <div class="deal-content">
+                <p>Spotify + YouTube Music</p>
+                <div class="deal-price">
+                  <span class="original-price">Rp 72.000</span>
+                  <span class="final-price">Rp 57.600</span>
+                </div>
+              </div>
+              <button class="deal-btn">Berlangganan Sekarang</button>
+            </div>
+
+            <div class="deal-card">
+              <div class="deal-header">
+                <h4>Family Pack</h4>
+                <div class="deal-discount">Hemat 30%</div>
+              </div>
+              <div class="deal-content">
+                <p>Netflix + Vidio + WeTV</p>
+                <div class="deal-price">
+                  <span class="original-price">Rp 147.000</span>
+                  <span class="final-price">Rp 102.900</span>
+                </div>
+              </div>
+              <button class="deal-btn">Berlangganan Sekarang</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- App Selection Modal -->
+  <div id="appModal" class="modal">
+    <div class="modal-content app-modal">
+      <div class="modal-header">
+        <h2 id="appTitle"><i class="fas fa-play-circle"></i> Netflix Premium</h2>
+        <span class="close" onclick="closeAppModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="app-details" id="appDetails">
+          <!-- App details will be populated by JavaScript -->
+        </div>
+        
+        <div class="subscription-form">
+          <div class="form-group">
+            <label>Email untuk Akun</label>
+            <input type="email" placeholder="email@example.com" class="form-input" id="userEmail">
+          </div>
+          
+          <div class="subscription-options" id="subscriptionOptions">
+            <!-- Subscription options will be populated by JavaScript -->
+          </div>
+          
+          <div class="payment-method">
+            <h4>Pilih Metode Pembayaran</h4>
+            <div class="payment-options">
+              <div class="payment-btn active">
+                <i class="fas fa-wallet"></i>
+                <span>E-Wallet</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="subscription-note">
+            <i class="fas fa-info-circle"></i>
+            <p>Akun akan dikirim ke email Anda dalam 1-5 menit setelah pembayaran berhasil.</p>
+          </div>
+          
+          <button class="btn-primary" onclick="processSubscription()">
+            <i class="fas fa-shopping-cart"></i>
+            Berlangganan Sekarang
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Tambahkan script JavaScript terpisah -->
+  <script src="/js/entertainment.js"></script>
+  </body>
+</html>
