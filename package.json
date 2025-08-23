@@ -4,9 +4,12 @@
   "adonis-version": "4.1.0",
   "description": "The fullstack application boilerplate for Adonisjs",
   "main": "index.js",
-  "scripts": {
+   "scripts": {
     "start": "node server.js",
-    "test": "node ace test"
+    "build": "npm install"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "keywords": [
     "adonisjs",
