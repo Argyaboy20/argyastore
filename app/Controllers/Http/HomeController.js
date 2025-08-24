@@ -19,9 +19,14 @@ class HomeController {
         { amount: 20000, price: 19900, fee: 100 }
       ],
       tokenListrik: [
+        { amount: 200000, price: 201000, admin: 1000 },
         { amount: 100000, price: 101000, admin: 1000 },
         { amount: 50000, price: 51000, admin: 1000 },
         { amount: 20000, price: 21000, admin: 1000 }
+      ],
+       esim: [
+        { provider: 'Telkomsel E-SIM 3GB', price: 36531 },
+        { provider: 'Indosat E-SIM 3GB 30hr', price: 35145 }
       ]
     }
 

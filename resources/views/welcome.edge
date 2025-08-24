@@ -280,32 +280,22 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label>ID Pelanggan</label>
+          <label>ID Pelanggan PLN</label>
+          <!-- SIMPLIFIED: Hilangkan semua atribut validasi dan event handler -->
           <input type="text" placeholder="Masukkan ID Pelanggan PLN" class="form-input">
+          <!-- TIDAK ADA LAGI div untuk alert validasi -->
         </div>
+        <!-- Denomination grid akan di-generate dinamis oleh JavaScript -->
         <div class="denomination-grid">
-          <div class="denomination-item">
-            <div class="amount">Rp 100.000</div>
-            <div class="price">Rp 101.000</div>
-            <div class="admin">Admin: Rp 1.000</div>
-          </div>
-          <div class="denomination-item">
-            <div class="amount">Rp 50.000</div>
-            <div class="price">Rp 51.000</div>
-            <div class="admin">Admin: Rp 1.000</div>
-          </div>
-          <div class="denomination-item">
-            <div class="amount">Rp 20.000</div>
-            <div class="price">Rp 21.000</div>
-            <div class="admin">Admin: Rp 1.000</div>
-          </div>
+          <!-- Konten akan di-generate oleh JavaScript dari data products -->
         </div>
-        <button class="btn-primary">Beli Token</button>
+        <!-- Tetap pakai fungsi buyTokenListrik() tapi tanpa validasi kompleks -->
+        <button class="btn-primary" onclick="buyTokenListrik()">Beli Token</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal E-SIM -->
+<!-- Modal E-SIM - BAGIAN YANG DIUBAH -->
   <div id="esimModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -321,69 +311,34 @@
         </div>
         <div class="form-group">
           <label>Pilih Provider</label>
-          <select class="form-input">
-            <option>Telkomsel E-SIM</option>
-            <option>XL E-SIM</option>
-            <option>Indosat E-SIM</option>
+          <!-- PERUBAHAN: Tambahkan onchange event -->
+          <select class="form-input" onchange="updateEsimPrice()">
+            <option value="Telkomsel E-SIM 3GB">Telkomsel E-SIM 3GB</option>
+            <option value="Indosat E-SIM 3GB 30hr">Indosat E-SIM 3GB 30hr</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" placeholder="email@example.com" class="form-input">
+          <label>Email <span style="color: red;">*</span></label>
+          <!-- PERUBAHAN: Ubah type menjadi email dan tambahkan required -->
+          <input type="email" placeholder="email@example.com" class="form-input" required>
+          <label>Nomor Telepon <span style="color: red;">*</span></label>
+          <!-- PERUBAHAN: Perbaiki class name dan tambahkan required -->
+          <input type="text" placeholder="08xx-xxxx-xxxx" class="form-input" required>
         </div>
         <div class="esim-price">
           <div class="price-info">
             <span>Harga E-SIM</span>
-            <span class="price">Rp 5.000</span>
+            <!-- PERUBAHAN: Harga akan diupdate secara dinamis -->
+            <span class="price">Rp 36.531</span>
           </div>
         </div>
-        <button class="btn-primary">Beli E-SIM</button>
+        <!-- PERUBAHAN: Ganti onclick dengan fungsi buyEsim() -->
+        <button class="btn-primary" onclick="buyEsim()">Beli E-SIM</button>
       </div>
     </div>
   </div>
 
-  <script>
-    function openModal(modalId) {
-      document.getElementById(modalId).style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal(modalId) {
-      document.getElementById(modalId).style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-      const modals = document.querySelectorAll('.modal');
-      modals.forEach(modal => {
-        if (event.target == modal) {
-          modal.style.display = 'none';
-          document.body.style.overflow = 'auto';
-        }
-      });
-    }
-
-    // E-wallet selection
-    document.querySelectorAll('.ewallet-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.ewallet-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-      });
-    });
-
-    // Denomination selection
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('.denomination-item')) {
-        const container = e.target.closest('.denomination-grid, .data-packages');
-        if (container) {
-          container.querySelectorAll('.denomination-item, .package-item').forEach(item => {
-            item.classList.remove('selected');
-          });
-          e.target.closest('.denomination-item, .package-item').classList.add('selected');
-        }
-      }
-    });
-  </script>
+  <!-- Tambahkan script JavaScript terpisah -->
+  <script src="/js/home.js"></script>
 </body>
 </html>
