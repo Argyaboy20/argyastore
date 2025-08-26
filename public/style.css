@@ -428,6 +428,7 @@ body {
 }
 
 .denomination-grid {
+  grid-template-columns: repeat(2, 1fr);
   display: grid;
   gap: 1rem;
   margin-bottom: 2rem;
@@ -555,42 +556,7 @@ body {
   transform: translateY(0);
 }
 
-/* Provider Selection Styles */
-.pulsaprovider-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.8rem;
-  margin-bottom: 1.5rem;
-}
-
-.pulsaprovider-item {
-  padding: 0.8rem;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: var(--bg-secondary);
-  text-align: center;
-}
-
-.pulsaprovider-item:hover {
-  border-color: var(--primary-color);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-}
-
-.pulsaprovider-item.selected {
-  border-color: var(--primary-color);
-  background: rgba(99, 102, 241, 0.1);
-}
-
-.pulsaprovider-item .pulsaprovider-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-/* Updated PulsaModal Styles */
+/* PulsaModal Styles */
 .pulsamodal {
   display: none;
   position: fixed;
@@ -709,10 +675,45 @@ body {
   background: var(--bg-primary);
 }
 
+/* Provider Selection Styles */
+.pulsaprovider-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.pulsaprovider-item {
+  padding: 0.8rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--bg-secondary);
+  text-align: center;
+}
+
+.pulsaprovider-item:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pulsaprovider-item.selected {
+  border-color: var(--primary-color);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.pulsaprovider-item .pulsaprovider-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 /* Updated Denomination Styles - Smaller */
 .pulsadenomination-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.8rem;
   margin-bottom: 1.5rem;
 }
@@ -837,51 +838,258 @@ body {
   transform: translateY(0);
 }
 
-/* Data Packages */
-.data-packages {
-  display: grid;
-  gap: 1rem;
-  margin-bottom: 2rem;
+/* PaketModal Styles */
+.paketmodal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
 }
 
-.package-item {
+.paketmodal-content {
+  background-color: var(--bg-primary);
+  margin: 5% auto;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow-xl);
+  animation: modalSlideIn 0.3s ease;
+}
+
+.paketmodal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.paketmodal-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.paketmodal-header h2 i {
+  color: var(--primary-color);
+}
+
+.paketclose {
+  font-size: 1.5rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   background: var(--bg-secondary);
 }
 
-.package-item:hover {
-  border-color: var(--primary-color);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+.paketclose:hover {
+  color: var(--error-color);
+  background: #fee2e2;
 }
 
-.package-item.selected {
+.paketmodal-body {
+  padding: 2rem;
+}
+
+.paketform-group {
+  margin-bottom: 1rem;
+}
+
+.paketform-group label {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.paketform-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: var(--bg-primary);
+}
+
+.paketform-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Provider Selection Styles for Paket */
+.paketprovider-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.paketprovider-item {
+  padding: 0.8rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--bg-secondary);
+  text-align: center;
+}
+
+.paketprovider-item:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.paketprovider-item.selected {
   border-color: var(--primary-color);
   background: rgba(99, 102, 241, 0.1);
 }
 
-.package-name {
+.paketprovider-item .paketprovider-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Updated Data Packages - Smaller Capsule Style */
+.paket-packages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.paket-item {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--bg-secondary);
+  text-align: center;
+  position: relative;
+}
+
+.paket-item:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.paket-item.selected {
+  border-color: var(--primary-color);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.paket-item .paket-name {
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.25rem;
 }
 
-.package-provider {
-  font-size: 0.85rem;
+.paket-item .paket-provider {
+  font-size: 0.7rem;
   color: var(--text-secondary);
+  margin-bottom: 0.25rem;
 }
 
-.package-price {
-  font-size: 1.1rem;
+.paket-item .paket-price {
+  font-size: 1rem;
   font-weight: 700;
   color: var(--primary-color);
+}
+
+/* Payment Method Styles untuk Paket */
+.paketpayment-method h4 {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.paketpayment-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.2rem;
+}
+
+.paketpayment-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.paketpayment-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary-color);
+}
+
+.paketpayment-btn.active {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: var(--primary-color);
+}
+
+.paketpayment-btn i {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.paketpayment-btn span {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.paketbtn-primary {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.paketbtn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.paketbtn-primary:active {
+  transform: translateY(0);
 }
 
 /* E-Wallet Options */
@@ -1149,6 +1357,29 @@ body {
     width: 35px;
     height: 35px;
   }
+
+  .paketmodal-content {
+    width: 90%;
+    margin: 8% auto;
+  }
+  
+  .paketmodal-header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .paketmodal-body {
+    padding: 1.5rem;
+  }
+  
+  .paketprovider-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+  
+  .paket-packages {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
 }
 
 /* Smartphone */
@@ -1302,7 +1533,8 @@ body {
   }
   
   .denomination-grid {
-    gap: 0.8rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.7rem;
     margin-bottom: 1.5rem;
   }
   
@@ -1322,23 +1554,6 @@ body {
   .denomination-item .fee,
   .denomination-item .admin {
     font-size: 0.75rem;
-  }
-  
-  .data-packages {
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .package-item {
-    padding: 0.8rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .package-price {
-    font-size: 1rem;
-    align-self: flex-end;
   }
   
   .ewallet-options {
@@ -1427,7 +1642,7 @@ body {
   }
   
   .pulsadenomination-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.6rem;
     margin-bottom: 1.5rem;
   }
@@ -1451,6 +1666,52 @@ body {
   }
   
   .pulsapayment-options {
+    grid-template-columns: 1fr;
+  }
+
+  .paketmodal-content {
+    width: 95%;
+    margin: 5% auto;
+  }
+  
+  .paketmodal-header {
+    padding: 1.2rem 1.2rem 0.8rem;
+  }
+  
+  .paketmodal-body {
+    padding: 1.2rem;
+  }
+  
+  .paketprovider-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .paket-packages {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .paket-item {
+    padding: 0.4rem 0.6rem; /* Lebih kecil dari sebelumnya */
+    min-height: auto; /* Hapus tinggi minimum jika ada */
+  }
+  
+  .paket-item .paket-name {
+    font-size: 0.75rem; /* Lebih kecil */
+    margin-bottom: 0.15rem;
+  }
+  
+  .paket-item .paket-provider {
+    font-size: 0.6rem; /* Lebih kecil */
+    margin-bottom: 0.15rem;
+  }
+  
+  .paket-item .paket-price {
+    font-size: 0.85rem; /* Lebih kecil */
+  }
+  
+  .paketpayment-options {
     grid-template-columns: 1fr;
   }
   

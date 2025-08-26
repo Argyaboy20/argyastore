@@ -36,11 +36,43 @@ const products = {
             { amount: 50350, price: 49847, discount: '1%' }
         ]
     },
-    paketData: [
-        { name: '1GB 30 Hari', price: 15000, provider: 'Telkomsel' },
-        { name: '3GB 30 Hari', price: 35000, provider: 'XL' },
-        { name: '5GB 30 Hari', price: 50000, provider: 'Indosat' }
-    ],
+    paketData: {
+        xl: [
+            { name: '1GB 30 Hari', price: 15000, provider: 'XL' },
+            { name: '3GB 30 Hari', price: 35000, provider: 'XL' },
+            { name: '5GB 30 Hari', price: 50000, provider: 'XL' }
+        ],
+        telkomsel: [
+            { name: '1.5GB 30 Hari', price: 18000, provider: 'Telkomsel' },
+            { name: '3.5GB 30 Hari', price: 38000, provider: 'Telkomsel' },
+            { name: '6GB 30 Hari', price: 55000, provider: 'Telkomsel' }
+        ],
+        smartfren: [
+            { name: '2GB 30 Hari', price: 16000, provider: 'Smartfren' },
+            { name: '4GB 30 Hari', price: 32000, provider: 'Smartfren' },
+            { name: '8GB 30 Hari', price: 48000, provider: 'Smartfren' }
+        ],
+        indosat: [
+            { name: '1GB 30 Hari', price: 14000, provider: 'Indosat' },
+            { name: '3GB 30 Hari', price: 34000, provider: 'Indosat' },
+            { name: '5GB 30 Hari', price: 49000, provider: 'Indosat' }
+        ],
+        byu: [
+            { name: '1.5GB 30 Hari', price: 17000, provider: 'by.U' },
+            { name: '3.5GB 30 Hari', price: 36000, provider: 'by.U' },
+            { name: '7GB 30 Hari', price: 52000, provider: 'by.U' }
+        ],
+        axis: [
+            { name: '2GB 30 Hari', price: 15500, provider: 'Axis' },
+            { name: '4GB 30 Hari', price: 33000, provider: 'Axis' },
+            { name: '6GB 30 Hari', price: 47000, provider: 'Axis' }
+        ],
+        tri: [
+            { name: '1GB 30 Hari', price: 13000, provider: 'Tri' },
+            { name: '3GB 30 Hari', price: 31000, provider: 'Tri' },
+            { name: '5GB 30 Hari', price: 45000, provider: 'Tri' }
+        ]
+    },
     ewallet: [
         { amount: 100000, price: 99500, fee: 500 },
         { amount: 50000, price: 49750, fee: 250 },
@@ -104,6 +136,23 @@ function resetModal(modalId) {
             item.querySelector('.discount').textContent = '-';
         });
     }
+
+    // Special reset untuk modal paket data
+    if (modalId === 'dataModal') {
+        // Reset provider selection
+        modal.querySelectorAll('.paketprovider-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        
+        // Reset packages to default state
+        const packages = modal.querySelectorAll('#paketPackages .paket-item');
+        packages.forEach(item => {
+            item.classList.remove('selected');
+            item.querySelector('.paket-name').textContent = 'Pilih provider dulu';
+            item.querySelector('.paket-provider').textContent = '-';
+            item.querySelector('.paket-price').textContent = 'Rp -';
+        });
+    }
     
     // Khusus untuk E-SIM modal, reset harga
     if (modalId === 'esimModal') {
@@ -127,7 +176,7 @@ function closeModal(modalId) {
 
 // UPDATED: Close modal when clicking outside - sekarang mencakup modal pulsa
 window.onclick = function (event) {
-    const modals = document.querySelectorAll('.modal, .pulsamodal'); 
+    const modals = document.querySelectorAll('.modal, .pulsamodal, .paketmodal');
     modals.forEach(modal => {
         if (event.target == modal) {
             const modalId = modal.id;
@@ -228,6 +277,74 @@ document.addEventListener('click', function (e) {
         }
     }
 });
+
+// ===== PAKET DATA FUNCTIONALITY =====
+function updatePaketDataPackages(provider) {
+    const packages = document.querySelectorAll('#paketPackages .paket-item');
+    const providerData = products.paketData[provider];
+    
+    if (!providerData) return;
+    
+    packages.forEach((item, index) => {
+        if (providerData[index]) {
+            const data = providerData[index];
+            item.querySelector('.paket-name').textContent = data.name;
+            item.querySelector('.paket-provider').textContent = data.provider;
+            item.querySelector('.paket-price').textContent = `Rp ${data.price.toLocaleString('id-ID')}`;
+        }
+    });
+}
+
+function buyPaketData() {
+    const selectedProvider = document.querySelector('#dataModal .paketprovider-item.selected');
+    const phoneInput = document.querySelector('#dataModal input[type="text"]');
+    const selectedPackage = document.querySelector('#dataModal #paketPackages .paket-item.selected');
+    const selectedPayment = document.querySelector('#dataModal .paketpayment-btn.active');
+    
+    // Validations
+    if (!selectedProvider) {
+        alert('Harap pilih provider!');
+        return;
+    }
+    
+    if (!phoneInput.value.trim()) {
+        alert('Harap masukkan nomor HP!');
+        return;
+    }
+    
+    if (!selectedPackage) {
+        alert('Harap pilih paket data!');
+        return;
+    }
+    
+    if (!selectedPayment) {
+        alert('Harap pilih metode pembayaran!');
+        return;
+    }
+    
+    // Get data for WhatsApp message
+    const provider = selectedProvider.querySelector('.paketprovider-name').textContent;
+    const phone = phoneInput.value.trim();
+    const packageName = selectedPackage.querySelector('.paket-name').textContent;
+    const price = selectedPackage.querySelector('.paket-price').textContent;
+    const paymentMethod = selectedPayment.querySelector('span').textContent;
+    
+    // Format WhatsApp message
+    const message = `BELI PAKET DATA
+-> Provider: ${provider}
+-> Nomor HP: ${phone}
+-> Paket: ${packageName}
+-> Harga: ${price}
+-> Metode Pembayaran: ${paymentMethod}`;
+    
+    // Encode and redirect to WhatsApp
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Close modal
+    closeModal('dataModal');
+}
 
 // TAMBAHAN BARU: Fungsi untuk update harga E-SIM
 function updateEsimPrice() {
@@ -396,6 +513,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const provider = clickedProvider.dataset.provider;
             updatePulsaDenominations(provider);
         }
+
+        if (e.target.closest('#dataModal .paketprovider-item')) {
+            // Remove selected from all providers
+            document.querySelectorAll('#dataModal .paketprovider-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selected to clicked provider
+            const clickedProvider = e.target.closest('.paketprovider-item');
+            clickedProvider.classList.add('selected');
+            
+            // Update packages
+            const provider = clickedProvider.dataset.provider;
+            updatePaketDataPackages(provider);
+        }
     });
 
     // Denomination selection for pulsa - UPDATED class names
@@ -409,6 +541,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add selected to clicked denomination
             e.target.closest('.pulsadenomination-item').classList.add('selected');
         }
+        
+        // For Paket Data
+        if (e.target.closest('#dataModal #paketPackages .paket-item')) {
+            // Remove selected from all packages
+            document.querySelectorAll('#dataModal #paketPackages .paket-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selected to clicked package
+            e.target.closest('.paket-item').classList.add('selected');
+        }
     });
 
     // Payment method selection - UPDATED untuk modal pulsa
@@ -420,12 +563,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.target.closest('.payment-btn, .pulsapayment-btn').classList.add('active'); 
             }
         }
+
+        // Payment method selection - untuk modal paket data
+        if (e.target.closest('.payment-btn, .pulsapayment-btn, .paketpayment-btn')) {
+            const modal = e.target.closest('.modal, .pulsamodal, .paketmodal');
+            if (modal) {
+                modal.querySelectorAll('.payment-btn, .pulsapayment-btn, .paketpayment-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.closest('.payment-btn, .pulsapayment-btn, .paketpayment-btn').classList.add('active');
+            }
+        }
     });
 
     // Close button functionality - UPDATED untuk modal pulsa
-    document.querySelectorAll('.close, .pulsaclose').forEach(closeBtn => {
+    document.querySelectorAll('.close, .pulsaclose, .paketclose').forEach(closeBtn => {
         closeBtn.addEventListener('click', function() {
-            const modal = this.closest('.modal, .pulsamodal'); 
+            const modal = this.closest('.modal, .pulsamodal, .paketmodal'); 
             if (modal) {
                 const modalId = modal.id;
                 closeModal(modalId);
