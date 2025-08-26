@@ -480,6 +480,58 @@ body {
   color: var(--secondary-color);
 }
 
+/* Payment Method */
+.payment-method {
+  margin-bottom: 2rem;
+}
+
+.payment-method h4 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.payment-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.75rem;
+}
+
+.payment-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.payment-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary-color);
+}
+
+.payment-btn.active {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: var(--primary-color);
+}
+
+.payment-btn i {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.payment-btn span {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
 .btn-primary {
   width: 100%;
   padding: 1rem 2rem;
@@ -500,6 +552,288 @@ body {
 }
 
 .btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Provider Selection Styles */
+.pulsaprovider-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.pulsaprovider-item {
+  padding: 0.8rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--bg-secondary);
+  text-align: center;
+}
+
+.pulsaprovider-item:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pulsaprovider-item.selected {
+  border-color: var(--primary-color);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.pulsaprovider-item .pulsaprovider-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Updated PulsaModal Styles */
+.pulsamodal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.pulsamodal-content {
+  background-color: var(--bg-primary);
+  margin: 5% auto;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow-xl);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pulsamodal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.pulsamodal-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pulsamodal-header h2 i {
+  color: var(--primary-color);
+}
+
+.pulsaclose {
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+}
+
+.pulsaclose:hover {
+  color: var(--error-color);
+  background: #fee2e2;
+}
+
+.pulsamodal-body {
+  padding: 2rem;
+}
+
+.pulsaform-group {
+  margin-bottom: 1rem;
+}
+
+.pulsaform-group label {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.pulsaform-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: var(--bg-primary);
+}
+
+.pulsaform-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.pulsanumberform-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: var(--bg-primary);
+}
+
+/* Updated Denomination Styles - Smaller */
+.pulsadenomination-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.pulsadenomination-item {
+  padding: 0.8rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--bg-secondary);
+}
+
+.pulsadenomination-item:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pulsadenomination-item.selected {
+  border-color: var(--primary-color);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.pulsadenomination-item .amount {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.pulsadenomination-item .price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.2rem;
+}
+
+.pulsadenomination-item .discount,
+.pulsadenomination-item .fee,
+.pulsadenomination-item .admin {
+  font-size: 0.75rem;
+  color: var(--success-color);
+  font-weight: 500;
+}
+
+.pulsadenomination-item .fee,
+.pulsadenomination-item .admin {
+  color: var(--secondary-color);
+}
+
+/* Payment Method Styles */
+.pulsapayment-method h4 {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pulsapayment-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.2rem;
+}
+
+.pulsapayment-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.pulsapayment-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary-color);
+}
+
+.pulsapayment-btn.active {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: var(--primary-color);
+}
+
+.pulsapayment-btn i {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.pulsapayment-btn span {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.pulsabtn-primary {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.pulsabtn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.pulsabtn-primary:active {
   transform: translateY(0);
 }
 
@@ -770,6 +1104,51 @@ body {
   .container {
     padding: 0 15px;
   }
+
+  .payment-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .pulsamodal-content {
+    width: 90%;
+    margin: 8% auto;
+  }
+  
+  .pulsamodal-header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .pulsamodal-body {
+    padding: 1.5rem;
+  }
+  
+  .pulsaprovider-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+  
+  .pulsaprovider-item {
+    padding: 0.6rem;
+  }
+  
+  .pulsadenomination-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  
+  .pulsaewallet-options {
+    gap: 0.8rem;
+  }
+  
+  .pulsaewallet-btn {
+    min-width: 75px;
+    padding: 0.8rem;
+  }
+  
+  .pulsaewallet-btn img {
+    width: 35px;
+    height: 35px;
+  }
 }
 
 /* Smartphone */
@@ -1010,6 +1389,69 @@ body {
   
   .container {
     padding: 0 10px;
+  }
+
+  .pulsamodal-content {
+    width: 95%;
+    margin: 5% auto;
+  }
+  
+  .pulsamodal-header {
+    padding: 1.2rem 1.2rem 0.8rem;
+  }
+  
+  .pulsamodal-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .pulsamodal-body {
+    padding: 1.2rem;
+  }
+  
+  .pulsaform-input {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+  }
+  
+  .pulsaprovider-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .pulsaprovider-item {
+    padding: 0.5rem;
+  }
+  
+  .pulsaprovider-item .provider-name {
+    font-size: 0.8rem;
+  }
+  
+  .pulsadenomination-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .pulsadenomination-item {
+    padding: 0.6rem;
+  }
+  
+  .pulsadenomination-item .amount {
+    font-size: 0.9rem;
+  }
+  
+  .pulsadenomination-item .price {
+    font-size: 1rem;
+  }
+  
+  .pulsadenomination-item .discount,
+  .pulsadenomination-item .fee,
+  .pulsadenomination-item .admin {
+    font-size: 0.7rem;
+  }
+  
+  .pulsapayment-options {
+    grid-template-columns: 1fr;
   }
   
   /* Fix mobile scrolling issues */

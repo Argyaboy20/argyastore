@@ -77,10 +77,8 @@ const gameData = {
 function selectGame(gameId) {
     const game = gameData[gameId];
     if (!game) return;
-
     // Update modal title
     document.getElementById('gameTitle').innerHTML = `<i class="fas fa-gamepad"></i> ${game.title}`;
-    
     // Update packages
     const packagesContainer = document.getElementById('packages');
     packagesContainer.innerHTML = game.packages.map(pkg => `
@@ -92,7 +90,6 @@ function selectGame(gameId) {
             <div class="package-price">Rp ${pkg.price.toLocaleString()}</div>
         </div>
     `).join('');
-
     // Show modal
     document.getElementById('gameModal').style.display = 'block';
     document.body.style.overflow = 'hidden';
@@ -112,17 +109,14 @@ function processTopUp() {
     const userId = document.getElementById('userId').value;
     const serverId = document.getElementById('serverId').value;
     const selectedPackage = document.querySelector('.package-item.selected');
-    
     if (!userId || !serverId) {
         alert('Mohon lengkapi User ID dan Server ID');
         return;
     }
-    
     if (!selectedPackage) {
         alert('Mohon pilih paket yang diinginkan');
         return;
-    }
-    
+    } 
     alert('Transaksi berhasil! Top up sedang diproses...');
     closeGameModal();
 }

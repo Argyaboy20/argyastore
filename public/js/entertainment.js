@@ -59,7 +59,6 @@ const appData = {
 function selectApp(appId) {
     const app = appData[appId];
     if (!app) return;
-
     // Update modal title
     document.getElementById('appTitle').innerHTML = `<i class="fas fa-play-circle"></i> ${app.title}`;
 
@@ -110,17 +109,14 @@ function selectPlan(element) {
 function processSubscription() {
     const email = document.getElementById('userEmail').value;
     const selectedPlan = document.querySelector('.plan-item.selected');
-
     if (!email) {
         alert('Mohon masukkan email untuk akun');
         return;
     }
-
     if (!selectedPlan) {
         alert('Mohon pilih durasi berlangganan');
         return;
     }
-
     alert('Pembelian berhasil! Detail akun akan dikirim ke email Anda dalam 1-5 menit.');
     closeAppModal();
 }
@@ -128,11 +124,9 @@ function processSubscription() {
 function filterApps(category) {
     const appCards = document.querySelectorAll('.app-card');
     const tabBtns = document.querySelectorAll('.tab-btn');
-
     // Update active tab
     tabBtns.forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
-
     // Filter apps
     appCards.forEach(card => {
         if (category === 'all' || card.classList.contains(category)) {

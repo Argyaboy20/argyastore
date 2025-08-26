@@ -150,35 +150,84 @@
   </main>
 
   <!-- Modal Pulsa -->
-  <div id="pulsaModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
+  <div id="pulsaModal" class="pulsamodal">
+    <div class="pulsamodal-content">
+      <div class="pulsamodal-header">
         <h2><i class="fas fa-mobile-alt"></i> Beli Pulsa</h2>
-        <span class="close" onclick="closeModal('pulsaModal')">&times;</span>
+        <span class="pulsaclose" onclick="closeModal('pulsaModal')">&times;</span>
       </div>
-      <div class="modal-body">
-        <div class="form-group">
+      <div class="pulsamodal-body">
+        <!-- Provider Selection Grid -->
+        <div class="pulsaform-group">
+          <label>Pilih Provider</label>
+          <div class="pulsaprovider-grid">
+            <div class="pulsaprovider-item" data-provider="indosat">
+              <div class="pulsaprovider-name">Indosat</div>
+            </div>
+            <div class="pulsaprovider-item" data-provider="simpati">
+              <div class="pulsaprovider-name">Simpati</div>
+            </div>
+            <div class="pulsaprovider-item" data-provider="smartfren">
+              <div class="pulsaprovider-name">Smartfren</div>
+            </div>
+            <div class="pulsaprovider-item" data-provider="telkomsel">
+              <div class="pulsaprovider-name">Telkomsel</div>
+            </div>
+            <div class="pulsaprovider-item" data-provider="tri">
+              <div class="pulsaprovider-name">Tri</div>
+            </div>
+            <div class="pulsaprovider-item" data-provider="xl">
+              <div class="pulsaprovider-name">XL</div>
+            </div>
+            <div class="pulsaprovider-item" data-provider="byu">
+              <div class="pulsaprovider-name">by.U</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pulsaform-group">
           <label>Nomor HP</label>
-          <input type="text" placeholder="08xx-xxxx-xxxx" class="form-input">
+          <input type="text" placeholder="08xx-xxxx-xxxx" class="pulsaform-input">
         </div>
-        <div class="denomination-grid">
-          <div class="denomination-item">
+
+        <!-- Denomination Grid -->
+        <div class="pulsadenomination-grid" id="pulsaDenominations">
+          <div class="pulsadenomination-item">
             <div class="amount">Rp 100.000</div>
-            <div class="price">Rp 99.000</div>
-            <div class="discount">Hemat 1%</div>
+            <div class="price">Pilih provider dulu</div>
+            <div class="discount">-</div>
           </div>
-          <div class="denomination-item">
+          <div class="pulsadenomination-item">
             <div class="amount">Rp 80.000</div>
-            <div class="price">Rp 79.000</div>
-            <div class="discount">Hemat 1.25%</div>
+            <div class="price">Pilih provider dulu</div>
+            <div class="discount">-</div>
           </div>
-          <div class="denomination-item">
+          <div class="pulsadenomination-item">
             <div class="amount">Rp 50.000</div>
-            <div class="price">Rp 49.500</div>
-            <div class="discount">Hemat 1%</div>
+            <div class="price">Pilih provider dulu</div>
+            <div class="discount">-</div>
           </div>
         </div>
-        <button class="btn-primary">Beli Sekarang</button>
+
+        <div class="pulsapayment-method">
+          <h4>Pilih Metode Pembayaran</h4>
+          <div class="pulsapayment-options">
+              <div class="pulsapayment-btn">
+                <i class="fas fa-wallet"></i>
+                <span>E-Wallet</span>
+              </div>
+              <div class="pulsapayment-btn">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+              <div class="pulsapayment-btn">
+                <i class="fas fa-qrcode"></i>
+                <span>QRIS</span>
+              </div>
+          </div>
+        </div>
+
+        <button class="pulsabtn-primary" onclick="buyPulsa()">Beli Sekarang</button>
       </div>
     </div>
   </div>
@@ -218,6 +267,25 @@
             <div class="package-price">Rp 50.000</div>
           </div>
         </div>
+
+        <div class="payment-method">
+          <h4>Pilih Metode Pembayaran</h4>
+          <div class="payment-options">
+              <div class="payment-btn">
+                <i class="fas fa-wallet"></i>
+                <span>E-Wallet</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-qrcode"></i>
+                <span>QRIS</span>
+              </div>
+          </div>
+        </div>
+
         <button class="btn-primary">Beli Paket</button>
       </div>
     </div>
@@ -266,6 +334,25 @@
             <div class="fee">Fee: Rp 100</div>
           </div>
         </div>
+
+        <div class="payment-method">
+          <h4>Pilih Metode Pembayaran</h4>
+          <div class="payment-options">
+              <div class="payment-btn">
+                <i class="fas fa-wallet"></i>
+                <span>E-Wallet</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-qrcode"></i>
+                <span>QRIS</span>
+              </div>
+          </div>
+        </div>
+
         <button class="btn-primary">Top Up Sekarang</button>
       </div>
     </div>
@@ -289,6 +376,25 @@
         <div class="denomination-grid">
           <!-- Konten akan di-generate oleh JavaScript dari data products -->
         </div>
+
+        <div class="payment-method">
+          <h4>Pilih Metode Pembayaran</h4>
+          <div class="payment-options">
+              <div class="payment-btn">
+                <i class="fas fa-wallet"></i>
+                <span>E-Wallet</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-qrcode"></i>
+                <span>QRIS</span>
+              </div>
+          </div>
+        </div>
+
         <!-- Tetap pakai fungsi buyTokenListrik() tapi tanpa validasi kompleks -->
         <button class="btn-primary" onclick="buyTokenListrik()">Beli Token</button>
       </div>
@@ -313,6 +419,7 @@
           <label>Pilih Provider</label>
           <!-- PERUBAHAN: Tambahkan onchange event -->
           <select class="form-input" onchange="updateEsimPrice()">
+            <option value="Pilih Provider">Klik di sini</option>
             <option value="Telkomsel E-SIM 3GB">Telkomsel E-SIM 3GB</option>
             <option value="Indosat E-SIM 3GB 30hr">Indosat E-SIM 3GB 30hr</option>
           </select>
@@ -325,11 +432,30 @@
           <!-- PERUBAHAN: Perbaiki class name dan tambahkan required -->
           <input type="text" placeholder="08xx-xxxx-xxxx" class="form-input" required>
         </div>
+
+        <div class="payment-method">
+          <h4>Pilih Metode Pembayaran</h4>
+          <div class="payment-options">
+              <div class="payment-btn">
+                <i class="fas fa-wallet"></i>
+                <span>E-Wallet</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-university"></i>
+                <span>Bank Transfer</span>
+              </div>
+              <div class="payment-btn">
+                <i class="fas fa-qrcode"></i>
+                <span>QRIS</span>
+              </div>
+          </div>
+        </div>
+
         <div class="esim-price">
           <div class="price-info">
             <span>Harga E-SIM</span>
             <!-- PERUBAHAN: Harga akan diupdate secara dinamis -->
-            <span class="price">Rp 36.531</span>
+            <span class="price">Rp -</span>
           </div>
         </div>
         <!-- PERUBAHAN: Ganti onclick dengan fungsi buyEsim() -->
