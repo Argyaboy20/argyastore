@@ -193,11 +193,11 @@ function buyPulsa() {
     
     // Format WhatsApp message
     const message = `BELI PULSA
--> Provider     : ${provider}
--> Nomor HP     : ${phone}
--> Nominal      : ${amount}
+-> Provider : ${provider}
+-> Nomor HP : ${phone}
+-> Nominal : ${amount}
 -> Harga diskon : ${price}
--> Metode Pembayaran: ${paymentMethod}`;
+-> Metode Pembayaran : ${paymentMethod}`;
     
     // Encode and redirect to WhatsApp
     const encodedMessage = encodeURIComponent(message);
@@ -287,10 +287,10 @@ function buyEsim() {
     
     // Format pesan WhatsApp
     const message = `BELI E-SIM
--> Provider         : ${provider}
--> Harga            : Rp ${price.toLocaleString('id-ID')}
--> Email            : ${email}
--> Nomor Telepon    : ${phone}
+-> Provider : ${provider}
+-> Harga : Rp ${price.toLocaleString('id-ID')}
+-> Email : ${email}
+-> Nomor Telepon : ${phone}
 -> Metode Pembayaran : ${paymentMethod}`;
     
     // Encode pesan untuk URL
@@ -352,8 +352,8 @@ function buyTokenListrik() {
     
     // Format pesan WhatsApp
     const message = `BELI TOKEN LISTRIK
--> ID PLN           : ${plnId}
--> Total Nominal    : ${priceText}
+-> ID PLN : ${plnId}
+-> Total Nominal : ${priceText}
 -> Metode Pembayaran : ${paymentMethod}`;
     
     // Encode pesan untuk URL
