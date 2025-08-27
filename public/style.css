@@ -52,7 +52,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.2rem;
   max-width: 100%;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -810,7 +809,7 @@ body {
 }
 
 .pulsapayment-btn span {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: var(--text-primary);
   font-weight: 500;
 }
@@ -1092,49 +1091,268 @@ body {
   transform: translateY(0);
 }
 
-/* E-Wallet Options */
-.ewallet-options {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
+/* EwalletModal Styles */
+.ewalletmodal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
 }
 
-.ewallet-btn {
+.ewalletmodal-content {
+  background-color: var(--bg-primary);
+  margin: 5% auto;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow-xl);
+  animation: modalSlideIn 0.3s ease;
+}
+
+.ewalletmodal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ewalletmodal-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ewalletmodal-header h2 i {
+  color: var(--primary-color);
+}
+
+.ewalletclose {
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+}
+
+.ewalletclose:hover {
+  color: var(--error-color);
+  background: #fee2e2;
+}
+
+.ewalletmodal-body {
+  padding: 2rem;
+}
+
+.ewalletform-group {
+  margin-bottom: 1rem;
+}
+
+.ewalletform-group label {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ewalletform-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: var(--bg-primary);
+}
+
+.ewalletform-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* E-Wallet Selection Styles */
+.ewallet-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.ewallet-select-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--bg-secondary);
+}
+
+.ewallet-select-btn:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.ewallet-select-btn.active {
+  border-color: var(--primary-color);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.ewallet-select-btn img {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+}
+
+.ewallet-select-btn span {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: center;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+/* E-Wallet Denomination Grid */
+.ewallet-denomination-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.ewalletdenomination-item {
+  padding: 0.8rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--bg-secondary);
+}
+
+.ewalletdenomination-item:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.ewalletdenomination-item.selected {
+  border-color: var(--primary-color);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.ewalletdenomination-item .amount {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.ewalletdenomination-item .price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.2rem;
+}
+
+.ewalletdenomination-item .fee {
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+/* Payment Method Styles untuk E-Wallet */
+.ewalletpayment-method h4 {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ewalletpayment-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.2rem;
+}
+
+.ewalletpayment-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
   padding: 1rem;
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  flex: 1;
-  min-width: 80px;
-  background: var(--bg-secondary);
+  text-align: center;
 }
 
-.ewallet-btn:hover {
+.ewalletpayment-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
   border-color: var(--primary-color);
-  transform: translateY(-2px);
 }
 
-.ewallet-btn.active {
+.ewalletpayment-btn.active {
+  background: rgba(99, 102, 241, 0.2);
   border-color: var(--primary-color);
-  background: rgba(99, 102, 241, 0.1);
 }
 
-.ewallet-btn img {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+.ewalletpayment-btn i {
+  font-size: 1.5rem;
+  color: var(--primary-color);
 }
 
-.ewallet-btn span {
-  font-size: 0.85rem;
-  font-weight: 500;
+.ewalletpayment-btn span {
+  font-size: 0.875rem;
   color: var(--text-primary);
+  font-weight: 500;
+}
+
+.ewalletbtn-primary {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.ewalletbtn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.ewalletbtn-primary:active {
+  transform: translateY(0);
 }
 
 /* E-SIM Specific */
@@ -1177,6 +1395,43 @@ body {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--primary-color);
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1000;
+}
+
+.scroll-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.scroll-to-top:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.scroll-to-top:active {
+  transform: scale(0.95);
 }
 
 /* Responsive Design - Improved */
@@ -1295,18 +1550,32 @@ body {
     padding: 1.5rem;
   }
   
-  .ewallet-options {
-    gap: 0.8rem;
+  .ewalletmodal-content {
+    width: 90%;
+    margin: 8% auto;
   }
   
-  .ewallet-btn {
-    min-width: 75px;
-    padding: 0.8rem;
+  .ewalletmodal-header {
+    padding: 1.5rem 1.5rem 1rem;
   }
   
-  .ewallet-btn img {
-    width: 35px;
-    height: 35px;
+  .ewalletmodal-body {
+    padding: 1.5rem;
+  }
+  
+  .ewallet-selection {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+  
+  .ewallet-select-btn img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .ewallet-denomination-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
   }
   
   .container {
@@ -1314,7 +1583,7 @@ body {
   }
 
   .payment-options {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   }
   
   .pulsamodal-content {
@@ -1380,6 +1649,14 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
   }
+
+  .scroll-to-top {
+    width: 45px;
+    height: 45px;
+    bottom: 50px;
+    right: 15px;
+    font-size: 16px;
+  }
 }
 
 /* Smartphone */
@@ -1391,6 +1668,10 @@ body {
   
   .logo {
     font-size: 1.0rem;
+  }
+
+  .logo span {
+    margin-left: -0.4rem;
   }
   
   .logo i {
@@ -1556,24 +1837,49 @@ body {
     font-size: 0.75rem;
   }
   
-  .ewallet-options {
-    gap: 0.6rem;
-    justify-content: space-between;
+  .ewalletmodal-content {
+    width: 95%;
+    margin: 5% auto;
   }
   
-  .ewallet-btn {
-    min-width: 60px;
+  .ewalletmodal-header {
+    padding: 1.2rem 1.2rem 0.8rem;
+  }
+  
+  .ewalletmodal-body {
+    padding: 1.2rem;
+  }
+  
+  .ewallet-selection {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .ewallet-select-btn {
     padding: 0.6rem;
     gap: 0.3rem;
   }
   
-  .ewallet-btn img {
-    width: 30px;
-    height: 30px;
+  .ewallet-select-btn img {
+    width: 28px;
+    height: 28px;
   }
   
-  .ewallet-btn span {
-    font-size: 0.75rem;
+  .ewallet-select-btn span {
+    font-size: 0.7rem;
+  }
+  
+  .ewallet-denomination-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .ewalletdenomination-item {
+    padding: 0.6rem;
+  }
+  
+  .ewalletpayment-options {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   }
   
   .btn-primary {
@@ -1642,7 +1948,7 @@ body {
   }
   
   .pulsadenomination-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 0.6rem;
     margin-bottom: 1.5rem;
   }
@@ -1666,7 +1972,7 @@ body {
   }
   
   .pulsapayment-options {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   }
 
   .paketmodal-content {
@@ -1688,7 +1994,7 @@ body {
   }
   
   .paket-packages {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 0.5rem;
   }
 
@@ -1712,7 +2018,15 @@ body {
   }
   
   .paketpayment-options {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  }
+
+  .scroll-to-top {
+    width: 40px;
+    height: 40px;
+    bottom: 50px;
+    right: 10px;
+    font-size: 14px;
   }
   
   /* Fix mobile scrolling issues */

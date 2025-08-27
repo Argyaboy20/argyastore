@@ -73,11 +73,28 @@ const products = {
             { name: '5GB 30 Hari', price: 45000, provider: 'Tri' }
         ]
     },
-    ewallet: [
-        { amount: 100000, price: 99500, fee: 500 },
-        { amount: 50000, price: 49750, fee: 250 },
-        { amount: 20000, price: 19900, fee: 100 }
-    ],
+    ewallet: {
+        ovo: [
+            { amount: 102000, price: 100980, fee: 300 },
+            { amount: 82000, price: 81180, fee: 180 },
+            { amount: 52000, price: 50960, fee: 250 }
+        ],
+        gopay: [
+            { amount: 102000, price: 100980, fee: 300 },
+            { amount: 82300, price: 81477, fee: 200 },
+            { amount: 52000, price: 51480, fee: 480 }
+        ],
+        dana: [
+            { amount: 100000, price: 100000, fee: '-' },
+            { amount: 81900, price: 81081, fee: 200 },
+            { amount: 52100, price: 51058, fee: 300 }
+        ],
+        shopeepay: [
+            { amount: 101000, price: 101000, fee: '-' },
+            { amount: 82600, price: 81774, fee: 300 },
+            { amount: 50000, price: 50000, fee: '-' }
+        ]
+    },
     tokenListrik: [
         { amount: 200000, price: 201000, admin: 1000 },
         { amount: 100000, price: 101000, admin: 1000 },
@@ -114,12 +131,12 @@ function resetModal(modalId) {
         item.classList.remove('selected');
     });
     
-    // Reset payment method ke default (E-Wallet) - UPDATED untuk modal pulsa
-    modal.querySelectorAll('.payment-btn, .pulsapayment-btn').forEach(btn => {
-        btn.classList.remove('active');
+    // Reset payment method selection
+    modal.querySelectorAll('.payment-btn, .pulsapayment-btn, .paketpayment-btn, .ewalletpayment-btn').forEach(btn => {
+    btn.classList.remove('active');
     });
     
-    // Special reset untuk modal pulsa - UPDATED
+    // Special reset untuk modal pulsa
     if (modalId === 'pulsaModal') {
         // Reset provider selection - UPDATED class name
         modal.querySelectorAll('.pulsaprovider-item').forEach(item => {
@@ -161,6 +178,24 @@ function resetModal(modalId) {
             priceElement.textContent = 'Rp -';
         }
     }
+
+    // Special reset untuk modal e-wallet
+    if (modalId === 'ewalletModal') {
+        // Reset e-wallet selection - tidak ada yang terpilih
+        modal.querySelectorAll('.ewallet-select-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Reset denominations to default state
+        const denominations = modal.querySelectorAll('#ewalletDenominations .ewalletdenomination-item');
+        const defaultAmounts = ['Rp 100.000', 'Rp 80.000', 'Rp 50.000'];
+        denominations.forEach((item, index) => {
+            item.classList.remove('selected');
+            item.querySelector('.amount').textContent = defaultAmounts[index] || 'Rp -';
+            item.querySelector('.price').textContent = 'Pilih e-wallet dulu';
+            item.querySelector('.fee').textContent = '-';
+        });
+    }
 }
 
 function openModal(modalId) {
@@ -174,9 +209,9 @@ function closeModal(modalId) {
     resetModal(modalId);
 }
 
-// UPDATED: Close modal when clicking outside - sekarang mencakup modal pulsa
+// Close modal when clicking outside
 window.onclick = function (event) {
-    const modals = document.querySelectorAll('.modal, .pulsamodal, .paketmodal');
+    const modals = document.querySelectorAll('.modal, .pulsamodal, .paketmodal, .ewalletmodal');
     modals.forEach(modal => {
         if (event.target == modal) {
             const modalId = modal.id;
@@ -211,23 +246,19 @@ function buyPulsa() {
     const phoneInput = document.querySelector('#pulsaModal input[type="text"]');
     const selectedDenomination = document.querySelector('#pulsaModal #pulsaDenominations .pulsadenomination-item.selected'); // UPDATED class
     const selectedPayment = document.querySelector('#pulsaModal .pulsapayment-btn.active');
-    
     // Validations
     if (!selectedProvider) {
         alert('Harap pilih provider!');
         return;
-    }
-    
+    } 
     if (!phoneInput.value.trim()) {
         alert('Harap masukkan nomor HP!');
         return;
     }
-    
     if (!selectedDenomination) {
         alert('Harap pilih nominal pulsa!');
         return;
     }
-    
     if (!selectedPayment) {
         alert('Harap pilih metode pembayaran!');
         return;
@@ -255,6 +286,72 @@ function buyPulsa() {
     
     // Close modal
     closeModal('pulsaModal');
+}
+
+// ===== E-WALLET FUNCTIONALITY =====
+function updateEwalletDenominations(ewallet) {
+    const denominations = document.querySelectorAll('#ewalletDenominations .ewalletdenomination-item');
+    const ewalletData = products.ewallet[ewallet];
+    
+    if (!ewalletData) return;
+    
+    denominations.forEach((item, index) => {
+        if (ewalletData[index]) {
+            const data = ewalletData[index];
+            item.querySelector('.amount').textContent = `Rp ${data.amount.toLocaleString('id-ID')}`;
+            item.querySelector('.price').textContent = `Rp ${data.price.toLocaleString('id-ID')}`;
+            item.querySelector('.fee').textContent = `Fee: Rp ${data.fee.toLocaleString('id-ID')}`;
+        }
+    });
+}
+
+function buyEwallet() {
+    const selectedEwallet = document.querySelector('#ewalletModal .ewallet-select-btn.active');
+    const phoneInput = document.querySelector('#ewalletModal input[type="text"]');
+    const selectedDenomination = document.querySelector('#ewalletModal #ewalletDenominations .ewalletdenomination-item.selected');
+    const selectedPayment = document.querySelector('#ewalletModal .ewalletpayment-btn.active');
+    // Validations
+    if (!selectedEwallet) {
+        alert('Harap pilih e-wallet!');
+        return;
+    }
+    if (!phoneInput.value.trim()) {
+        alert('Harap masukkan nomor HP!');
+        return;
+    }
+    if (!selectedDenomination) {
+        alert('Harap pilih nominal top up!');
+        return;
+    }
+    if (!selectedPayment) {
+        alert('Harap pilih metode pembayaran!');
+        return;
+    }
+    
+    // Get data for WhatsApp message
+    const ewallet = selectedEwallet.querySelector('span').textContent;
+    const phone = phoneInput.value.trim();
+    const amount = selectedDenomination.querySelector('.amount').textContent;
+    const price = selectedDenomination.querySelector('.price').textContent;
+    const fee = selectedDenomination.querySelector('.fee').textContent;
+    const paymentMethod = selectedPayment.querySelector('span').textContent;
+    
+    // Format WhatsApp message
+    const message = `TOP UP E-WALLET
+-> E-Wallet: ${ewallet}
+-> Nomor HP: ${phone}
+-> Nominal : ${amount}
+-> Harga : ${price}
+-> ${fee}
+-> Metode Pembayaran : ${paymentMethod}`;
+    
+    // Encode and redirect to WhatsApp
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Close modal
+    closeModal('ewalletModal');
 }
 
 // E-wallet selection
@@ -300,23 +397,19 @@ function buyPaketData() {
     const phoneInput = document.querySelector('#dataModal input[type="text"]');
     const selectedPackage = document.querySelector('#dataModal #paketPackages .paket-item.selected');
     const selectedPayment = document.querySelector('#dataModal .paketpayment-btn.active');
-    
     // Validations
     if (!selectedProvider) {
         alert('Harap pilih provider!');
         return;
     }
-    
     if (!phoneInput.value.trim()) {
         alert('Harap masukkan nomor HP!');
         return;
     }
-    
     if (!selectedPackage) {
         alert('Harap pilih paket data!');
         return;
     }
-    
     if (!selectedPayment) {
         alert('Harap pilih metode pembayaran!');
         return;
@@ -452,13 +545,11 @@ function buyTokenListrik() {
     if (!plnId) {
         alert('Harap masukkan ID Pelanggan PLN!');
         return;
-    }
-    
+    } 
     if (!selectedItem) {
         alert('Harap pilih nominal token!');
         return;
     }
-
     if (!paymentMethod) {
         alert('Harap pilih metode pembayaran!');
         return;
@@ -496,8 +587,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateEsimPrice();
     }
 
-    // ===== PULSA EVENT LISTENERS - UPDATED semua selector =====
-    // Provider selection for pulsa - UPDATED class names
+    // ===== ALL ELEMENT LISTENERS - UPDATED semua selector =====
     document.addEventListener('click', function(e) {
         if (e.target.closest('#pulsaModal .pulsaprovider-item')) {
             // Remove selected from all providers
@@ -528,6 +618,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const provider = clickedProvider.dataset.provider;
             updatePaketDataPackages(provider);
         }
+
+        if (e.target.closest('#ewalletModal .ewallet-select-btn')) {
+            // Remove active from all e-wallet buttons
+            document.querySelectorAll('#ewalletModal .ewallet-select-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active to clicked e-wallet
+            const clickedEwallet = e.target.closest('.ewallet-select-btn');
+            clickedEwallet.classList.add('active');
+            
+            // Update denominations
+            const ewallet = clickedEwallet.dataset.ewallet;
+            updateEwalletDenominations(ewallet);
+            
+            // Reset denomination selection
+            document.querySelectorAll('#ewalletModal .ewalletdenomination-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+        }
     });
 
     // Denomination selection for pulsa - UPDATED class names
@@ -552,36 +662,59 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add selected to clicked package
             e.target.closest('.paket-item').classList.add('selected');
         }
+
+        //For E-Wallet
+        if (e.target.closest('#ewalletModal #ewalletDenominations .ewalletdenomination-item')) {
+            // Remove selected from all e-wallet denominations
+            document.querySelectorAll('#ewalletModal #ewalletDenominations .ewalletdenomination-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selected to clicked denomination
+            e.target.closest('.ewalletdenomination-item').classList.add('selected');
+        }
     });
 
-    // Payment method selection - UPDATED untuk modal pulsa
+    // Payment method selection
     document.addEventListener('click', function(e) {
-        if (e.target.closest('.payment-btn, .pulsapayment-btn')) { 
-            const modal = e.target.closest('.modal, .pulsamodal');
+        // Payment method selection 
+        if (e.target.closest('.payment-btn, .pulsapayment-btn, .paketpayment-btn, .ewalletpayment-btn')) {
+            const modal = e.target.closest('.modal, .pulsamodal, .paketmodal, .ewalletmodal');
             if (modal) {
-                modal.querySelectorAll('.payment-btn, .pulsapayment-btn').forEach(btn => btn.classList.remove('active')); 
-                e.target.closest('.payment-btn, .pulsapayment-btn').classList.add('active'); 
-            }
-        }
-
-        // Payment method selection - untuk modal paket data
-        if (e.target.closest('.payment-btn, .pulsapayment-btn, .paketpayment-btn')) {
-            const modal = e.target.closest('.modal, .pulsamodal, .paketmodal');
-            if (modal) {
-                modal.querySelectorAll('.payment-btn, .pulsapayment-btn, .paketpayment-btn').forEach(btn => btn.classList.remove('active'));
-                e.target.closest('.payment-btn, .pulsapayment-btn, .paketpayment-btn').classList.add('active');
+                modal.querySelectorAll('.payment-btn, .pulsapayment-btn, .paketpayment-btn, .ewalletpayment-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.closest('.payment-btn, .pulsapayment-btn, .paketpayment-btn, .ewalletpayment-btn').classList.add('active');
             }
         }
     });
 
-    // Close button functionality - UPDATED untuk modal pulsa
-    document.querySelectorAll('.close, .pulsaclose, .paketclose').forEach(closeBtn => {
+    // Close button functionality 
+    document.querySelectorAll('.close, .pulsaclose, .paketclose, .ewalletclose').forEach(closeBtn => {
         closeBtn.addEventListener('click', function() {
-            const modal = this.closest('.modal, .pulsamodal, .paketmodal'); 
+            const modal = this.closest('.modal, .pulsamodal, .paketmodal, .ewalletmodal'); 
             if (modal) {
                 const modalId = modal.id;
                 closeModal(modalId);
             }
+        });
+    });
+
+    // Scroll to top button functionality
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 100) {
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
+        }
+    });
+    
+    // Scroll to top when button is clicked
+    scrollToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
     });
 });

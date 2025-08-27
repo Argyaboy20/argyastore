@@ -13,7 +13,7 @@
   <header class="header">
     <div class="container">
       <div class="logo">
-        <img src="image/logo.png" alt="Argya Store" style="width: 56px; height: 56px; object-fit: contain;">
+        <img src="image/logo.png" alt="Argya Store" style="width: 64px; height: 64px; object-fit: contain;">
         <span>Argya Store</span>
       </div>
       <nav class="nav">
@@ -315,69 +315,80 @@
     </div>
   </div>
 
-  <!-- Modal E-Wallet -->
-  <div id="ewalletModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
+    <!-- Modal E-Wallet -->
+  <div id="ewalletModal" class="ewalletmodal">
+    <div class="ewalletmodal-content">
+      <div class="ewalletmodal-header">
         <h2><i class="fas fa-wallet"></i> Top Up E-Wallet</h2>
-        <span class="close" onclick="closeModal('ewalletModal')">&times;</span>
+        <span class="ewalletclose" onclick="closeModal('ewalletModal')">&times;</span>
       </div>
-      <div class="modal-body">
-        <div class="ewallet-options">
-          <div class="ewallet-btn active">
-            <img src="https://via.placeholder.com/40x40/00AA5B/white?text=OVO" alt="OVO">
-            OVO
-          </div>
-          <div class="ewallet-btn">
-            <img src="https://via.placeholder.com/40x40/00AED6/white?text=GP" alt="GoPay">
-            GoPay
-          </div>
-          <div class="ewallet-btn">
-            <img src="https://via.placeholder.com/40x40/118EEA/white?text=D" alt="DANA">
-            DANA
+      <div class="ewalletmodal-body">
+        <!-- E-Wallet Selection -->
+        <div class="ewalletform-group">
+          <label>Pilih E-Wallet</label>
+          <div class="ewallet-selection">
+            <div class="ewallet-select-btn active" data-ewallet="ovo">
+              <img src="/image/ovo.jpg" alt="OVO">
+              <span>Ovo</span>
+            </div>
+            <div class="ewallet-select-btn" data-ewallet="gopay">
+              <img src="/image/gopay.jpg" alt="GoPay">
+              <span>GoPay</span>
+            </div>
+            <div class="ewallet-select-btn" data-ewallet="dana">
+              <img src="/image/dana.jpg" alt="DANA">
+              <span>Dana</span>
+            </div>
+            <div class="ewallet-select-btn" data-ewallet="shopeepay">
+              <img src="/image/shopeepay.jpg" alt="Shopee">
+              <span>ShopeePay</span>
+            </div>
           </div>
         </div>
-        <div class="form-group">
+
+        <div class="ewalletform-group">
           <label>Nomor HP</label>
-          <input type="text" placeholder="08xx-xxxx-xxxx" class="form-input">
-        </div>
-        <div class="denomination-grid">
-          <div class="denomination-item">
-            <div class="amount">Rp 100.000</div>
-            <div class="price">Rp 99.500</div>
-            <div class="fee">Fee: Rp 500</div>
-          </div>
-          <div class="denomination-item">
-            <div class="amount">Rp 50.000</div>
-            <div class="price">Rp 49.750</div>
-            <div class="fee">Fee: Rp 250</div>
-          </div>
-          <div class="denomination-item">
-            <div class="amount">Rp 20.000</div>
-            <div class="price">Rp 19.900</div>
-            <div class="fee">Fee: Rp 100</div>
-          </div>
+          <input type="text" placeholder="08xx-xxxx-xxxx" class="ewalletform-input">
         </div>
 
-        <div class="payment-method">
+        <!-- Denomination Grid -->
+        <div class="ewallet-denomination-grid" id="ewalletDenominations">
+        <div class="ewalletdenomination-item">
+          <div class="amount">Rp 100.000</div>
+          <div class="price">Pilih e-wallet dulu</div>
+          <div class="fee">-</div>
+        </div>
+        <div class="ewalletdenomination-item">
+          <div class="amount">Rp 80.000</div>
+          <div class="price">Pilih e-wallet dulu</div>
+          <div class="fee">-</div>
+        </div>
+        <div class="ewalletdenomination-item">
+          <div class="amount">Rp 50.000</div>
+          <div class="price">Pilih e-wallet dulu</div>
+          <div class="fee">-</div>
+        </div>
+      </div>
+
+        <div class="ewalletpayment-method">
           <h4>Pilih Metode Pembayaran</h4>
-          <div class="payment-options">
-              <div class="payment-btn">
-                <i class="fas fa-wallet"></i>
-                <span>E-Wallet</span>
-              </div>
-              <div class="payment-btn">
-                <i class="fas fa-university"></i>
-                <span>Bank Transfer</span>
-              </div>
-              <div class="payment-btn">
-                <i class="fas fa-qrcode"></i>
-                <span>QRIS</span>
-              </div>
+          <div class="ewalletpayment-options">
+            <div class="ewalletpayment-btn">
+              <i class="fas fa-wallet"></i>
+              <span>E-Wallet</span>
+            </div>
+            <div class="ewalletpayment-btn">
+              <i class="fas fa-university"></i>
+              <span>Bank Transfer</span>
+            </div>
+            <div class="ewalletpayment-btn">
+              <i class="fas fa-qrcode"></i>
+              <span>QRIS</span>
+            </div>
           </div>
         </div>
 
-        <button class="btn-primary">Top Up Sekarang</button>
+        <button class="ewalletbtn-primary" onclick="buyEwallet()">Top Up Sekarang</button>
       </div>
     </div>
   </div>
@@ -490,5 +501,10 @@
 
   <!-- Tambahkan script JavaScript terpisah -->
   <script src="/js/home.js"></script>
+
+  <!-- Scroll to Top Button -->
+<button id="scrollToTopBtn" class="scroll-to-top">
+  <i class="fas fa-chevron-up"></i>
+</button>
 </body>
 </html>
