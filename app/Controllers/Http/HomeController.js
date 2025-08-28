@@ -113,10 +113,6 @@ class HomeController {
 
     return view.render('welcome', { products })
   }
-
-  async support({ view }) {
-
-  }
 }
 
 module.exports = HomeController

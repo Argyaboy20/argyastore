@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support | Argya Store</title>
+  <link rel="icon" type="image/png" href="/image/store.png">
+  <link rel="stylesheet" href="/support.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="image/logo.png" alt="Argya Store" style="width: 64px; height: 64px; object-fit: contain;">
+        <span>Argya Store</span>
+      </div>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <div class="user-menu">
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Support Content -->
+  <main class="support-main">
+    <div class="container">
+      <!-- Hero Section -->
+      <section class="support-hero">
+        <div class="hero-content">
+          <div class="hero-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h1 class="hero-title">Pusat Bantuan</h1>
+          <p class="hero-subtitle">Kami siap membantu mengatasi masalah Anda</p>
+        </div>
+      </section>
+
+      <!-- Support Form -->
+      <section class="support-form-section">
+        <div class="form-container">
+          <div class="form-header">
+            <h2><i class="fas fa-paper-plane"></i>Kirim Pesan</h2>
+            <p>Ceritakan keluhan atau pertanyaan Anda kepada kami</p>
+          </div>
+
+          <form class="support-form" id="supportForm">
+            <!-- Nama Panggilan -->
+            <div class="form-group">
+              <label for="nickname">
+                <i class="fas fa-user"></i>
+                Nama Panggilan
+              </label>
+              <input type="text" id="nickname" name="nickname" required>
+            </div>
+
+            <!-- Nomor Telepon -->
+            <div class="form-group">
+              <label for="phone">
+                <i class="fas fa-phone"></i>
+                Nomor Telepon
+              </label>
+              <div class="phone-input-wrapper">
+                <div class="country-code">+62</div>
+                <input type="tel" id="phone" name="phone" placeholder="8123456789" required>
+              </div>
+            </div>
+
+            <!-- Upload Gambar -->
+            <div class="form-group">
+              <label for="image">
+                <i class="fas fa-image"></i>
+                Upload Gambar <span class="optional">(Opsional)</span>
+              </label>
+              <div class="file-upload-wrapper">
+                <input type="file" id="image" name="image" accept="image/*">
+                <div class="file-upload-display">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <span class="upload-text">Klik atau drag gambar ke sini</span>
+                  <span class="file-info">PNG, JPG maksimal 5MB</span>
+                </div>
+                <div class="uploaded-file" style="display: none;">
+                  <i class="fas fa-check-circle"></i>
+                  <span class="file-name"></span>
+                  <button type="button" class="remove-file">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Keluhan -->
+            <div class="form-group">
+              <label for="complaint">
+                <i class="fas fa-comment-dots"></i>
+                Keluhan/Pertanyaan
+              </label>
+              <div class="textarea-wrapper">
+                <textarea id="complaint" name="complaint" placeholder="Jelaskan keluhan atau pertanyaan Anda secara detail..." required></textarea>
+                <div class="char-counter">
+                  <span class="current">0</span>/<span class="max">500</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-paper-plane"></i>
+              Kirim Pesan
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <h3><i class="fas fa-info-circle"></i>Informasi Kontak</h3>
+          <div class="contact-items">
+            <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <strong>Jam Operasional</strong>
+                    <div class="operating-hours">
+                    <div class="day-schedule">
+                        <span class="days">- Senin – Jumat</span>
+                        <span class="hours">07.00 – 21.00 WIB</span>
+                    </div>
+                    <div class="day-schedule">
+                        <span class="days">- Sabtu – Minggu</span>
+                        <span class="hours">08.00 – 20.00 WIB</span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item">
+              <i class="fab fa-whatsapp"></i>
+              <div>
+                <strong>WhatsApp</strong>
+                <p>+62 858-0527-9420</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <strong>Email Support</strong>
+                <p>support@argyastore.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Live Chat Button -->
+  <div class="live-chat-btn" id="liveChatBtn">
+    <i class="fas fa-comments"></i>
+    <span>Live Chat</span>
+    <div class="chat-pulse"></div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="success-modal">
+    <div class="modal-content">
+      <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3>Pesan Terkirim!</h3>
+      <p>Terima kasih! Tim support kami akan segera membalas pesan Anda.</p>
+      <button class="modal-close-btn" onclick="closeSuccessModal()">Tutup</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/support.js"></script>
+</body>
+</html>
