@@ -449,6 +449,22 @@ function buyPulsa() {
         alert('Harap pilih metode pembayaran!');
         return;
     }
+
+    // TAMBAHAN BARU: Validasi akhir provider vs nomor HP
+    const phoneNumber = phoneInput.value.trim();
+    const selectedProviderCode = selectedProvider.dataset.provider;
+    const detectedProvider = detectProviderFromPhone(phoneNumber);
+    
+    if (detectedProvider && detectedProvider !== selectedProviderCode) {
+        const detectedName = getProviderDisplayName(detectedProvider);
+        const selectedName = getProviderDisplayName(selectedProviderCode);
+        
+        const confirmPurchase = confirm(`Peringatan: Nomor ${phoneNumber} terdeteksi sebagai ${detectedName}, tetapi Anda memilih provider ${selectedName}.\n\nApakah Anda yakin ingin melanjutkan pembelian?`);
+        
+        if (!confirmPurchase) {
+            return; // Batalkan pembelian jika user tidak yakin
+        }
+    }
     
     // Get data for WhatsApp message - UPDATED selector
     const provider = selectedProvider.querySelector('.pulsaprovider-name').textContent; // UPDATED class
