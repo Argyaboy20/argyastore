@@ -33,39 +33,70 @@ const products = {
     },
     paketData: {
         xl: [
-            { name: '1GB 30 Hari', price: 15000, provider: 'XL' },
-            { name: '3GB 30 Hari', price: 35000, provider: 'XL' },
-            { name: '5GB 30 Hari', price: 50000, provider: 'XL' }
+            { name: 'Combo Flex S', price: 21500, provider: 'XL' },
+            { name: 'Combo Flex S+', price: 33756, provider: 'XL' },
+            { name: 'Combo Flex M', price: 46746, provider: 'XL' },
+            { name: 'Combo Flex M+', price: 56546, provider: 'XL' },
+            { name: 'Combo Flex L', price: 67200, provider: 'XL' },
+            { name: 'Combo Flex L+', price: 79101, provider: 'XL' },
+            { name: 'Combo Flex XL', price: 93902, provider: 'XL' },
+            { name: 'Combo Flex XXL', price: 138828, provider: 'XL' },
+            { name: 'Combo Flex XXXL', price: 164459, provider: 'XL' }
         ],
         telkomsel: [
-            { name: '1.5GB 30 Hari', price: 18000, provider: 'Telkomsel' },
-            { name: '3.5GB 30 Hari', price: 38000, provider: 'Telkomsel' },
-            { name: '6GB 30 Hari', price: 55000, provider: 'Telkomsel' }
+            { name: 'Masa Aktif 15 Hari', price: 6331, provider: 'Telkomsel' },
+            { name: 'Masa Aktif 30 Hari', price: 16787, provider: 'Telkomsel' },
+            { name: 'Masa Aktif 90 Hari', price: 33756, provider: 'Telkomsel' },
+            { name: 'Masa Aktif 180 Hari', price: 61360, provider: 'Telkomsel' },
+            { name: 'Orbit 70 GB', price: 157420, provider: 'Telkomsel' },
+            { name: 'Orbit 90+5 GB', price: 153549, provider: 'Telkomsel' },
+            { name: 'Orbit 100 GB', price: 181665, provider: 'Telkomsel' }
         ],
         smartfren: [
-            { name: '2GB 30 Hari', price: 16000, provider: 'Smartfren' },
-            { name: '4GB 30 Hari', price: 32000, provider: 'Smartfren' },
-            { name: '8GB 30 Hari', price: 48000, provider: 'Smartfren' }
+            { name: '3GB 14 Hari', price: 17150, provider: 'Smartfren' },
+            { name: '4GB 14 Hari', price: 17542, provider: 'Smartfren' },
+            { name: '6GB 28 Hari', price: 38710, provider: 'Smartfren' },
+            { name: '12GB 30 Hari', price: 53998, provider: 'Smartfren' },
+            { name: '30GB 30 Hari', price: 77028, provider: 'Smartfren' },
+            { name: '45GB 30 Hari', price: 114562, provider: 'Smartfren' },
+            { name: '60GB 30 Hari', price: 142610, provider: 'Smartfren' }
         ],
         indosat: [
-            { name: '1GB 30 Hari', price: 14000, provider: 'Indosat' },
-            { name: '3GB 30 Hari', price: 34000, provider: 'Indosat' },
-            { name: '5GB 30 Hari', price: 49000, provider: 'Indosat' }
+            { name: '5.5GB 28 Hari', price: 31360, provider: 'Indosat' },
+            { name: '6.5GB 28 Hari', price: 36750, provider: 'Indosat' },
+            { name: '9GB 28 Hari', price: 46629, provider: 'Indosat' },
+            { name: 'Combo 10GB 30 Hari', price: 47142, provider: 'Indosat' },
+            { name: 'Combo 20GB 30 Hari', price: 72288, provider: 'Indosat' },
+            { name: '16GB 28 Hari', price: 67617, provider: 'Indosat' },
+            { name: '50GB 30 Hari', price: 101332, provider: 'Indosat' },
+            { name: '80GB 30 Hari', price: 125730, provider: 'Indosat' },
+            { name: '100GB 30 Hari', price: 127413, provider: 'Indosat' }
         ],
         byu: [
-            { name: '1.5GB 30 Hari', price: 17000, provider: 'by.U' },
-            { name: '3.5GB 30 Hari', price: 36000, provider: 'by.U' },
-            { name: '7GB 30 Hari', price: 52000, provider: 'by.U' }
+            { name: '14GB 30 Hari', price: 37652, provider: 'by.U' },
+            { name: '20GB 30 Hari', price: 83101, provider: 'by.U' },
+            { name: '23GB 30 Hari', price: 103950, provider: 'by.U' },
+            { name: '50GB 30 Hari', price: 124067, provider: 'by.U' },
+            { name: '100GB 30 Hari', price: 182143, provider: 'by.U' },
+            { name: '100GB 1 Hari', price: 12172, provider: 'by.U' }
         ],
         axis: [
-            { name: '2GB 30 Hari', price: 15500, provider: 'Axis' },
-            { name: '4GB 30 Hari', price: 33000, provider: 'Axis' },
-            { name: '6GB 30 Hari', price: 47000, provider: 'Axis' }
+            { name: 'Data Mini 24GB 7 Hari', price: 40180, provider: 'Axis' },
+            { name: 'Aigo Mini 35GB 15 Hari', price: 74993, provider: 'Axis' },
+            { name: 'Bronet 20GB 30 Hari', price: 76636, provider: 'Axis' },
+            { name: 'AigoBronet 30GB 30 Hari', price: 89964, provider: 'Axis' },
+            { name: 'Bronet 35GB 60 Hari', price: 110054, provider: 'Axis' },
+            { name: 'Bronet 75GB 60 Hari', price: 175032, provider: 'Axis' }
         ],
         tri: [
-            { name: '1GB 30 Hari', price: 13000, provider: 'Tri' },
-            { name: '3GB 30 Hari', price: 31000, provider: 'Tri' },
-            { name: '5GB 30 Hari', price: 45000, provider: 'Tri' }
+            { name: 'AON 12+4GB Lokal', price: 59747, provider: 'Tri' },
+            { name: 'AON UL 26GB', price: 81020, provider: 'Tri' },
+            { name: 'AON 40+12GB Lokal', price: 111773, provider: 'Tri' },
+            { name: 'Happy 11+3GB Lokal', price: 51666, provider: 'Tri' },
+            { name: 'Happy 30+10GB Lokal', price: 75585, provider: 'Tri' },
+            { name: 'Happy AON 40GB', price: 112214, provider: 'Tri' },
+            { name: 'Happy 50GB', price: 101450, provider: 'Tri' },
+            { name: 'Happy 100GB', price: 122794, provider: 'Tri' }
         ]
     },
     ewallet: {
@@ -131,12 +162,10 @@ const esimPhonePrefix = {
 function detectProviderFromPhone(phoneNumber) {
     // Bersihkan nomor dari karakter non-digit
     const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
-
     // SPECIAL CASE: Handle konflik 0851 - prioritas by.U
     if (cleanPhone.startsWith('0851')) {
         return 'byu'; // Prioritas ke by.U untuk 0851
     }
-    
     // Cek setiap provider
     for (const [provider, prefixes] of Object.entries(phonePrefix)) {
         for (const prefix of prefixes) {
@@ -151,12 +180,10 @@ function detectProviderFromPhone(phoneNumber) {
 // Fungsi deteksi provider untuk paket data
 function detectProviderFromPhonePaketData(phoneNumber) {
     const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
-    
     // Special case untuk 0851 - prioritas by.U
     if (cleanPhone.startsWith('0851')) {
         return 'byu';
     }
-    
     for (const [provider, prefixes] of Object.entries(paketDataPhonePrefix)) {
         for (const prefix of prefixes) {
             if (cleanPhone.startsWith(prefix)) {
@@ -170,7 +197,6 @@ function detectProviderFromPhonePaketData(phoneNumber) {
 // Fungsi deteksi provider untuk E-SIM
 function detectProviderFromPhoneEsim(phoneNumber) {
     const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
-    
     // Tidak ada special case untuk 0851 karena hanya ada Telkomsel di E-SIM
     for (const [provider, prefixes] of Object.entries(esimPhonePrefix)) {
         for (const prefix of prefixes) {
@@ -222,16 +248,12 @@ function getProviderDisplayNameEsim(provider) {
 function showPhoneVerificationStatus(type, message) {
     const statusElement = document.getElementById('phoneVerificationStatus');
     const messageElement = statusElement.querySelector('.verification-message');
-    
     // Reset classes
     statusElement.className = 'phone-verification-status';
-    
     // Add appropriate class
     statusElement.classList.add(type);
-    
     // Set message
     messageElement.textContent = message;
-    
     // Show element
     statusElement.style.display = 'block';
 }
@@ -301,7 +323,6 @@ function getSelectedPaymentMethod(modalId) {
 function resetModal(modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) return;
-    
     // Reset semua input text dan email
     modal.querySelectorAll('input[type="text"], input[type="email"]').forEach(input => {
         input.value = '';
@@ -345,13 +366,17 @@ function resetModal(modalId) {
             item.classList.remove('selected');
         });
         
-        const packages = modal.querySelectorAll('#paketPackages .paket-item');
-        packages.forEach(item => {
-            item.classList.remove('selected');
-            item.querySelector('.paket-name').textContent = 'Pilih provider dulu';
-            item.querySelector('.paket-provider').textContent = '-';
-            item.querySelector('.paket-price').textContent = 'Rp -';
-        });
+        // Reset package container ke kondisi awal (1 item default)
+        const packagesContainer = modal.querySelector('#paketPackages');
+        if (packagesContainer) {
+            packagesContainer.innerHTML = `
+                <div class="paket-item">
+                    <div class="paket-name">Pilih provider dulu</div>
+                    <div class="paket-provider">-</div>
+                    <div class="paket-price">Rp -</div>
+                </div>
+            `;
+        }
     }
     
     // Khusus untuk E-SIM modal, reset harga
@@ -485,7 +510,6 @@ function buyPulsa() {
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
-    
     // Close modal
     closeModal('pulsaModal');
 }
@@ -551,7 +575,6 @@ function buyEwallet() {
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
-    
     // Close modal
     closeModal('ewalletModal');
 }
@@ -579,18 +602,24 @@ document.addEventListener('click', function (e) {
 
 // ===== PAKET DATA FUNCTIONALITY =====
 function updatePaketDataPackages(provider) {
-    const packages = document.querySelectorAll('#paketPackages .paket-item');
+    const container = document.getElementById('paketPackages');
     const providerData = products.paketData[provider];
     
-    if (!providerData) return;
+    if (!providerData || !container) return;
     
-    packages.forEach((item, index) => {
-        if (providerData[index]) {
-            const data = providerData[index];
-            item.querySelector('.paket-name').textContent = data.name;
-            item.querySelector('.paket-provider').textContent = data.provider;
-            item.querySelector('.paket-price').textContent = `Rp ${data.price.toLocaleString('id-ID')}`;
-        }
+    // Kosongkan container
+    container.innerHTML = '';
+    
+    // Generate item sesuai jumlah paket provider
+    providerData.forEach(data => {
+        const paketItem = document.createElement('div');
+        paketItem.className = 'paket-item';
+        paketItem.innerHTML = `
+            <div class="paket-name">${data.name}</div>
+            <div class="paket-provider">${data.provider}</div>
+            <div class="paket-price">Rp ${data.price.toLocaleString('id-ID')}</div>
+        `;
+        container.appendChild(paketItem);
     });
 }
 
@@ -652,7 +681,6 @@ function buyPaketData() {
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
-    
     // Close modal
     closeModal('dataModal');
 }
@@ -747,7 +775,6 @@ function buyEsim() {
     // Redirect ke WhatsApp
     const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
-    
     // Tutup modal setelah redirect
     closeModal('esimModal');
 }
@@ -808,7 +835,6 @@ function buyTokenListrik() {
     // Redirect ke WhatsApp
     const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
-    
     // Tutup modal setelah redirect
     closeModal('tokenModal');
 }
@@ -1072,9 +1098,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }, 100);
         }
-
-
-
     });
 
     // Denomination selection for pulsa - UPDATED class names

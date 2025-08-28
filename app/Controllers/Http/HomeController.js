@@ -40,16 +40,65 @@ class HomeController {
           { amount: 50350, price: 49847, discount: '1%' }
         ]
       },
-      paketData: [
-        { name: '1GB 30 Hari', price: 15000, provider: 'Telkomsel' },
-        { name: '3GB 30 Hari', price: 35000, provider: 'XL' },
-        { name: '5GB 30 Hari', price: 50000, provider: 'Indosat' }
-      ],
-      ewallet: [
-        { amount: 100000, price: 99500, fee: 500 },
-        { amount: 50000, price: 49750, fee: 250 },
-        { amount: 20000, price: 19900, fee: 100 }
-      ],
+      paketData: {
+        xl: [
+          { name: '1GB 30 Hari', price: 15000, provider: 'XL' },
+          { name: '3GB 30 Hari', price: 35000, provider: 'XL' },
+          { name: '5GB 30 Hari', price: 50000, provider: 'XL' }
+        ],
+        telkomsel: [
+          { name: '1.5GB 30 Hari', price: 18000, provider: 'Telkomsel' },
+          { name: '3.5GB 30 Hari', price: 38000, provider: 'Telkomsel' },
+          { name: '6GB 30 Hari', price: 55000, provider: 'Telkomsel' }
+        ],
+        smartfren: [
+          { name: '2GB 30 Hari', price: 16000, provider: 'Smartfren' },
+          { name: '4GB 30 Hari', price: 32000, provider: 'Smartfren' },
+          { name: '8GB 30 Hari', price: 48000, provider: 'Smartfren' }
+        ],
+        indosat: [
+          { name: '1GB 30 Hari', price: 14000, provider: 'Indosat' },
+          { name: '3GB 30 Hari', price: 34000, provider: 'Indosat' },
+          { name: '5GB 30 Hari', price: 49000, provider: 'Indosat' }
+        ],
+        byu: [
+          { name: '1.5GB 30 Hari', price: 17000, provider: 'by.U' },
+          { name: '3.5GB 30 Hari', price: 36000, provider: 'by.U' },
+          { name: '7GB 30 Hari', price: 52000, provider: 'by.U' }
+        ],
+        axis: [
+          { name: '2GB 30 Hari', price: 15500, provider: 'Axis' },
+          { name: '4GB 30 Hari', price: 33000, provider: 'Axis' },
+          { name: '6GB 30 Hari', price: 47000, provider: 'Axis' }
+        ],
+        tri: [
+          { name: '1GB 30 Hari', price: 13000, provider: 'Tri' },
+          { name: '3GB 30 Hari', price: 31000, provider: 'Tri' },
+          { name: '5GB 30 Hari', price: 45000, provider: 'Tri' }
+        ]
+      },
+      ewallet: {
+        ovo: [
+          { amount: 102000, price: 100980, fee: 300 },
+          { amount: 82000, price: 81180, fee: 180 },
+          { amount: 52000, price: 50960, fee: 250 }
+        ],
+        gopay: [
+          { amount: 102000, price: 100980, fee: 300 },
+          { amount: 82300, price: 81477, fee: 200 },
+          { amount: 52000, price: 51480, fee: 480 }
+        ],
+        dana: [
+          { amount: 100000, price: 100000, fee: '-' },
+          { amount: 81900, price: 81081, fee: 200 },
+          { amount: 52100, price: 51058, fee: 300 }
+        ],
+        shopeepay: [
+          { amount: 101000, price: 101000, fee: '-' },
+          { amount: 82600, price: 81774, fee: 300 },
+          { amount: 50000, price: 50000, fee: '-' }
+        ]
+      },
       tokenListrik: [
         { amount: 200000, price: 201000, admin: 1000 },
         { amount: 100000, price: 101000, admin: 1000 },
