@@ -459,7 +459,7 @@ function buyPulsa() {
         const detectedName = getProviderDisplayName(detectedProvider);
         const selectedName = getProviderDisplayName(selectedProviderCode);
         
-        const confirmPurchase = confirm(`Peringatan: Nomor ${phoneNumber} terdeteksi sebagai ${detectedName}, tetapi Anda memilih provider ${selectedName}.\n\nApakah Anda yakin ingin melanjutkan pembelian?`);
+        const confirmPurchase = confirm(`Peringatan: Nomor ${phoneNumber} terdeteksi sebagai ${detectedName}, tetapi Anda memilih provider ${selectedName}.\n\nApakah Anda yakin ingin melanjutkan pembelian pulsa?`);
         
         if (!confirmPurchase) {
             return; // Batalkan pembelian jika user tidak yakin
@@ -715,7 +715,7 @@ function buyEsim() {
         const detectedName = getProviderDisplayNameEsim(detectedProvider);
         const selectedName = getProviderDisplayNameEsim(selectedProvider);
         
-        const confirmPurchase = confirm(`Peringatan: Nomor ${phone} terdeteksi sebagai ${detectedName}, tetapi Anda memilih ${selectedName} E-SIM.\n\nApakah Anda yakin ingin melanjutkan pembelian?`);
+        const confirmPurchase = confirm(`Peringatan: Nomor ${phone} terdeteksi sebagai ${detectedName}, tetapi Anda memilih ${selectedName} E-SIM.\n\nApakah Anda yakin ingin melanjutkan pembelian E-SIM?`);
         
         if (!confirmPurchase) {
             return;
