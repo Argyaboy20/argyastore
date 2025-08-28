@@ -164,9 +164,6 @@
             <div class="pulsaprovider-item" data-provider="indosat">
               <div class="pulsaprovider-name">Indosat</div>
             </div>
-            <div class="pulsaprovider-item" data-provider="simpati">
-              <div class="pulsaprovider-name">Simpati</div>
-            </div>
             <div class="pulsaprovider-item" data-provider="smartfren">
               <div class="pulsaprovider-name">Smartfren</div>
             </div>
@@ -187,7 +184,10 @@
 
         <div class="pulsaform-group">
           <label>Nomor HP</label>
-          <input type="text" placeholder="08xx-xxxx-xxxx" class="pulsaform-input">
+          <input type="text" placeholder="08xx-xxxx-xxxx" class="pulsaform-input" id="pulsaPhoneInput">
+          <div id="phoneVerificationStatus" class="phone-verification-status" style="display: none;">
+            <div class="verification-message"></div>
+          </div>
         </div>
 
         <!-- Denomination Grid -->
@@ -232,7 +232,7 @@
     </div>
   </div>
 
-    <!-- Modal Paket Data -->
+  <!-- Modal Paket Data -->
   <div id="dataModal" class="paketmodal">
     <div class="paketmodal-content">
       <div class="paketmodal-header">
@@ -270,7 +270,11 @@
 
         <div class="paketform-group">
           <label>Nomor HP</label>
-          <input type="text" placeholder="08xx-xxxx-xxxx" class="paketform-input">
+          <input type="text" placeholder="08xx-xxxx-xxxx" class="paketform-input" id="paketPhoneInput">
+          <!-- Status verifikasi nomor untuk paket data -->
+          <div id="paketPhoneVerificationStatus" class="phone-verification-status" style="display: none;">
+            <div class="verification-message"></div>
+          </div>
         </div>
 
         <!-- Package Grid -->
@@ -436,68 +440,67 @@
     </div>
   </div>
 
-<!-- Modal E-SIM - BAGIAN YANG DIUBAH -->
+  <!-- Modal E-SIM -->
   <div id="esimModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2><i class="fas fa-sim-card"></i> Beli E-SIM</h2>
-        <span class="close" onclick="closeModal('esimModal')">&times;</span>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2><i class="fas fa-sim-card"></i> Beli E-SIM</h2>
+      <span class="close" onclick="closeModal('esimModal')">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div class="esim-info">
+        <div class="info-card">
+          <h4>Apa itu E-SIM?</h4>
+          <p>Kartu SIM digital yang dapat diaktivasi langsung di perangkat Anda tanpa perlu kartu fisik.</p>
+        </div>
       </div>
-      <div class="modal-body">
-        <div class="esim-info">
-          <div class="info-card">
-            <h4>Apa itu E-SIM?</h4>
-            <p>Kartu SIM digital yang dapat diaktivasi langsung di perangkat Anda tanpa perlu kartu fisik.</p>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Pilih Provider</label>
-          <!-- PERUBAHAN: Tambahkan onchange event -->
-          <select class="form-input" onchange="updateEsimPrice()">
-            <option value="Pilih Provider">Klik di sini</option>
-            <option value="Telkomsel E-SIM 3GB">Telkomsel E-SIM 3GB</option>
-            <option value="Indosat E-SIM 3GB 30hr">Indosat E-SIM 3GB 30hr</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Email <span style="color: red;">*</span></label>
-          <!-- PERUBAHAN: Ubah type menjadi email dan tambahkan required -->
-          <input type="email" placeholder="email@example.com" class="form-input" required>
-          <label>Nomor Telepon <span style="color: red;">*</span></label>
-          <!-- PERUBAHAN: Perbaiki class name dan tambahkan required -->
-          <input type="text" placeholder="08xx-xxxx-xxxx" class="form-input" required>
-        </div>
-
-        <div class="payment-method">
-          <h4>Pilih Metode Pembayaran</h4>
-          <div class="payment-options">
-              <div class="payment-btn">
-                <i class="fas fa-wallet"></i>
-                <span>E-Wallet</span>
-              </div>
-              <div class="payment-btn">
-                <i class="fas fa-university"></i>
-                <span>Bank Transfer</span>
-              </div>
-              <div class="payment-btn">
-                <i class="fas fa-qrcode"></i>
-                <span>QRIS</span>
-              </div>
-          </div>
-        </div>
-
-        <div class="esim-price">
-          <div class="price-info">
-            <span>Harga E-SIM</span>
-            <!-- PERUBAHAN: Harga akan diupdate secara dinamis -->
-            <span class="price">Rp -</span>
-          </div>
-        </div>
-        <!-- PERUBAHAN: Ganti onclick dengan fungsi buyEsim() -->
-        <button class="btn-primary" onclick="buyEsim()">Beli E-SIM</button>
+      <div class="form-group">
+        <label>Pilih Provider</label>
+        <select class="form-input" onchange="updateEsimPrice()" id="esimProviderSelect">
+          <option value="Pilih Provider">Klik di sini</option>
+          <option value="Telkomsel E-SIM 3GB">Telkomsel E-SIM 3GB</option>
+          <option value="Indosat E-SIM 3GB 30hr">Indosat E-SIM 3GB 30hr</option>
+        </select>
       </div>
+      <div class="form-group">
+        <label>Email <span style="color: red;">*</span></label>
+        <input type="email" placeholder="email@example.com" class="form-input" required>
+        <label>Nomor Telepon <span style="color: red;">*</span></label>
+        <input type="text" placeholder="08xx-xxxx-xxxx" class="form-input" required id="esimPhoneInput">
+        <!-- TAMBAHAN BARU: Status verifikasi nomor untuk E-SIM -->
+        <div id="esimPhoneVerificationStatus" class="phone-verification-status" style="display: none;">
+          <div class="verification-message"></div>
+        </div>
+      </div>
+
+      <div class="payment-method">
+        <h4>Pilih Metode Pembayaran</h4>
+        <div class="payment-options">
+            <div class="payment-btn">
+              <i class="fas fa-wallet"></i>
+              <span>E-Wallet</span>
+            </div>
+            <div class="payment-btn">
+              <i class="fas fa-university"></i>
+              <span>Bank Transfer</span>
+            </div>
+            <div class="payment-btn">
+              <i class="fas fa-qrcode"></i>
+              <span>QRIS</span>
+            </div>
+        </div>
+      </div>
+
+      <div class="esim-price">
+        <div class="price-info">
+          <span>Harga E-SIM</span>
+          <span class="price">Rp -</span>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="buyEsim()">Beli E-SIM</button>
     </div>
   </div>
+</div>
 
   <!-- Tambahkan script JavaScript terpisah -->
   <script src="/js/home.js"></script>

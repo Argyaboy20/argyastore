@@ -5,11 +5,6 @@ const products = {
             { amount: 80730, price: 79923, discount: '1%' },
             { amount: 50500, price: 49995, discount: '1%' }
         ],
-        simpati: [
-            { amount: 100900, price: 99891, discount: '1%' },
-            { amount: 80100, price: 80100, discount: '0%' },
-            { amount: 51000, price: 49980, discount: '2%' }
-        ],
         smartfren: [
             { amount: 100800, price: 99792, discount: '1%' },
             { amount: 80100, price: 80100, discount: '0%' },
@@ -107,6 +102,197 @@ const products = {
     ]
 };
 
+// Data prefix nomor untuk setiap provider
+const phonePrefix = {
+    indosat: ['0814', '0815', '0816', '0855', '0856', '0857', '0858'],
+    smartfren: ['0881', '0882', '0883', '0884', '0885', '0886', '0887', '0888', '0889'],
+    telkomsel: ['0811', '0812', '0813', '0821', '0822', '0823', '0851', '0852', '0853'],
+    tri: ['0895', '0896', '0897', '0898', '0899'],
+    xl: ['0817', '0818', '0819', '0859', '0877', '0878'],
+    byu: ['0851']
+};
+
+const paketDataPhonePrefix = {
+    indosat: ['0814', '0815', '0816', '0855', '0856', '0857', '0858'],
+    smartfren: ['0881', '0882', '0883', '0884', '0885', '0886', '0887', '0888', '0889'],
+    telkomsel: ['0811', '0812', '0813', '0821', '0822', '0823', '0851', '0852', '0853'],
+    tri: ['0895', '0896', '0897', '0898', '0899'],
+    xl: ['0817', '0818', '0819', '0859', '0877', '0878'],
+    byu: ['0851'],
+    axis: ['0831', '0832', '0833', '0838']
+};
+
+const esimPhonePrefix = {
+    telkomsel: ['0811', '0812', '0813', '0821', '0822', '0823', '0851', '0852', '0853'], // Termasuk ex-Simpati
+    indosat: ['0814', '0815', '0816', '0855', '0856', '0857', '0858']
+};
+
+// Fungsi untuk mendeteksi provider berdasarkan nomor HP (Modal Pulsa)
+function detectProviderFromPhone(phoneNumber) {
+    // Bersihkan nomor dari karakter non-digit
+    const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
+
+    // SPECIAL CASE: Handle konflik 0851 - prioritas by.U
+    if (cleanPhone.startsWith('0851')) {
+        return 'byu'; // Prioritas ke by.U untuk 0851
+    }
+    
+    // Cek setiap provider
+    for (const [provider, prefixes] of Object.entries(phonePrefix)) {
+        for (const prefix of prefixes) {
+            if (cleanPhone.startsWith(prefix)) {
+                return provider;
+            }
+        }
+    }
+    return null; // Tidak ditemukan provider yang cocok
+}
+
+// Fungsi deteksi provider untuk paket data
+function detectProviderFromPhonePaketData(phoneNumber) {
+    const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
+    
+    // Special case untuk 0851 - prioritas by.U
+    if (cleanPhone.startsWith('0851')) {
+        return 'byu';
+    }
+    
+    for (const [provider, prefixes] of Object.entries(paketDataPhonePrefix)) {
+        for (const prefix of prefixes) {
+            if (cleanPhone.startsWith(prefix)) {
+                return provider;
+            }
+        }
+    }
+    return null;
+}
+
+// Fungsi deteksi provider untuk E-SIM
+function detectProviderFromPhoneEsim(phoneNumber) {
+    const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
+    
+    // Tidak ada special case untuk 0851 karena hanya ada Telkomsel di E-SIM
+    for (const [provider, prefixes] of Object.entries(esimPhonePrefix)) {
+        for (const prefix of prefixes) {
+            if (cleanPhone.startsWith(prefix)) {
+                return provider;
+            }
+        }
+    }
+    return null;
+}
+
+// Fungsi untuk menampilkan nama provider yang user-friendly
+function getProviderDisplayName(provider) {
+    const displayNames = {
+        indosat: 'Indosat',
+        smartfren: 'Smartfren', 
+        telkomsel: 'Telkomsel',
+        tri: 'Tri',
+        xl: 'XL',
+        byu: 'by.U',
+    };
+    return displayNames[provider] || provider;
+}
+
+// Untuk modal Paket Data
+function getProviderDisplayNamePaketData(provider) {
+    const displayNames = {
+        indosat: 'Indosat',
+        smartfren: 'Smartfren', 
+        telkomsel: 'Telkomsel',
+        tri: 'Tri',
+        xl: 'XL',
+        byu: 'by.U',
+        axis: 'Axis' // TAMBAHAN BARU
+    };
+    return displayNames[provider] || provider;
+}
+
+// Fungsi display name untuk E-SIM 
+function getProviderDisplayNameEsim(provider) {
+    const displayNames = {
+        telkomsel: 'Telkomsel',
+        indosat: 'Indosat'
+    };
+    return displayNames[provider] || provider;
+}
+
+// Fungsi untuk menampilkan status verifikasi Modal Pulsa
+function showPhoneVerificationStatus(type, message) {
+    const statusElement = document.getElementById('phoneVerificationStatus');
+    const messageElement = statusElement.querySelector('.verification-message');
+    
+    // Reset classes
+    statusElement.className = 'phone-verification-status';
+    
+    // Add appropriate class
+    statusElement.classList.add(type);
+    
+    // Set message
+    messageElement.textContent = message;
+    
+    // Show element
+    statusElement.style.display = 'block';
+}
+
+// Fungsi untuk menyembunyikan status verifikasi Modal Pulsa
+function hidePhoneVerificationStatus() {
+    const statusElement = document.getElementById('phoneVerificationStatus');
+    statusElement.style.display = 'none';
+}
+
+// Fungsi untuk menampilkan status verifikasi paket data
+function showPaketPhoneVerificationStatus(type, message) {
+    const statusElement = document.getElementById('paketPhoneVerificationStatus');
+    const messageElement = statusElement.querySelector('.verification-message');
+    
+    statusElement.className = 'phone-verification-status';
+    statusElement.classList.add(type);
+    messageElement.textContent = message;
+    statusElement.style.display = 'block';
+}
+
+// Fungsi untuk menyembunyikan status verifikasi paket data
+function hidePaketPhoneVerificationStatus() {
+    const statusElement = document.getElementById('paketPhoneVerificationStatus');
+    statusElement.style.display = 'none';
+}
+
+// Fungsi untuk menampilkan status verifikasi E-SIM
+function showEsimPhoneVerificationStatus(type, message) {
+    const statusElement = document.getElementById('esimPhoneVerificationStatus');
+    const messageElement = statusElement.querySelector('.verification-message');
+    
+    statusElement.className = 'phone-verification-status';
+    statusElement.classList.add(type);
+    messageElement.textContent = message;
+    statusElement.style.display = 'block';
+}
+
+// Fungsi untuk menyembunyikan status verifikasi E-SIM
+function hideEsimPhoneVerificationStatus() {
+    const statusElement = document.getElementById('esimPhoneVerificationStatus');
+    statusElement.style.display = 'none';
+}
+
+
+// Fungsi untuk mendapatkan provider dari dropdown E-SIM
+function getSelectedEsimProvider() {
+    const select = document.getElementById('esimProviderSelect');
+    if (!select || !select.value || select.value === 'Pilih Provider') {
+        return null;
+    }
+    
+    // Extract provider dari option value
+    if (select.value.includes('Telkomsel')) {
+        return 'telkomsel';
+    } else if (select.value.includes('Indosat')) {
+        return 'indosat';
+    }
+    return null;
+}
+
 function getSelectedPaymentMethod(modalId) {
     const activePayment = document.querySelector(`#${modalId} .payment-btn.active, #${modalId} .pulsapayment-btn.active`);
     return activePayment ? activePayment.querySelector('span').textContent : null;
@@ -120,17 +306,14 @@ function resetModal(modalId) {
     modal.querySelectorAll('input[type="text"], input[type="email"]').forEach(input => {
         input.value = '';
     });
-    
     // Reset select dropdown
     modal.querySelectorAll('select').forEach(select => {
         select.selectedIndex = 0;
     });
-    
     // Reset pilihan denomination/package yang selected
     modal.querySelectorAll('.denomination-item, .package-item, .pulsadenomination-item').forEach(item => {
         item.classList.remove('selected');
     });
-    
     // Reset payment method selection
     modal.querySelectorAll('.payment-btn, .pulsapayment-btn, .paketpayment-btn, .ewalletpayment-btn').forEach(btn => {
     btn.classList.remove('active');
@@ -138,14 +321,14 @@ function resetModal(modalId) {
     
     // Special reset untuk modal pulsa
     if (modalId === 'pulsaModal') {
-        // Reset provider selection - UPDATED class name
+        hidePhoneVerificationStatus();
+        
         modal.querySelectorAll('.pulsaprovider-item').forEach(item => {
             item.classList.remove('selected');
         });
         
-        // Reset denominations to default state - UPDATED selector
         const denominations = modal.querySelectorAll('#pulsaDenominations .pulsadenomination-item');
-        const defaultAmounts = ['Rp 100.000', 'Rp 80.000', 'Rp 50.000']; // Template default
+        const defaultAmounts = ['Rp 100.000', 'Rp 80.000', 'Rp 50.000'];
         denominations.forEach((item, index) => {
             item.classList.remove('selected');
             item.querySelector('.amount').textContent = defaultAmounts[index] || 'Rp -';
@@ -156,12 +339,12 @@ function resetModal(modalId) {
 
     // Special reset untuk modal paket data
     if (modalId === 'dataModal') {
-        // Reset provider selection
+        hidePaketPhoneVerificationStatus();
+        
         modal.querySelectorAll('.paketprovider-item').forEach(item => {
             item.classList.remove('selected');
         });
         
-        // Reset packages to default state
         const packages = modal.querySelectorAll('#paketPackages .paket-item');
         packages.forEach(item => {
             item.classList.remove('selected');
@@ -173,6 +356,9 @@ function resetModal(modalId) {
     
     // Khusus untuk E-SIM modal, reset harga
     if (modalId === 'esimModal') {
+        hideEsimPhoneVerificationStatus();
+        
+        // Reset harga E-SIM ke default
         const priceElement = modal.querySelector('.esim-price .price');
         if (priceElement) {
             priceElement.textContent = 'Rp -';
@@ -414,6 +600,22 @@ function buyPaketData() {
         alert('Harap pilih metode pembayaran!');
         return;
     }
+
+    // TAMBAHAN BARU: Validasi akhir provider vs nomor HP untuk paket data
+    const phoneNumber = phoneInput.value.trim();
+    const selectedProviderCode = selectedProvider.dataset.provider;
+    const detectedProvider = detectProviderFromPhonePaketData(phoneNumber);
+    
+    if (detectedProvider && detectedProvider !== selectedProviderCode) {
+        const detectedName = getProviderDisplayNamePaketData(detectedProvider);
+        const selectedName = getProviderDisplayNamePaketData(selectedProviderCode);
+        
+        const confirmPurchase = confirm(`Peringatan: Nomor ${phoneNumber} terdeteksi sebagai ${detectedName}, tetapi Anda memilih provider ${selectedName}.\n\nApakah Anda yakin ingin melanjutkan pembelian paket data?`);
+        
+        if (!confirmPurchase) {
+            return;
+        }
+    }
     
     // Get data for WhatsApp message
     const provider = selectedProvider.querySelector('.paketprovider-name').textContent;
@@ -470,12 +672,10 @@ function buyEsim() {
         alert('Harap isi semua data yang diperlukan!');
         return;
     }
-
     if (!paymentMethod) {
         alert('Harap pilih metode pembayaran!');
         return;
     }
-    
     // Validasi format email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -489,6 +689,28 @@ function buyEsim() {
     if (!phoneRegex.test(cleanPhone)) {
         alert('Nomor telepon harus berupa angka dengan panjang 10-15 digit!');
         return;
+    }
+
+    // Validasi akhir provider vs nomor HP untuk E-SIM
+    const selectedProvider = getSelectedEsimProvider();
+    const detectedProvider = detectProviderFromPhoneEsim(phone);
+    
+    if (detectedProvider && detectedProvider !== selectedProvider) {
+        const detectedName = getProviderDisplayNameEsim(detectedProvider);
+        const selectedName = getProviderDisplayNameEsim(selectedProvider);
+        
+        const confirmPurchase = confirm(`Peringatan: Nomor ${phone} terdeteksi sebagai ${detectedName}, tetapi Anda memilih ${selectedName} E-SIM.\n\nApakah Anda yakin ingin melanjutkan pembelian?`);
+        
+        if (!confirmPurchase) {
+            return;
+        }
+    } else if (!detectedProvider) {
+        // Nomor tidak mendukung E-SIM sama sekali
+        const confirmPurchase = confirm(`Peringatan: Nomor ${phone} mungkin tidak mendukung E-SIM atau bukan nomor Telkomsel/Indosat.\n\nE-SIM hanya tersedia untuk Telkomsel dan Indosat. Apakah Anda yakin ingin melanjutkan?`);
+        
+        if (!confirmPurchase) {
+            return;
+        }
     }
     
     // Ambil harga berdasarkan provider yang dipilih
@@ -587,6 +809,182 @@ document.addEventListener('DOMContentLoaded', function() {
         updateEsimPrice();
     }
 
+    // Event listener untuk verifikasi nomor HP dengan UI visual
+    const pulsaPhoneInput = document.querySelector('#pulsaModal input[type="text"]');
+    if (pulsaPhoneInput) {
+        pulsaPhoneInput.addEventListener('input', function() {
+            const phoneNumber = this.value.trim();
+            
+            if (phoneNumber.length < 4) {
+                hidePhoneVerificationStatus();
+                return;
+            }
+            
+            const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
+            const detectedProvider = detectProviderFromPhone(phoneNumber);
+            const selectedProvider = document.querySelector('#pulsaModal .pulsaprovider-item.selected');
+            
+            if (detectedProvider) {
+                const detectedName = getProviderDisplayName(detectedProvider);
+                
+                if (selectedProvider) {
+                    const selectedProviderCode = selectedProvider.dataset.provider;
+                    
+                    if (detectedProvider === selectedProviderCode) {
+                        // Provider cocok
+                        if (cleanPhone.startsWith('0851')) {
+                            showPhoneVerificationStatus('success', `Nomor ${phoneNumber} terverifikasi sebagai ${detectedName} (0851 diprioritaskan ke by.U)`);
+                        } else if (['0812', '0813', '0821'].some(prefix => cleanPhone.startsWith(prefix)) && selectedProviderCode === 'telkomsel') {
+                            showPhoneVerificationStatus('success', `Nomor ${phoneNumber} terverifikasi sebagai ${detectedName} (Simpati/Telkomsel)`);
+                        } else {
+                            showPhoneVerificationStatus('success', `Nomor ${phoneNumber} terverifikasi sebagai ${detectedName}`);
+                        }
+                    } else {
+                        // Provider tidak cocok
+                        const selectedName = getProviderDisplayName(selectedProviderCode);
+                        
+                        // Special message untuk konflik 0851
+                        if (cleanPhone.startsWith('0851') && selectedProviderCode === 'telkomsel') {
+                            showPhoneVerificationStatus('warning', `Nomor 0851 bisa Telkomsel atau by.U. Kami prioritaskan ke by.U. Pastikan pilihan Anda benar.`);
+                        } else {
+                            showPhoneVerificationStatus('warning', `Nomor terdeteksi sebagai ${detectedName}, tapi Anda pilih ${selectedName}!`);
+                        }
+                    }
+                } else {
+                    // Belum pilih provider
+                    if (cleanPhone.startsWith('0851')) {
+                        showPhoneVerificationStatus('info', `Nomor 0851 bisa Telkomsel atau by.U. Kami sarankan by.U.`);
+                    } else if (['0812', '0813', '0821'].some(prefix => cleanPhone.startsWith(prefix))) {
+                        showPhoneVerificationStatus('info', `Nomor terdeteksi sebagai Telkomsel (Simpati/Telkomsel). Pilih Telkomsel.`);
+                    } else {
+                        showPhoneVerificationStatus('info', `Nomor terdeteksi sebagai ${detectedName}. Silakan pilih provider ${detectedName}.`);
+                    }
+                }
+            } else {
+                if (phoneNumber.length >= 4) {
+                    showPhoneVerificationStatus('error', 'Nomor tidak dikenali. Pastikan nomor HP Indonesia yang valid.');
+                }
+            }
+        });
+    }
+
+    // Event listener untuk verifikasi nomor HP paket data
+    const paketPhoneInput = document.querySelector('#dataModal input[type="text"]');
+    if (paketPhoneInput) {
+        paketPhoneInput.addEventListener('input', function() {
+            const phoneNumber = this.value.trim();
+            
+            if (phoneNumber.length < 4) {
+                hidePaketPhoneVerificationStatus();
+                return;
+            }
+            
+            const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
+            const detectedProvider = detectProviderFromPhonePaketData(phoneNumber);
+            const selectedProvider = document.querySelector('#dataModal .paketprovider-item.selected');
+            
+            if (detectedProvider) {
+                const detectedName = getProviderDisplayNamePaketData(detectedProvider);
+                
+                if (selectedProvider) {
+                    const selectedProviderCode = selectedProvider.dataset.provider;
+                    
+                    if (detectedProvider === selectedProviderCode) {
+                        // Provider cocok
+                        if (cleanPhone.startsWith('0851')) {
+                            showPaketPhoneVerificationStatus('success', `Nomor ${phoneNumber} terverifikasi sebagai ${detectedName} (0851 diprioritaskan ke by.U)`);
+                        } else if (['0812', '0813', '0821'].some(prefix => cleanPhone.startsWith(prefix)) && selectedProviderCode === 'telkomsel') {
+                            showPaketPhoneVerificationStatus('success', `Nomor ${phoneNumber} terverifikasi sebagai ${detectedName} (Simpati/Telkomsel)`);
+                        } else {
+                            showPaketPhoneVerificationStatus('success', `Nomor ${phoneNumber} terverifikasi sebagai ${detectedName}`);
+                        }
+                    } else {
+                        // Provider tidak cocok
+                        const selectedName = getProviderDisplayNamePaketData(selectedProviderCode);
+                        
+                        if (cleanPhone.startsWith('0851') && selectedProviderCode === 'telkomsel') {
+                            showPaketPhoneVerificationStatus('warning', `Nomor 0851 bisa Telkomsel atau by.U. Kami prioritaskan ke by.U. Pastikan pilihan Anda benar.`);
+                        } else {
+                            showPaketPhoneVerificationStatus('warning', `Nomor terdeteksi sebagai ${detectedName}, tapi Anda pilih ${selectedName}!`);
+                        }
+                    }
+                } else {
+                    // Belum pilih provider
+                    if (cleanPhone.startsWith('0851')) {
+                        showPaketPhoneVerificationStatus('info', `Nomor 0851 bisa Telkomsel atau by.U. Kami sarankan by.U.`);
+                    } else if (['0812', '0813', '0821'].some(prefix => cleanPhone.startsWith(prefix))) {
+                        showPaketPhoneVerificationStatus('info', `Nomor terdeteksi sebagai Telkomsel (Simpati/Telkomsel). Pilih Telkomsel.`);
+                    } else {
+                        showPaketPhoneVerificationStatus('info', `Nomor terdeteksi sebagai ${detectedName}. Silakan pilih provider ${detectedName}.`);
+                    }
+                }
+            } else {
+                if (phoneNumber.length >= 4) {
+                    showPaketPhoneVerificationStatus('error', 'Nomor tidak dikenali. Pastikan nomor HP Indonesia yang valid.');
+                }
+            }
+        });
+    }
+
+    // Event listener untuk verifikasi nomor HP E-SIM
+    const esimPhoneInput = document.getElementById('esimPhoneInput');
+    if (esimPhoneInput) {
+        esimPhoneInput.addEventListener('input', function() {
+            const phoneNumber = this.value.trim();
+            
+            if (phoneNumber.length < 4) {
+                hideEsimPhoneVerificationStatus();
+                return;
+            }
+            
+            const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
+            const detectedProvider = detectProviderFromPhoneEsim(phoneNumber);
+            const selectedProvider = getSelectedEsimProvider();
+            
+            if (detectedProvider) {
+                const detectedName = getProviderDisplayNameEsim(detectedProvider);
+                
+                if (selectedProvider) {
+                    if (detectedProvider === selectedProvider) {
+                        // Provider cocok
+                        if (['0812', '0813', '0821', '0851'].some(prefix => cleanPhone.startsWith(prefix)) && selectedProvider === 'telkomsel') {
+                            showEsimPhoneVerificationStatus('success', `Nomor ${phoneNumber} terverifikasi sebagai ${detectedName} (Simpati/Telkomsel)`);
+                        } else {
+                            showEsimPhoneVerificationStatus('success', `Nomor ${phoneNumber} terverifikasi sebagai ${detectedName}`);
+                        }
+                    } else {
+                        // Provider tidak cocok
+                        const selectedName = getProviderDisplayNameEsim(selectedProvider);
+                        showEsimPhoneVerificationStatus('warning', `Nomor terdeteksi sebagai ${detectedName}, tapi Anda pilih ${selectedName}!`);
+                    }
+                } else {
+                    // Belum pilih provider
+                    if (['0812', '0813', '0821', '0851'].some(prefix => cleanPhone.startsWith(prefix))) {
+                        showEsimPhoneVerificationStatus('info', `Nomor terdeteksi sebagai Telkomsel (Simpati/Telkomsel). Pilih Telkomsel E-SIM.`);
+                    } else {
+                        showEsimPhoneVerificationStatus('info', `Nomor terdeteksi sebagai ${detectedName}. Silakan pilih ${detectedName} E-SIM.`);
+                    }
+                }
+            } else {
+                // Provider tidak terdeteksi - khusus untuk E-SIM
+                if (phoneNumber.length >= 4) {
+                    showEsimPhoneVerificationStatus('error', 'Nomor tidak mendukung E-SIM. E-SIM hanya tersedia untuk Telkomsel dan Indosat.');
+                }
+            }
+        });
+    }
+
+    //  Update status ketika provider E-SIM dipilih
+    const esimProviderSelect = document.getElementById('esimProviderSelect');
+    if (esimProviderSelect) {
+        esimProviderSelect.addEventListener('change', function() {
+            const phoneInput = document.getElementById('esimPhoneInput');
+            if (phoneInput && phoneInput.value.trim().length >= 4) {
+                // Trigger ulang verifikasi
+                phoneInput.dispatchEvent(new Event('input'));
+            }
+        });
+    }
     // ===== ALL ELEMENT LISTENERS - UPDATED semua selector =====
     document.addEventListener('click', function(e) {
         if (e.target.closest('#pulsaModal .pulsaprovider-item')) {
@@ -638,6 +1036,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 item.classList.remove('selected');
             });
         }
+
+        // Update status ketika provider dipilih (Pulsa)
+        if (e.target.closest('#pulsaModal .pulsaprovider-item')) {
+            setTimeout(() => {
+                const phoneInput = document.querySelector('#pulsaModal input[type="text"]');
+                if (phoneInput && phoneInput.value.trim().length >= 4) {
+                    phoneInput.dispatchEvent(new Event('input'));
+                }
+            }, 100);
+        }
+
+        // Untuk paket data
+        if (e.target.closest('#dataModal .paketprovider-item')) {
+            setTimeout(() => {
+                const phoneInput = document.querySelector('#dataModal input[type="text"]');
+                if (phoneInput && phoneInput.value.trim().length >= 4) {
+                    phoneInput.dispatchEvent(new Event('input'));
+                }
+            }, 100);
+        }
+
+
+
     });
 
     // Denomination selection for pulsa - UPDATED class names
