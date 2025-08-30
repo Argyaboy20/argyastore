@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | Argya Store</title>
+  <link rel="icon" type="image/png" href="/image/store.png">
+  <link rel="stylesheet" href="/profile.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Side Menu Overlay -->
+  <div class="side-menu-overlay" id="sideMenuOverlay" onclick="closeSideMenu()"></div>
+  
+  <!-- Side Menu -->
+  <div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+      <h3>Pengaturan</h3>
+      <button class="close-menu-btn" onclick="closeSideMenu()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="side-menu-content">
+      <a href="/nomor" class="menu-item">
+        <i class="fas fa-star"></i>
+        <span>Nomor Favorit</span>
+      </a>
+      <a href="/aboutus" class="menu-item">
+        <i class="fas fa-info-circle"></i>
+        <span>Tentang Kami</span>
+      </a>
+      <a href="/faq" class="menu-item">
+        <i class="fas fa-question-circle"></i>
+        <span>FAQ</span>
+      </a>
+      <a href="/privacypolicy" class="menu-item">
+        <i class="fas fa-shield-alt"></i>
+        <span>Kebijakan Privasi</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <button class="menu-toggle" onclick="openSideMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <div class="logo">
+        <div class="logo-image-wrapper">
+          <img src="image/logo.png" alt="Argya Store">
+        </div>
+        <span>Argya Store</span>
+      </div>
+      
+      <div class="header-spacer"></div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <div class="profile-container">
+        <!-- Profile Photo Section -->
+        <div class="profile-photo-section">
+          <div class="profile-photo-wrapper">
+            <img src="" alt="Profile Photo" id="profilePhoto" class="profile-photo">
+            <div class="profile-photo-placeholder" id="profilePhotoPlaceholder">
+              <i class="fas fa-user"></i>
+            </div>
+            <button class="edit-photo-btn" onclick="openPhotoModal()">
+              <i class="fas fa-camera"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Account Information -->
+        <div class="account-info">
+          <h2>Informasi Akun</h2>
+          
+          <div class="info-item">
+            <label>Nama User</label>
+            <div class="info-value">
+              <input type="text" id="userName" class="info-input" readonly>
+              <button class="edit-btn" onclick="editField('userName')">
+                <i class="fas fa-edit"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <label>Email</label>
+            <div class="info-value">
+              <input type="email" id="userEmail" class="info-input" readonly>
+              <button class="edit-btn" onclick="editField('userEmail')">
+                <i class="fas fa-edit"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <label>Password</label>
+            <div class="info-value password-field">
+              <input type="password" id="userPassword" class="info-input" readonly>
+              <button class="toggle-password-btn" onclick="togglePassword()">
+                <i class="fas fa-eye" id="togglePasswordIcon"></i>
+              </button>
+              <button class="edit-btn" onclick="editField('userPassword')">
+                <i class="fas fa-edit"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="action-buttons" id="actionButtons" style="display: none;">
+            <button class="save-btn" onclick="saveChanges()">
+              <i class="fas fa-save"></i>
+              Simpan
+            </button>
+            <button class="cancel-btn" onclick="cancelEdit()">
+              <i class="fas fa-times"></i>
+              Batal
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Photo Upload Modal -->
+  <div class="modal" id="photoModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Ubah Foto Profil</h3>
+        <button class="modal-close" onclick="closePhotoModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Klik untuk memilih foto</p>
+          <small>Maksimal 1MB, format: JPG, PNG, GIF</small>
+        </div>
+        <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto(this)">
+        
+        <div class="photo-preview" id="photoPreview" style="display: none;">
+          <img src="" alt="Preview" id="previewImage">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-photo-btn" onclick="saveProfilePhoto()" disabled id="savePhotoBtn">
+          <i class="fas fa-save"></i>
+          Simpan Foto
+        </button>
+        <button class="remove-photo-btn" onclick="removeProfilePhoto()">
+          <i class="fas fa-trash"></i>
+          Hapus Foto
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,855 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary-color: #f59e0b;
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --border-color: #e5e7eb;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Header Styles */
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow-lg);
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+  padding: 1rem 2rem;
+  position: relative;
+}
+
+.menu-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.menu-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--bg-primary);
+}
+
+.logo-image-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+}
+
+.logo-image-wrapper img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.header-spacer {
+  width: 48px;
+}
+
+/* Side Menu Styles */
+.side-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.side-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100%;
+  background: white;
+  box-shadow: var(--shadow-xl);
+  z-index: 1999;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.side-menu.active {
+  transform: translateX(0);
+}
+
+.side-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.side-menu-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.close-menu-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.side-menu-content {
+  padding: 0rem 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.menu-item:hover {
+  background: var(--bg-secondary);
+  border-left-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.menu-item i {
+  font-size: 1.125rem;
+  width: 20px;
+  text-align: center;
+}
+
+/* Main Content */
+.main-content {
+  padding: 2rem 0;
+}
+
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+/* Profile Photo Section */
+.profile-photo-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.profile-photo-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-lg);
+  display: none;
+}
+
+.profile-photo-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-lg);
+}
+
+.edit-photo-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-photo-btn:hover {
+  background: var(--primary-dark);
+  transform: scale(1.1);
+}
+
+/* Account Info */
+.account-info {
+  padding: 2rem;
+}
+
+.account-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.info-item {
+  margin-bottom: 1.5rem;
+}
+
+.info-item label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.info-value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.info-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: var(--bg-secondary);
+}
+
+.info-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.info-input:read-only {
+  background: var(--bg-secondary);
+  cursor: default;
+}
+
+.password-field .info-input {
+  padding-right: 3.5rem;
+}
+
+.edit-btn, .toggle-password-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.edit-btn:hover, .toggle-password-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 50px;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.save-btn, .cancel-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.save-btn {
+  background: var(--success-color);
+  color: white;
+}
+
+.save-btn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  background: var(--error-color);
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+/* Modal Styles */
+/* Modal Styles - Updated with scrollable and blur background */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px); /* Blur background */
+  overflow-y: auto; /* Enable scroll di luar modal */
+  overflow-x: hidden;
+  padding: 20px 0; /* Padding atas bawah */
+}
+
+.modal-content {
+  background-color: white;
+  margin: 0 auto; /* Center horizontal */
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  position: relative;
+  min-height: auto; /* Biar bisa menyesuaikan konten */
+  max-height: none; /* Remove height restriction */
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky; /* Header tetap terlihat saat scroll */
+  top: 0;
+  z-index: 1;
+}
+
+.modal-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.modal-body {
+  padding: 2rem;
+  max-height: none; /* Remove height restriction */
+}
+
+.upload-area {
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--bg-secondary);
+}
+
+.upload-area:hover {
+  border-color: var(--primary-color);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.upload-area i {
+  font-size: 2rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.upload-area p {
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.upload-area small {
+  color: var(--text-secondary);
+}
+
+.photo-preview {
+  margin-top: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.photo-preview img {
+  max-width: 100%;
+  max-height: 300px; /* Limit height tapi tetap responsive */
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+}
+
+.modal-footer {
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap; /* Wrap untuk mobile */
+  position: sticky; /* Footer tetap terlihat saat scroll */
+  bottom: 0;
+  z-index: 1;
+}
+
+.save-photo-btn, .remove-photo-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.save-photo-btn {
+  background: var(--success-color);
+  color: white;
+}
+
+.save-photo-btn:hover:not(:disabled) {
+  background: #059669;
+}
+
+.save-photo-btn:disabled {
+  background: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.remove-photo-btn {
+  background: var(--error-color);
+  color: white;
+}
+
+.remove-photo-btn:hover {
+  background: #dc2626;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header .container {
+    padding: 0.75rem 1rem;
+  }
+  
+  .logo {
+    font-size: 1.25rem;
+  }
+  
+  .logo-image-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .logo-image-wrapper img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .side-menu {
+    width: 250px;
+  }
+  
+  .main-content {
+    padding: 1.5rem 0;
+  }
+  
+  .profile-container {
+    margin: 0 1rem;
+    border-radius: 12px;
+  }
+  
+  /* Profile Photo Section */
+  .profile-photo-section {
+    padding: 1.5rem;
+  }
+  
+  .profile-photo, .profile-photo-placeholder {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .profile-photo-placeholder i {
+    font-size: 2.5rem;
+  }
+  
+  .edit-photo-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.875rem;
+  }
+  
+  /* Account Info */
+  .account-info {
+    padding: 1.5rem;
+  }
+  
+  .account-info h2 {
+    font-size: 1.375rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .info-item {
+    margin-bottom: 1.25rem;
+  }
+  
+  .info-item label {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .info-input {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9rem;
+  }
+  
+  .password-field .info-input {
+    padding-right: 3.25rem;
+  }
+  
+  .edit-btn, .toggle-password-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 0.875rem;
+  }
+  
+  .toggle-password-btn {
+    right: 46px;
+  }
+  
+  .action-buttons {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+  
+  .save-btn, .cancel-btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .modal {
+    padding: 10px 0; /* Reduce padding untuk mobile */
+  }
+  
+  .modal-content {
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .photo-preview img {
+    max-height: 250px; /* Smaller preview untuk mobile */
+  }
+}
+
+@media (max-width: 640px) {
+  .header .container {
+    padding: 0.5rem 1rem;
+  }
+  
+  .logo {
+    font-size: 1rem;
+  }
+  
+  .logo-image-wrapper {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .logo-image-wrapper img {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  /* Main Content Responsive */
+  .main-content {
+    padding: 1rem 0;
+  }
+  
+  .profile-container {
+    margin: 0 0.5rem;
+    border-radius: 8px;
+  }
+  
+  /* Profile Photo Section */
+  .profile-photo-section {
+    padding: 1.25rem 1rem;
+  }
+  
+  .profile-photo, .profile-photo-placeholder {
+    width: 80px;
+    height: 80px;
+    border-width: 3px;
+  }
+  
+  .profile-photo-placeholder i {
+    font-size: 2rem;
+  }
+  
+  .edit-photo-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+    bottom: -2px;
+    right: -2px;
+  }
+  
+  /* Account Info */
+  .account-info {
+    padding: 1.25rem 1rem;
+  }
+  
+  .account-info h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .info-item {
+    margin-bottom: 1rem;
+  }
+  
+  .info-item label {
+    font-size: 0.875rem;
+    margin-bottom: 0.375rem;
+    font-weight: 600;
+  }
+  
+  .info-value {
+    gap: 0.375rem;
+    flex-wrap: nowrap;
+  }
+  
+  .info-input {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 6px;
+    min-width: 0; /* Prevent overflow */
+  }
+  
+  .password-field .info-input {
+    padding-right: 4rem; /* More space for both buttons */
+  }
+  
+  .edit-btn, .toggle-password-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 0.8rem;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+  }
+  
+  .toggle-password-btn {
+    right: 44px;
+  }
+  
+  .action-buttons {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  
+  .save-btn, .cancel-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Container adjustments untuk prevent overflow */
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  /* Fix untuk input yang kepotong */
+  .info-value {
+    overflow: visible;
+  }
+  
+  /* Ensure text tidak terpotong */
+  .info-input {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .info-input:focus {
+    white-space: normal;
+  }
+  
+  .modal {
+    padding: 5px 0; /* Even less padding untuk small mobile */
+  }
+  
+  .modal-content {
+    width: 98%;
+  }
+  
+  .modal-body {
+    padding: 1rem;
+  }
+  
+  .modal-footer {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 0.75rem;
+  }
+  
+  .save-photo-btn, .remove-photo-btn {
+    width: 100%; /* Full width buttons */
+    justify-content: center;
+  }
+  
+  .photo-preview img {
+    max-height: 200px; /* Even smaller preview */
+  }
+  
+  .upload-area {
+    padding: 1.5rem 1rem; /* Reduce upload area padding */
+  }
+  
+  .upload-area i {
+    font-size: 1.5rem; /* Smaller icon */
+  }
+}

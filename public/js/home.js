@@ -1208,16 +1208,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-   // Validation functions
-    function validateEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
+    // Validation functions
     function validateName(name) {
         // Allow letters, numbers, spaces, and common name characters
         const nameRegex = /^[a-zA-Z0-9\s\-\.]+$/;
         return nameRegex.test(name) && name.trim().length >= 2;
+    }
+
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
 
     function validatePassword(password) {
@@ -1246,22 +1246,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Real-time validation
     function setupRealTimeValidation() {
-        const emailInput = document.getElementById('registerEmail');
         const nameInput = document.getElementById('registerName');
+        const emailInput = document.getElementById('registerEmail');
         const passwordInput = document.getElementById('registerPassword');
-
-        if (emailInput) {
-            emailInput.addEventListener('blur', function() {
-                const email = this.value.trim();
-                if (email === '') {
-                    hideInputAlert('registerEmail', 'emailAlert');
-                } else if (!validateEmail(email)) {
-                    showInputAlert('registerEmail', 'emailAlert', 'Format email tidak valid. Contoh: user@email.com', 'error');
-                } else {
-                    showInputAlert('registerEmail', 'emailAlert', 'Email valid!', 'success');
-                }
-            });
-        }
 
         if (nameInput) {
             nameInput.addEventListener('blur', function() {
@@ -1272,6 +1259,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     showInputAlert('registerName', 'nameAlert', 'Nama hanya boleh berisi huruf, angka, spasi, dan tanda hubung. Minimal 2 karakter.', 'error');
                 } else {
                     showInputAlert('registerName', 'nameAlert', 'Nama valid!', 'success');
+                }
+            });
+        }
+
+        if (emailInput) {
+            emailInput.addEventListener('blur', function() {
+                const email = this.value.trim();
+                if (email === '') {
+                    hideInputAlert('registerEmail', 'emailAlert');
+                } else if (!validateEmail(email)) {
+                    showInputAlert('registerEmail', 'emailAlert', 'Format email tidak valid. Contoh: user@email.com', 'error');
+                } else {
+                    showInputAlert('registerEmail', 'emailAlert', 'Email valid!', 'success');
                 }
             });
         }
@@ -1306,38 +1306,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Clear register form
     function clearRegisterForm() {
-        document.getElementById('registerEmail').value = '';
         document.getElementById('registerName').value = '';
+        document.getElementById('registerEmail').value = '';
         document.getElementById('registerPassword').value = '';
         
         // Clear all alerts
-        hideInputAlert('registerEmail', 'emailAlert');
         hideInputAlert('registerName', 'nameAlert');
+        hideInputAlert('registerEmail', 'emailAlert');
         hideInputAlert('registerPassword', 'passwordAlert');
     }
 
     // Register account function with enhanced validation
     function registerAccount() {
-        const email = document.getElementById('registerEmail').value.trim();
         const name = document.getElementById('registerName').value.trim();
+        const email = document.getElementById('registerEmail').value.trim();
         const password = document.getElementById('registerPassword').value.trim();
 
         let hasError = false;
 
         // Validate all fields
+        if (!name) {
+            showInputAlert('registerName', 'nameAlert', 'Nama user wajib diisi!', 'error');
+            hasError = true;
+        } else if (!validateName(name)) {
+            showInputAlert('registerName', 'nameAlert', 'Nama hanya boleh berisi huruf, angka, spasi, dan tanda hubung. Minimal 2 karakter.', 'error');
+            hasError = true;
+        }
+
         if (!email) {
             showInputAlert('registerEmail', 'emailAlert', 'Email wajib diisi!', 'error');
             hasError = true;
         } else if (!validateEmail(email)) {
             showInputAlert('registerEmail', 'emailAlert', 'Format email tidak valid!', 'error');
-            hasError = true;
-        }
-
-        if (!name) {
-            showInputAlert('registerName', 'nameAlert', 'Nama lengkap wajib diisi!', 'error');
-            hasError = true;
-        } else if (!validateName(name)) {
-            showInputAlert('registerName', 'nameAlert', 'Nama hanya boleh berisi huruf, angka, spasi, dan tanda hubung. Minimal 2 karakter.', 'error');
             hasError = true;
         }
 
@@ -1365,8 +1365,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Create user account object
         const userAccount = {
-            email: email,
             name: name,
+            email: email,
             password: password,
             registrationDate: new Date().toISOString(),
             status: 'active'
