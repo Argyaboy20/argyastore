@@ -18,7 +18,7 @@
       </div>
       <nav class="nav">
         <a href="/support">Support</a>
-        <div class="user-menu">
+        <div class="user-menu" onclick="handleUserMenuClick()">
           <i class="fas fa-user-circle"></i>
         </div>
       </nav>
@@ -227,7 +227,10 @@
           </div>
         </div>
 
-        <button class="pulsabtn-primary" onclick="buyPulsa()">Beli Sekarang</button>
+        <div class="modal-buttons-container">
+          <button class="btn-primary btn-admin" onclick="">Beli Pulsa</button>
+          <button class="btn-primary btn-whatsapp" onclick="buyPulsa()">Beli Pulsa di WhatsApp</button>
+        </div>
       </div>
     </div>
   </div>
@@ -304,7 +307,10 @@
           </div>
         </div>
 
-        <button class="paketbtn-primary" onclick="buyPaketData()">Beli Paket</button>
+        <div class="modal-buttons-container">
+          <button class="btn-primary btn-admin" onclick="">Beli Paket</button>
+          <button class="btn-primary btn-whatsapp" onclick="buyPaketData()">Beli Paket di WhatsApp</button>
+        </div>
       </div>
     </div>
   </div>
@@ -382,7 +388,10 @@
           </div>
         </div>
 
-        <button class="ewalletbtn-primary" onclick="buyEwallet()">Top Up Sekarang</button>
+        <div class="modal-buttons-container">
+          <button class="btn-primary btn-admin" onclick="">Top Up Sekarang</button>
+          <button class="btn-primary btn-whatsapp" onclick="buyEwallet()">Top Up di WhatsApp</button>
+        </div>
       </div>
     </div>
   </div>
@@ -425,7 +434,10 @@
         </div>
 
         <!-- Tetap pakai fungsi buyTokenListrik() tapi tanpa validasi kompleks -->
-        <button class="btn-primary" onclick="buyTokenListrik()">Beli Token</button>
+        <div class="modal-buttons-container">
+          <button class="btn-primary btn-admin" onclick="">Beli Token</button>
+          <button class="btn-primary btn-whatsapp" onclick="buyTokenListrik()">Beli Token di WhatsApp</button>
+        </div>
       </div>
     </div>
   </div>
@@ -487,7 +499,10 @@
           <span class="price">Rp -</span>
         </div>
       </div>
-      <button class="btn-primary" onclick="buyEsim()">Beli E-SIM</button>
+      <div class="modal-buttons-container">
+        <button class="btn-primary btn-admin" onclick="">Beli E-SIM</button>
+        <button class="btn-primary btn-whatsapp" onclick="buyEsim()">Beli E-SIM di WhatsApp</button>
+      </div>
     </div>
   </div>
 </div>
@@ -499,5 +514,41 @@
 <button id="scrollToTopBtn" class="scroll-to-top">
   <i class="fas fa-chevron-up"></i>
 </button>
+
+  <!-- Modal Daftar Akun -->
+  <div id="registerModal" class="register-modal">
+    <div class="register-modal-content">
+      <div class="register-modal-header">
+        <h2><i class="fas fa-user-plus"></i> Daftar Akun</h2>
+        <button class="register-close" onclick="closeRegisterModal()">&times;</button>
+      </div>
+      <div class="register-modal-body">
+        <div class="register-info">
+          <h4>Mengapa Perlu Daftar Akun?</h4>
+          <p>Dengan akun, Anda bisa melacak riwayat transaksi, menyimpan nomor favorit, dan mendapat notifikasi promo khusus!</p>
+        </div>
+        
+        <div class="register-form-group">
+          <label>Email <span style="color: red;">*</span></label>
+          <input type="email" placeholder="contoh@email.com" class="register-form-input" id="registerEmail" required>
+          <div class="input-alert" id="emailAlert"></div>
+        </div>
+
+        <div class="register-form-group">
+          <label>Nama Lengkap <span style="color: red;">*</span></label>
+          <input type="text" placeholder="Masukkan nama lengkap" class="register-form-input" id="registerName" required>
+          <div class="input-alert" id="nameAlert"></div>
+        </div>
+
+        <div class="register-form-group">
+          <label>Password <span style="color: red;">*</span></label>
+          <input type="password" placeholder="Minimal 6 karakter" class="register-form-input" id="registerPassword" required>
+          <div class="input-alert" id="passwordAlert"></div>
+        </div>
+
+        <button class="btn-register" onclick="registerAccount()">Daftar Akun</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

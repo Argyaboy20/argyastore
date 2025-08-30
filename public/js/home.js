@@ -1177,4 +1177,223 @@ document.addEventListener('DOMContentLoaded', function() {
             behavior: 'smooth'
         });
     });
+    
+    // ===== USER MENU & REGISTER FUNCTIONALITY =====
+    // Check if user account exists
+    function checkUserAccount() {
+        const userData = localStorage.getItem('userAccount');
+        return userData ? JSON.parse(userData) : null;
+    }
+
+    // User menu click handler
+    function handleUserMenuClick(event) {
+    // Prevent any default behavior or bubbling
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
+    const userAccount = checkUserAccount();
+    
+        if (userAccount) {
+            // User sudah terdaftar, redirect ke profile
+            window.location.href = '/profile';
+        } else {
+            // User belum terdaftar, tampilkan konfirmasi sekali saja
+            const confirmRegister = confirm('Anda belum memiliki akun. Daftar sekarang untuk menikmati fitur lengkap Argya Store?');
+            
+            if (confirmRegister) {
+                openRegisterModal();
+            }
+        }
+    }
+
+   // Validation functions
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function validateName(name) {
+        // Allow letters, numbers, spaces, and common name characters
+        const nameRegex = /^[a-zA-Z0-9\s\-\.]+$/;
+        return nameRegex.test(name) && name.trim().length >= 2;
+    }
+
+    function validatePassword(password) {
+        return password.length >= 6;
+    }
+
+    // Show input alert
+    function showInputAlert(inputId, alertId, message, type) {
+        const input = document.getElementById(inputId);
+        const alert = document.getElementById(alertId);
+        
+        input.className = `register-form-input ${type}`;
+        alert.className = `input-alert ${type}`;
+        alert.textContent = message;
+    }
+
+    // Hide input alert
+    function hideInputAlert(inputId, alertId) {
+        const input = document.getElementById(inputId);
+        const alert = document.getElementById(alertId);
+        
+        input.className = 'register-form-input';
+        alert.className = 'input-alert';
+        alert.textContent = '';
+    }
+
+    // Real-time validation
+    function setupRealTimeValidation() {
+        const emailInput = document.getElementById('registerEmail');
+        const nameInput = document.getElementById('registerName');
+        const passwordInput = document.getElementById('registerPassword');
+
+        if (emailInput) {
+            emailInput.addEventListener('blur', function() {
+                const email = this.value.trim();
+                if (email === '') {
+                    hideInputAlert('registerEmail', 'emailAlert');
+                } else if (!validateEmail(email)) {
+                    showInputAlert('registerEmail', 'emailAlert', 'Format email tidak valid. Contoh: user@email.com', 'error');
+                } else {
+                    showInputAlert('registerEmail', 'emailAlert', 'Email valid!', 'success');
+                }
+            });
+        }
+
+        if (nameInput) {
+            nameInput.addEventListener('blur', function() {
+                const name = this.value.trim();
+                if (name === '') {
+                    hideInputAlert('registerName', 'nameAlert');
+                } else if (!validateName(name)) {
+                    showInputAlert('registerName', 'nameAlert', 'Nama hanya boleh berisi huruf, angka, spasi, dan tanda hubung. Minimal 2 karakter.', 'error');
+                } else {
+                    showInputAlert('registerName', 'nameAlert', 'Nama valid!', 'success');
+                }
+            });
+        }
+
+        if (passwordInput) {
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                if (password === '') {
+                    hideInputAlert('registerPassword', 'passwordAlert');
+                } else if (!validatePassword(password)) {
+                    showInputAlert('registerPassword', 'passwordAlert', `Password harus minimal 6 karakter. Saat ini: ${password.length} karakter.`, 'error');
+                } else {
+                    showInputAlert('registerPassword', 'passwordAlert', 'Password memenuhi syarat!', 'success');
+                }
+            });
+        }
+    }
+
+    // Open register modal
+    function openRegisterModal() {
+        document.getElementById('registerModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        setupRealTimeValidation();
+    }
+
+    // Close register modal
+    function closeRegisterModal() {
+        document.getElementById('registerModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        clearRegisterForm();
+    }
+
+    // Clear register form
+    function clearRegisterForm() {
+        document.getElementById('registerEmail').value = '';
+        document.getElementById('registerName').value = '';
+        document.getElementById('registerPassword').value = '';
+        
+        // Clear all alerts
+        hideInputAlert('registerEmail', 'emailAlert');
+        hideInputAlert('registerName', 'nameAlert');
+        hideInputAlert('registerPassword', 'passwordAlert');
+    }
+
+    // Register account function with enhanced validation
+    function registerAccount() {
+        const email = document.getElementById('registerEmail').value.trim();
+        const name = document.getElementById('registerName').value.trim();
+        const password = document.getElementById('registerPassword').value.trim();
+
+        let hasError = false;
+
+        // Validate all fields
+        if (!email) {
+            showInputAlert('registerEmail', 'emailAlert', 'Email wajib diisi!', 'error');
+            hasError = true;
+        } else if (!validateEmail(email)) {
+            showInputAlert('registerEmail', 'emailAlert', 'Format email tidak valid!', 'error');
+            hasError = true;
+        }
+
+        if (!name) {
+            showInputAlert('registerName', 'nameAlert', 'Nama lengkap wajib diisi!', 'error');
+            hasError = true;
+        } else if (!validateName(name)) {
+            showInputAlert('registerName', 'nameAlert', 'Nama hanya boleh berisi huruf, angka, spasi, dan tanda hubung. Minimal 2 karakter.', 'error');
+            hasError = true;
+        }
+
+        if (!password) {
+            showInputAlert('registerPassword', 'passwordAlert', 'Password wajib diisi!', 'error');
+            hasError = true;
+        } else if (!validatePassword(password)) {
+            showInputAlert('registerPassword', 'passwordAlert', 'Password minimal harus 6 karakter!', 'error');
+            hasError = true;
+        }
+
+        if (hasError) {
+            return;
+        }
+
+        // Check if email already exists
+        const existingUser = localStorage.getItem('userAccount');
+        if (existingUser) {
+            const userData = JSON.parse(existingUser);
+            if (userData.email === email) {
+                showInputAlert('registerEmail', 'emailAlert', 'Email sudah terdaftar! Gunakan email lain.', 'error');
+                return;
+            }
+        }
+
+        // Create user account object
+        const userAccount = {
+            email: email,
+            name: name,
+            password: password,
+            registrationDate: new Date().toISOString(),
+            status: 'active'
+        };
+
+        // Save to localStorage
+        localStorage.setItem('userAccount', JSON.stringify(userAccount));
+
+        // Show success message
+        alert(`Selamat ${name}! Akun Anda berhasil dibuat. Selamat berbelanja di Argya Store!`);
+
+        // Close modal and redirect to profile
+        closeRegisterModal();
+        window.location.href = '/profile';
+    }
+
+    // Close register modal when clicking outside
+    window.addEventListener('click', function(event) {
+        const registerModal = document.getElementById('registerModal');
+        if (event.target === registerModal) {
+            closeRegisterModal();
+        }
+    });
+
+    // Make functions global
+    window.handleUserMenuClick = handleUserMenuClick;
+    window.openRegisterModal = openRegisterModal;
+    window.closeRegisterModal = closeRegisterModal;
+    window.registerAccount = registerAccount;
 });
