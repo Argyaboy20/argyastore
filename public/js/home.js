@@ -1391,7 +1391,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    function togglePassword(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const toggleIcon = document.getElementById(inputId + 'ToggleIcon');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.classList.remove('fa-eye-slash');
+            toggleIcon.classList.add('fa-eye');
+        }
+    }
+
+
     // Make functions global
+    window.togglePassword = togglePassword;
     window.handleUserMenuClick = handleUserMenuClick;
     window.openRegisterModal = openRegisterModal;
     window.closeRegisterModal = closeRegisterModal;

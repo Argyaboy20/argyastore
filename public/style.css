@@ -1672,6 +1672,41 @@ body {
   background: #f0fff4;
 }
 
+/* Password input wrapper styling */
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper .register-form-input {
+  padding-right: 3rem; /* Space for the toggle button */
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #666;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+  z-index: 1;
+}
+
+.password-toggle-btn:hover {
+  color: var(--primary-color, #6366f1);
+}
+
+.password-toggle-btn:focus {
+  outline: none;
+  color: var(--primary-color, #6366f1);
+}
+
 .input-alert {
   margin-top: 0.5rem;
   padding: 0.5rem 0.75rem;
@@ -2005,6 +2040,16 @@ body {
   .register-form-input {
     padding: 0.9rem;
     font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  .password-toggle-btn {
+    right: 0.6rem;
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+  
+  .password-input-wrapper .register-form-input {
+    padding-right: 2.8rem;
   }
 }
 
@@ -2443,6 +2488,16 @@ body {
     padding: 0.8rem;
     font-size: 16px; /* Prevent zoom on iOS */
     border-radius: 8px;
+  }
+
+  .password-toggle-btn {
+    right: 0.5rem;
+    font-size: 0.85rem;
+    padding: 0.35rem;
+  }
+  
+  .password-input-wrapper .register-form-input {
+    padding-right: 2.5rem;
   }
   
   .btn-register {

@@ -542,7 +542,12 @@
 
         <div class="register-form-group">
           <label>Password <span style="color: red;">*</span></label>
-          <input type="password" placeholder="Minimal 6 karakter" class="register-form-input" id="registerPassword" required>
+          <div class="password-input-wrapper">
+            <input type="password" placeholder="Minimal 6 karakter" class="register-form-input" id="registerPassword" required>
+            <button type="button" class="password-toggle-btn" onclick="togglePassword('registerPassword')">
+              <i class="fas fa-eye" id="registerPasswordToggleIcon"></i>
+            </button>
+          </div>
           <div class="input-alert" id="passwordAlert"></div>
         </div>
 
