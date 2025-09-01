@@ -416,6 +416,50 @@ function getNotificationIcon(type) {
     }
 }
 
+// ===== ACCOUNT ACTIONS =====
+function handleLogout() {
+    if (confirm('Apakah Anda yakin ingin logout?')) {
+        // HANYA hapus session, JANGAN hapus userAccount
+        localStorage.removeItem('userSession');
+        
+        // Show notification
+        showNotification('Berhasil logout!', 'success');
+        
+        // Redirect to home page after short delay
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 1000);
+    }
+}
+
+function handleDeleteAccount() {
+    if (confirm('PERINGATAN: Tindakan ini akan menghapus akun Anda secara permanen. Apakah Anda yakin?')) {
+        if (confirm('Sekali lagi, apakah Anda benar-benar yakin ingin menghapus akun? Data tidak dapat dikembalikan!')) {
+            // Clear all user data from localStorage
+            localStorage.removeItem('userAccount');
+            localStorage.removeItem('userProfilePhoto');
+            
+            // Clear any other user-related data if exists
+            const keysToRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && (key.includes('user') || key.includes('profile') || key.includes('account'))) {
+                    keysToRemove.push(key);
+                }
+            }
+            keysToRemove.forEach(key => localStorage.removeItem(key));
+            
+            // Show notification
+            showNotification('Akun berhasil dihapus!', 'success');
+            
+            // Redirect to home page after short delay
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
+        }
+    }
+}
+
 // ===== EVENT LISTENERS =====
 // Close modals when clicking outside
 window.addEventListener('click', function(event) {
@@ -512,3 +556,5 @@ window.editField = editField;
 window.saveChanges = saveChanges;
 window.cancelEdit = cancelEdit;
 window.togglePassword = togglePassword;
+window.handleLogout = handleLogout;
+window.handleDeleteAccount = handleDeleteAccount;

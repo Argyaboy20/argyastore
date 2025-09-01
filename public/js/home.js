@@ -212,7 +212,7 @@ function detectProviderFromPhoneEsim(phoneNumber) {
 function getProviderDisplayName(provider) {
     const displayNames = {
         indosat: 'Indosat',
-        smartfren: 'Smartfren', 
+        smartfren: 'Smartfren',
         telkomsel: 'Telkomsel',
         tri: 'Tri',
         xl: 'XL',
@@ -225,7 +225,7 @@ function getProviderDisplayName(provider) {
 function getProviderDisplayNamePaketData(provider) {
     const displayNames = {
         indosat: 'Indosat',
-        smartfren: 'Smartfren', 
+        smartfren: 'Smartfren',
         telkomsel: 'Telkomsel',
         tri: 'Tri',
         xl: 'XL',
@@ -268,7 +268,7 @@ function hidePhoneVerificationStatus() {
 function showPaketPhoneVerificationStatus(type, message) {
     const statusElement = document.getElementById('paketPhoneVerificationStatus');
     const messageElement = statusElement.querySelector('.verification-message');
-    
+
     statusElement.className = 'phone-verification-status';
     statusElement.classList.add(type);
     messageElement.textContent = message;
@@ -285,7 +285,7 @@ function hidePaketPhoneVerificationStatus() {
 function showEsimPhoneVerificationStatus(type, message) {
     const statusElement = document.getElementById('esimPhoneVerificationStatus');
     const messageElement = statusElement.querySelector('.verification-message');
-    
+
     statusElement.className = 'phone-verification-status';
     statusElement.classList.add(type);
     messageElement.textContent = message;
@@ -305,7 +305,7 @@ function getSelectedEsimProvider() {
     if (!select || !select.value || select.value === 'Pilih Provider') {
         return null;
     }
-    
+
     // Extract provider dari option value
     if (select.value.includes('Telkomsel')) {
         return 'telkomsel';
@@ -337,17 +337,17 @@ function resetModal(modalId) {
     });
     // Reset payment method selection
     modal.querySelectorAll('.payment-btn, .pulsapayment-btn, .paketpayment-btn, .ewalletpayment-btn').forEach(btn => {
-    btn.classList.remove('active');
+        btn.classList.remove('active');
     });
-    
+
     // Special reset untuk modal pulsa
     if (modalId === 'pulsaModal') {
         hidePhoneVerificationStatus();
-        
+
         modal.querySelectorAll('.pulsaprovider-item').forEach(item => {
             item.classList.remove('selected');
         });
-        
+
         const denominations = modal.querySelectorAll('#pulsaDenominations .pulsadenomination-item');
         const defaultAmounts = ['Rp 100.000', 'Rp 80.000', 'Rp 50.000'];
         denominations.forEach((item, index) => {
@@ -361,11 +361,11 @@ function resetModal(modalId) {
     // Special reset untuk modal paket data
     if (modalId === 'dataModal') {
         hidePaketPhoneVerificationStatus();
-        
+
         modal.querySelectorAll('.paketprovider-item').forEach(item => {
             item.classList.remove('selected');
         });
-        
+
         // Reset package container ke kondisi awal (1 item default)
         const packagesContainer = modal.querySelector('#paketPackages');
         if (packagesContainer) {
@@ -378,11 +378,11 @@ function resetModal(modalId) {
             `;
         }
     }
-    
+
     // Khusus untuk E-SIM modal, reset harga
     if (modalId === 'esimModal') {
         hideEsimPhoneVerificationStatus();
-        
+
         // Reset harga E-SIM ke default
         const priceElement = modal.querySelector('.esim-price .price');
         if (priceElement) {
@@ -396,7 +396,7 @@ function resetModal(modalId) {
         modal.querySelectorAll('.ewallet-select-btn').forEach(btn => {
             btn.classList.remove('active');
         });
-        
+
         // Reset denominations to default state
         const denominations = modal.querySelectorAll('#ewalletDenominations .ewalletdenomination-item');
         const defaultAmounts = ['Rp 100.000', 'Rp 80.000', 'Rp 50.000'];
@@ -438,9 +438,9 @@ window.onclick = function (event) {
 function updatePulsaDenominations(provider) {
     const denominations = document.querySelectorAll('#pulsaDenominations .pulsadenomination-item');
     const providerData = products.pulsa[provider];
-    
+
     if (!providerData) return;
-    
+
     denominations.forEach((item, index) => {
         if (providerData[index]) {
             const data = providerData[index];
@@ -461,7 +461,7 @@ function buyPulsa() {
     if (!selectedProvider) {
         alert('Harap pilih provider!');
         return;
-    } 
+    }
     if (!phoneInput.value.trim()) {
         alert('Harap masukkan nomor HP!');
         return;
@@ -479,25 +479,25 @@ function buyPulsa() {
     const phoneNumber = phoneInput.value.trim();
     const selectedProviderCode = selectedProvider.dataset.provider;
     const detectedProvider = detectProviderFromPhone(phoneNumber);
-    
+
     if (detectedProvider && detectedProvider !== selectedProviderCode) {
         const detectedName = getProviderDisplayName(detectedProvider);
         const selectedName = getProviderDisplayName(selectedProviderCode);
-        
+
         const confirmPurchase = confirm(`Peringatan: Nomor ${phoneNumber} terdeteksi sebagai ${detectedName}, tetapi Anda memilih provider ${selectedName}.\n\nApakah Anda yakin ingin melanjutkan pembelian pulsa?`);
-        
+
         if (!confirmPurchase) {
             return; // Batalkan pembelian jika user tidak yakin
         }
     }
-    
+
     // Get data for WhatsApp message - UPDATED selector
     const provider = selectedProvider.querySelector('.pulsaprovider-name').textContent; // UPDATED class
     const phone = phoneInput.value.trim();
     const amount = selectedDenomination.querySelector('.amount').textContent;
     const price = selectedDenomination.querySelector('.price').textContent;
     const paymentMethod = selectedPayment.querySelector('span').textContent;
-    
+
     // Format WhatsApp message
     const message = `BELI PULSA
 -> Provider : ${provider}
@@ -505,7 +505,7 @@ function buyPulsa() {
 -> Nominal : ${amount}
 -> Harga diskon : ${price}
 -> Metode Pembayaran : ${paymentMethod}`;
-    
+
     // Encode and redirect to WhatsApp
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
@@ -518,9 +518,9 @@ function buyPulsa() {
 function updateEwalletDenominations(ewallet) {
     const denominations = document.querySelectorAll('#ewalletDenominations .ewalletdenomination-item');
     const ewalletData = products.ewallet[ewallet];
-    
+
     if (!ewalletData) return;
-    
+
     denominations.forEach((item, index) => {
         if (ewalletData[index]) {
             const data = ewalletData[index];
@@ -553,7 +553,7 @@ function buyEwallet() {
         alert('Harap pilih metode pembayaran!');
         return;
     }
-    
+
     // Get data for WhatsApp message
     const ewallet = selectedEwallet.querySelector('span').textContent;
     const phone = phoneInput.value.trim();
@@ -561,7 +561,7 @@ function buyEwallet() {
     const price = selectedDenomination.querySelector('.price').textContent;
     const fee = selectedDenomination.querySelector('.fee').textContent;
     const paymentMethod = selectedPayment.querySelector('span').textContent;
-    
+
     // Format WhatsApp message
     const message = `TOP UP E-WALLET
 -> E-Wallet: ${ewallet}
@@ -570,7 +570,7 @@ function buyEwallet() {
 -> Harga : ${price}
 -> ${fee}
 -> Metode Pembayaran : ${paymentMethod}`;
-    
+
     // Encode and redirect to WhatsApp
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
@@ -604,12 +604,12 @@ document.addEventListener('click', function (e) {
 function updatePaketDataPackages(provider) {
     const container = document.getElementById('paketPackages');
     const providerData = products.paketData[provider];
-    
+
     if (!providerData || !container) return;
-    
+
     // Kosongkan container
     container.innerHTML = '';
-    
+
     // Generate item sesuai jumlah paket provider
     providerData.forEach(data => {
         const paketItem = document.createElement('div');
@@ -650,25 +650,25 @@ function buyPaketData() {
     const phoneNumber = phoneInput.value.trim();
     const selectedProviderCode = selectedProvider.dataset.provider;
     const detectedProvider = detectProviderFromPhonePaketData(phoneNumber);
-    
+
     if (detectedProvider && detectedProvider !== selectedProviderCode) {
         const detectedName = getProviderDisplayNamePaketData(detectedProvider);
         const selectedName = getProviderDisplayNamePaketData(selectedProviderCode);
-        
+
         const confirmPurchase = confirm(`Peringatan: Nomor ${phoneNumber} terdeteksi sebagai ${detectedName}, tetapi Anda memilih provider ${selectedName}.\n\nApakah Anda yakin ingin melanjutkan pembelian paket data?`);
-        
+
         if (!confirmPurchase) {
             return;
         }
     }
-    
+
     // Get data for WhatsApp message
     const provider = selectedProvider.querySelector('.paketprovider-name').textContent;
     const phone = phoneInput.value.trim();
     const packageName = selectedPackage.querySelector('.paket-name').textContent;
     const price = selectedPackage.querySelector('.paket-price').textContent;
     const paymentMethod = selectedPayment.querySelector('span').textContent;
-    
+
     // Format WhatsApp message
     const message = `BELI PAKET DATA
 -> Provider: ${provider}
@@ -676,7 +676,7 @@ function buyPaketData() {
 -> Paket: ${packageName}
 -> Harga: ${price}
 -> Metode Pembayaran: ${paymentMethod}`;
-    
+
     // Encode and redirect to WhatsApp
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
@@ -689,11 +689,11 @@ function buyPaketData() {
 function updateEsimPrice() {
     const select = document.querySelector('#esimModal select');
     const priceElement = document.querySelector('.esim-price .price');
-    
+
     if (select && priceElement) {
         const selectedValue = select.value;
         const selectedEsim = products.esim.find(item => item.provider === selectedValue);
-        
+
         if (selectedEsim) {
             priceElement.textContent = `Rp ${selectedEsim.price.toLocaleString('id-ID')}`;
         }
@@ -705,7 +705,7 @@ function buyEsim() {
     const providerSelect = document.querySelector('#esimModal select');
     const emailInput = document.querySelector('#esimModal input[type="email"]');
     const phoneInput = document.querySelector('#esimModal input[type="text"]:last-of-type');
-    
+
     const provider = providerSelect.value;
     const email = emailInput.value.trim();
     const phone = phoneInput.value.trim();
@@ -726,7 +726,7 @@ function buyEsim() {
         alert('Format email tidak valid!');
         return;
     }
-    
+
     // Validasi nomor telepon (hanya angka, minimal 10 digit)
     const phoneRegex = /^[0-9]{10,15}$/;
     const cleanPhone = phone.replace(/[^\d]/g, ''); // Hapus karakter non-digit
@@ -738,29 +738,29 @@ function buyEsim() {
     // Validasi akhir provider vs nomor HP untuk E-SIM
     const selectedProvider = getSelectedEsimProvider();
     const detectedProvider = detectProviderFromPhoneEsim(phone);
-    
+
     if (detectedProvider && detectedProvider !== selectedProvider) {
         const detectedName = getProviderDisplayNameEsim(detectedProvider);
         const selectedName = getProviderDisplayNameEsim(selectedProvider);
-        
+
         const confirmPurchase = confirm(`Peringatan: Nomor ${phone} terdeteksi sebagai ${detectedName}, tetapi Anda memilih ${selectedName} E-SIM.\n\nApakah Anda yakin ingin melanjutkan pembelian E-SIM?`);
-        
+
         if (!confirmPurchase) {
             return;
         }
     } else if (!detectedProvider) {
         // Nomor tidak mendukung E-SIM sama sekali
         const confirmPurchase = confirm(`Peringatan: Nomor ${phone} mungkin tidak mendukung E-SIM atau bukan nomor Telkomsel/Indosat.\n\nE-SIM hanya tersedia untuk Telkomsel dan Indosat. Apakah Anda yakin ingin melanjutkan?`);
-        
+
         if (!confirmPurchase) {
             return;
         }
     }
-    
+
     // Ambil harga berdasarkan provider yang dipilih
     const selectedEsim = products.esim.find(item => item.provider === provider);
     const price = selectedEsim ? selectedEsim.price : 0;
-    
+
     // Format pesan WhatsApp
     const message = `BELI E-SIM
 -> Provider : ${provider}
@@ -768,10 +768,10 @@ function buyEsim() {
 -> Email : ${email}
 -> Nomor Telepon : ${phone}
 -> Metode Pembayaran : ${paymentMethod}`;
-    
+
     // Encode pesan untuk URL
     const encodedMessage = encodeURIComponent(message);
-    
+
     // Redirect ke WhatsApp
     const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
@@ -783,9 +783,9 @@ function buyEsim() {
 function generateTokenListrikHTML() {
     const container = document.querySelector('#tokenModal .denomination-grid');
     if (!container) return;
-    
+
     container.innerHTML = ''; // Kosongkan container
-    
+
     products.tokenListrik.forEach(token => {
         const tokenItem = document.createElement('div');
         tokenItem.className = 'denomination-item';
@@ -803,14 +803,14 @@ function buyTokenListrik() {
     const plnInput = document.querySelector('#tokenModal input[type="text"]');
     const selectedItem = document.querySelector('#tokenModal .denomination-item.selected');
     const paymentMethod = getSelectedPaymentMethod('tokenModal');
-    
+
     const plnId = plnInput.value.trim();
-    
+
     // Validasi input kosong saja
     if (!plnId) {
         alert('Harap masukkan ID Pelanggan PLN!');
         return;
-    } 
+    }
     if (!selectedItem) {
         alert('Harap pilih nominal token!');
         return;
@@ -819,19 +819,19 @@ function buyTokenListrik() {
         alert('Harap pilih metode pembayaran!');
         return;
     }
-    
+
     // Ambil data nominal yang dipilih
     const priceText = selectedItem.querySelector('.price').textContent;
-    
+
     // Format pesan WhatsApp
     const message = `BELI TOKEN LISTRIK
 -> ID PLN : ${plnId}
 -> Total Nominal : ${priceText}
 -> Metode Pembayaran : ${paymentMethod}`;
-    
+
     // Encode pesan untuk URL
     const encodedMessage = encodeURIComponent(message);
-    
+
     // Redirect ke WhatsApp
     const whatsappUrl = `https://wa.me/6285805279420?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
@@ -840,10 +840,10 @@ function buyTokenListrik() {
 }
 
 // Event listener DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Generate token listrik HTML dinamis
     generateTokenListrikHTML();
-    
+
     // Setup E-SIM functionality
     const esimSelect = document.querySelector('#esimModal select');
     if (esimSelect) {
@@ -854,24 +854,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listener untuk verifikasi nomor HP dengan UI visual
     const pulsaPhoneInput = document.querySelector('#pulsaModal input[type="text"]');
     if (pulsaPhoneInput) {
-        pulsaPhoneInput.addEventListener('input', function() {
+        pulsaPhoneInput.addEventListener('input', function () {
             const phoneNumber = this.value.trim();
-            
+
             if (phoneNumber.length < 4) {
                 hidePhoneVerificationStatus();
                 return;
             }
-            
+
             const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
             const detectedProvider = detectProviderFromPhone(phoneNumber);
             const selectedProvider = document.querySelector('#pulsaModal .pulsaprovider-item.selected');
-            
+
             if (detectedProvider) {
                 const detectedName = getProviderDisplayName(detectedProvider);
-                
+
                 if (selectedProvider) {
                     const selectedProviderCode = selectedProvider.dataset.provider;
-                    
+
                     if (detectedProvider === selectedProviderCode) {
                         // Provider cocok
                         if (cleanPhone.startsWith('0851')) {
@@ -884,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         // Provider tidak cocok
                         const selectedName = getProviderDisplayName(selectedProviderCode);
-                        
+
                         // Special message untuk konflik 0851
                         if (cleanPhone.startsWith('0851') && selectedProviderCode === 'telkomsel') {
                             showPhoneVerificationStatus('warning', `Nomor 0851 bisa Telkomsel atau by.U. Kami prioritaskan ke by.U. Pastikan pilihan Anda benar.`);
@@ -913,24 +913,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listener untuk verifikasi nomor HP paket data
     const paketPhoneInput = document.querySelector('#dataModal input[type="text"]');
     if (paketPhoneInput) {
-        paketPhoneInput.addEventListener('input', function() {
+        paketPhoneInput.addEventListener('input', function () {
             const phoneNumber = this.value.trim();
-            
+
             if (phoneNumber.length < 4) {
                 hidePaketPhoneVerificationStatus();
                 return;
             }
-            
+
             const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
             const detectedProvider = detectProviderFromPhonePaketData(phoneNumber);
             const selectedProvider = document.querySelector('#dataModal .paketprovider-item.selected');
-            
+
             if (detectedProvider) {
                 const detectedName = getProviderDisplayNamePaketData(detectedProvider);
-                
+
                 if (selectedProvider) {
                     const selectedProviderCode = selectedProvider.dataset.provider;
-                    
+
                     if (detectedProvider === selectedProviderCode) {
                         // Provider cocok
                         if (cleanPhone.startsWith('0851')) {
@@ -943,7 +943,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         // Provider tidak cocok
                         const selectedName = getProviderDisplayNamePaketData(selectedProviderCode);
-                        
+
                         if (cleanPhone.startsWith('0851') && selectedProviderCode === 'telkomsel') {
                             showPaketPhoneVerificationStatus('warning', `Nomor 0851 bisa Telkomsel atau by.U. Kami prioritaskan ke by.U. Pastikan pilihan Anda benar.`);
                         } else {
@@ -971,21 +971,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listener untuk verifikasi nomor HP E-SIM
     const esimPhoneInput = document.getElementById('esimPhoneInput');
     if (esimPhoneInput) {
-        esimPhoneInput.addEventListener('input', function() {
+        esimPhoneInput.addEventListener('input', function () {
             const phoneNumber = this.value.trim();
-            
+
             if (phoneNumber.length < 4) {
                 hideEsimPhoneVerificationStatus();
                 return;
             }
-            
+
             const cleanPhone = phoneNumber.replace(/[^\d]/g, '');
             const detectedProvider = detectProviderFromPhoneEsim(phoneNumber);
             const selectedProvider = getSelectedEsimProvider();
-            
+
             if (detectedProvider) {
                 const detectedName = getProviderDisplayNameEsim(detectedProvider);
-                
+
                 if (selectedProvider) {
                     if (detectedProvider === selectedProvider) {
                         // Provider cocok
@@ -1019,7 +1019,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //  Update status ketika provider E-SIM dipilih
     const esimProviderSelect = document.getElementById('esimProviderSelect');
     if (esimProviderSelect) {
-        esimProviderSelect.addEventListener('change', function() {
+        esimProviderSelect.addEventListener('change', function () {
             const phoneInput = document.getElementById('esimPhoneInput');
             if (phoneInput && phoneInput.value.trim().length >= 4) {
                 // Trigger ulang verifikasi
@@ -1028,17 +1028,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     // ===== ALL ELEMENT LISTENERS - UPDATED semua selector =====
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (e.target.closest('#pulsaModal .pulsaprovider-item')) {
             // Remove selected from all providers
-            document.querySelectorAll('#pulsaModal .pulsaprovider-item').forEach(item => { 
+            document.querySelectorAll('#pulsaModal .pulsaprovider-item').forEach(item => {
                 item.classList.remove('selected');
             });
-            
+
             // Add selected to clicked provider
-            const clickedProvider = e.target.closest('.pulsaprovider-item'); 
+            const clickedProvider = e.target.closest('.pulsaprovider-item');
             clickedProvider.classList.add('selected');
-            
+
             // Update denominations
             const provider = clickedProvider.dataset.provider;
             updatePulsaDenominations(provider);
@@ -1049,11 +1049,11 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('#dataModal .paketprovider-item').forEach(item => {
                 item.classList.remove('selected');
             });
-            
+
             // Add selected to clicked provider
             const clickedProvider = e.target.closest('.paketprovider-item');
             clickedProvider.classList.add('selected');
-            
+
             // Update packages
             const provider = clickedProvider.dataset.provider;
             updatePaketDataPackages(provider);
@@ -1064,15 +1064,15 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('#ewalletModal .ewallet-select-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            
+
             // Add active to clicked e-wallet
             const clickedEwallet = e.target.closest('.ewallet-select-btn');
             clickedEwallet.classList.add('active');
-            
+
             // Update denominations
             const ewallet = clickedEwallet.dataset.ewallet;
             updateEwalletDenominations(ewallet);
-            
+
             // Reset denomination selection
             document.querySelectorAll('#ewalletModal .ewalletdenomination-item').forEach(item => {
                 item.classList.remove('selected');
@@ -1101,24 +1101,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Denomination selection for pulsa - UPDATED class names
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (e.target.closest('#pulsaModal #pulsaDenominations .pulsadenomination-item')) {
             // Remove selected from all pulsa denominations
-            document.querySelectorAll('#pulsaModal #pulsaDenominations .pulsadenomination-item').forEach(item => { 
+            document.querySelectorAll('#pulsaModal #pulsaDenominations .pulsadenomination-item').forEach(item => {
                 item.classList.remove('selected');
             });
-            
+
             // Add selected to clicked denomination
             e.target.closest('.pulsadenomination-item').classList.add('selected');
         }
-        
+
         // For Paket Data
         if (e.target.closest('#dataModal #paketPackages .paket-item')) {
             // Remove selected from all packages
             document.querySelectorAll('#dataModal #paketPackages .paket-item').forEach(item => {
                 item.classList.remove('selected');
             });
-            
+
             // Add selected to clicked package
             e.target.closest('.paket-item').classList.add('selected');
         }
@@ -1129,14 +1129,14 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('#ewalletModal #ewalletDenominations .ewalletdenomination-item').forEach(item => {
                 item.classList.remove('selected');
             });
-            
+
             // Add selected to clicked denomination
             e.target.closest('.ewalletdenomination-item').classList.add('selected');
         }
     });
 
     // Payment method selection
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         // Payment method selection 
         if (e.target.closest('.payment-btn, .pulsapayment-btn, .paketpayment-btn, .ewalletpayment-btn')) {
             const modal = e.target.closest('.modal, .pulsamodal, .paketmodal, .ewalletmodal');
@@ -1149,8 +1149,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close button functionality 
     document.querySelectorAll('.close, .pulsaclose, .paketclose, .ewalletclose').forEach(closeBtn => {
-        closeBtn.addEventListener('click', function() {
-            const modal = this.closest('.modal, .pulsamodal, .paketmodal, .ewalletmodal'); 
+        closeBtn.addEventListener('click', function () {
+            const modal = this.closest('.modal, .pulsamodal, .paketmodal, .ewalletmodal');
             if (modal) {
                 const modalId = modal.id;
                 closeModal(modalId);
@@ -1160,24 +1160,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Scroll to top button functionality
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-    
+
     // Show/hide button based on scroll position
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         if (window.pageYOffset > 100) {
             scrollToTopBtn.classList.add('show');
         } else {
             scrollToTopBtn.classList.remove('show');
         }
     });
-    
+
     // Scroll to top when button is clicked
-    scrollToTopBtn.addEventListener('click', function() {
+    scrollToTopBtn.addEventListener('click', function () {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     });
-    
+
     // ===== USER MENU & REGISTER FUNCTIONALITY =====
     // Check if user account exists
     function checkUserAccount() {
@@ -1187,21 +1187,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // User menu click handler
     function handleUserMenuClick(event) {
-    // Prevent any default behavior or bubbling
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
-    
-    const userAccount = checkUserAccount();
-    
+        // Prevent any default behavior or bubbling
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        // Cek status login session, bukan hanya userAccount
+        const userSession = localStorage.getItem('userSession');
+        const userAccount = checkUserAccount();
+
+        if (userSession && userAccount) {
+            const sessionData = JSON.parse(userSession);
+            if (sessionData.isLoggedIn) {
+                // User sudah login, redirect ke profile
+                window.location.href = '/profile';
+                return;
+            }
+        }
+
+        // User belum login
         if (userAccount) {
-            // User sudah terdaftar, redirect ke profile
-            window.location.href = '/profile';
+            // User punya akun tapi belum login
+            alert('Anda belum login. Silakan login terlebih dahulu.');
+            openLoginModal();
         } else {
-            // User belum terdaftar, tampilkan konfirmasi sekali saja
+            // User belum memiliki akun
             const confirmRegister = confirm('Anda belum memiliki akun. Daftar sekarang untuk menikmati fitur lengkap Argya Store?');
-            
             if (confirmRegister) {
                 openRegisterModal();
             }
@@ -1228,7 +1240,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function showInputAlert(inputId, alertId, message, type) {
         const input = document.getElementById(inputId);
         const alert = document.getElementById(alertId);
-        
+
         input.className = `register-form-input ${type}`;
         alert.className = `input-alert ${type}`;
         alert.textContent = message;
@@ -1238,7 +1250,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function hideInputAlert(inputId, alertId) {
         const input = document.getElementById(inputId);
         const alert = document.getElementById(alertId);
-        
+
         input.className = 'register-form-input';
         alert.className = 'input-alert';
         alert.textContent = '';
@@ -1251,7 +1263,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const passwordInput = document.getElementById('registerPassword');
 
         if (nameInput) {
-            nameInput.addEventListener('blur', function() {
+            nameInput.addEventListener('blur', function () {
                 const name = this.value.trim();
                 if (name === '') {
                     hideInputAlert('registerName', 'nameAlert');
@@ -1264,7 +1276,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (emailInput) {
-            emailInput.addEventListener('blur', function() {
+            emailInput.addEventListener('blur', function () {
                 const email = this.value.trim();
                 if (email === '') {
                     hideInputAlert('registerEmail', 'emailAlert');
@@ -1277,7 +1289,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (passwordInput) {
-            passwordInput.addEventListener('input', function() {
+            passwordInput.addEventListener('input', function () {
                 const password = this.value;
                 if (password === '') {
                     hideInputAlert('registerPassword', 'passwordAlert');
@@ -1309,7 +1321,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('registerName').value = '';
         document.getElementById('registerEmail').value = '';
         document.getElementById('registerPassword').value = '';
-        
+
         // Clear all alerts
         hideInputAlert('registerName', 'nameAlert');
         hideInputAlert('registerEmail', 'emailAlert');
@@ -1384,17 +1396,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Close register modal when clicking outside
-    window.addEventListener('click', function(event) {
+    window.addEventListener('click', function (event) {
         const registerModal = document.getElementById('registerModal');
+        const loginModal = document.getElementById('loginModal');
+        const claimModal = document.getElementById('claimModal');
+
         if (event.target === registerModal) {
             closeRegisterModal();
+        }
+        if (event.target === loginModal) {
+            closeLoginModal();
+        }
+        if (event.target === claimModal) {
+            closeClaimModal();
         }
     });
 
     function togglePassword(inputId) {
         const passwordInput = document.getElementById(inputId);
         const toggleIcon = document.getElementById(inputId + 'ToggleIcon');
-        
+
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
             toggleIcon.classList.remove('fa-eye');
@@ -1406,6 +1427,324 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // ===== ENHANCED LOGIN FUNCTIONALITY =====
+    // Get saved user accounts (bisa diperluas untuk multiple users)
+    function getSavedUserAccounts() {
+        const accounts = [];
+        const userAccount = localStorage.getItem('userAccount');
+
+        if (userAccount) {
+            accounts.push(JSON.parse(userAccount));
+        }
+
+        return accounts;
+    }
+
+    // Show autocomplete suggestions
+    function showAutocompleteSuggestions(inputValue) {
+        const suggestions = document.getElementById('loginNameSuggestions');
+        const accounts = getSavedUserAccounts();
+
+        if (!inputValue.trim() || accounts.length === 0) {
+            suggestions.style.display = 'none';
+            return;
+        }
+
+        // Filter accounts based on input
+        const filteredAccounts = accounts.filter(account =>
+            account.name.toLowerCase().includes(inputValue.toLowerCase())
+        );
+
+        if (filteredAccounts.length === 0) {
+            suggestions.style.display = 'none';
+            return;
+        }
+
+        // Generate suggestions HTML
+        suggestions.innerHTML = filteredAccounts.map(account => `
+        <div class="autocomplete-suggestion" onclick="selectUserSuggestion('${account.name}', '${account.email}')">
+            <i class="fas fa-user suggestion-icon"></i>
+            <span class="suggestion-name">${account.name}</span>
+            <span class="suggestion-email">(${account.email})</span>
+        </div>
+    `).join('');
+
+        suggestions.style.display = 'block';
+    }
+
+    // Select user suggestion
+    function selectUserSuggestion(name, email) {
+        document.getElementById('loginName').value = name;
+        document.getElementById('loginNameSuggestions').style.display = 'none';
+
+        // Focus on password field
+        document.getElementById('loginPassword').focus();
+
+        // Clear any previous alerts
+        hideInputAlert('loginName', 'loginNameAlert');
+    }
+
+    // Hide suggestions when clicking outside
+    function hideAutocompleteSuggestions(event) {
+        const wrapper = document.querySelector('.autocomplete-wrapper');
+        const suggestions = document.getElementById('loginNameSuggestions');
+
+        if (wrapper && !wrapper.contains(event.target)) {
+            suggestions.style.display = 'none';
+        }
+    }
+
+    // Setup enhanced login validation with autocomplete
+    function setupLoginValidation() {
+        const nameInput = document.getElementById('loginName');
+        const passwordInput = document.getElementById('loginPassword');
+
+        if (nameInput) {
+            // Input event for autocomplete
+            nameInput.addEventListener('input', function () {
+                const value = this.value.trim();
+                showAutocompleteSuggestions(value);
+            });
+
+            // Focus event to show suggestions if there's value
+            nameInput.addEventListener('focus', function () {
+                const value = this.value.trim();
+                if (value) {
+                    showAutocompleteSuggestions(value);
+                }
+            });
+
+            // Blur validation
+            nameInput.addEventListener('blur', function () {
+                // Delay hiding suggestions to allow clicking
+                setTimeout(() => {
+                    const suggestions = document.getElementById('loginNameSuggestions');
+                    suggestions.style.display = 'none';
+                }, 150);
+
+                const name = this.value.trim();
+                if (name === '') {
+                    hideInputAlert('loginName', 'loginNameAlert');
+                } else if (!validateName(name)) {
+                    showInputAlert('loginName', 'loginNameAlert', 'Nama tidak valid!', 'error');
+                } else {
+                    // Check if user exists in saved accounts
+                    const accounts = getSavedUserAccounts();
+                    const userExists = accounts.some(account => account.name === name);
+
+                    if (userExists) {
+                        showInputAlert('loginName', 'loginNameAlert', 'Pengguna ditemukan!', 'success');
+                    } else {
+                        showInputAlert('loginName', 'loginNameAlert', 'Pengguna belum terdaftar!', 'error');
+                    }
+                }
+            });
+        }
+
+        if (passwordInput) {
+            passwordInput.addEventListener('blur', function () {
+                const password = this.value.trim();
+                if (password === '') {
+                    hideInputAlert('loginPassword', 'loginPasswordAlert');
+                } else if (password.length < 6) {
+                    showInputAlert('loginPassword', 'loginPasswordAlert', 'Password minimal 6 karakter!', 'error');
+                } else {
+                    showInputAlert('loginPassword', 'loginPasswordAlert', 'Password valid!', 'success');
+                }
+            });
+        }
+
+        // Add global click listener for hiding suggestions
+        document.addEventListener('click', hideAutocompleteSuggestions);
+    }
+
+    // Enhanced login account function
+    function loginAccount() {
+        const name = document.getElementById('loginName').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+
+        let hasError = false;
+
+        // Validate all fields
+        if (!name) {
+            showInputAlert('loginName', 'loginNameAlert', 'Nama user wajib diisi!', 'error');
+            hasError = true;
+        }
+
+        if (!password) {
+            showInputAlert('loginPassword', 'loginPasswordAlert', 'Password wajib diisi!', 'error');
+            hasError = true;
+        }
+
+        if (hasError) {
+            return;
+        }
+
+        // Check if user account exists
+        const existingUser = localStorage.getItem('userAccount');
+        if (!existingUser) {
+            showInputAlert('loginName', 'loginNameAlert', 'Akun tidak ditemukan! Silakan daftar terlebih dahulu.', 'error');
+            return;
+        }
+
+        const userData = JSON.parse(existingUser);
+
+        // Validate credentials
+        if (userData.name !== name) {
+            showInputAlert('loginName', 'loginNameAlert', 'Nama user tidak ditemukan!', 'error');
+            return;
+        }
+
+        if (userData.password !== password) {
+            showInputAlert('loginPassword', 'loginPasswordAlert', 'Password salah!', 'error');
+            return;
+        }
+
+        // Set login session (JANGAN HAPUS userAccount!)
+        const loginSession = {
+            isLoggedIn: true,
+            loginTime: new Date().toISOString(),
+            userData: userData
+        };
+
+        localStorage.setItem('userSession', JSON.stringify(loginSession));
+
+        // Show success message
+        alert(`Selamat datang kembali, ${name}!`);
+
+        // Close modal and redirect to profile
+        closeLoginModal();
+        window.location.href = '/profile';
+    }
+
+    // Enhanced open login modal
+    function openLoginModal() {
+        // Close register modal if open
+        closeRegisterModal();
+        // Close claim modal if open
+        closeClaimModal();
+
+        document.getElementById('loginModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        setupLoginValidation();
+
+        // Auto-fill if there's saved user data
+        const userAccount = localStorage.getItem('userAccount');
+        if (userAccount) {
+            const userData = JSON.parse(userAccount);
+            document.getElementById('loginName').value = userData.name;
+
+            // Show success indicator for name
+            showInputAlert('loginName', 'loginNameAlert', 'Pengguna ditemukan!', 'success');
+
+            // Focus on password
+            setTimeout(() => {
+                document.getElementById('loginPassword').focus();
+            }, 100);
+        }
+    }
+
+    // Clear login form
+    function clearLoginForm() {
+        document.getElementById('loginName').value = '';
+        document.getElementById('loginPassword').value = '';
+
+        // Hide suggestions
+        document.getElementById('loginNameSuggestions').style.display = 'none';
+
+        // Clear all alerts
+        hideInputAlert('loginName', 'loginNameAlert');
+        hideInputAlert('loginPassword', 'loginPasswordAlert');
+    }
+
+    // Close login modal
+    function closeLoginModal() {
+        document.getElementById('loginModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        clearLoginForm();
+
+        // Remove global click listener
+        document.removeEventListener('click', hideAutocompleteSuggestions);
+    }
+
+    // ===== CLAIM ACCOUNT FUNCTIONALITY =====
+    // Setup claim validation
+    function setupClaimValidation() {
+        const emailInput = document.getElementById('claimEmail');
+
+        if (emailInput) {
+            emailInput.addEventListener('blur', function () {
+                const email = this.value.trim();
+                if (email === '') {
+                    hideInputAlert('claimEmail', 'claimEmailAlert');
+                } else if (!validateEmail(email)) {
+                    showInputAlert('claimEmail', 'claimEmailAlert', 'Format email tidak valid!', 'error');
+                } else {
+                    showInputAlert('claimEmail', 'claimEmailAlert', 'Email valid!', 'success');
+                }
+            });
+        }
+    }
+
+    // Open claim modal
+    function openClaimModal() {
+        // Close register modal if open
+        closeRegisterModal();
+        // Close login modal if open  
+        closeLoginModal();
+
+        document.getElementById('claimModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        setupClaimValidation();
+    }
+
+    // Close claim modal
+    function closeClaimModal() {
+        document.getElementById('claimModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        clearClaimForm();
+    }
+
+    // Clear claim form
+    function clearClaimForm() {
+        document.getElementById('claimEmail').value = '';
+        hideInputAlert('claimEmail', 'claimEmailAlert');
+    }
+
+    // Claim account function
+    function claimAccount() {
+        const email = document.getElementById('claimEmail').value.trim();
+
+        if (!email) {
+            showInputAlert('claimEmail', 'claimEmailAlert', 'Email wajib diisi!', 'error');
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            showInputAlert('claimEmail', 'claimEmailAlert', 'Format email tidak valid!', 'error');
+            return;
+        }
+
+        // Check if user account exists with this email
+        const existingUser = localStorage.getItem('userAccount');
+        if (!existingUser) {
+            showInputAlert('claimEmail', 'claimEmailAlert', 'Email tidak ditemukan! Silakan daftar terlebih dahulu.', 'error');
+            return;
+        }
+
+        const userData = JSON.parse(existingUser);
+        if (userData.email !== email) {
+            showInputAlert('claimEmail', 'claimEmailAlert', 'Email tidak terdaftar!', 'error');
+            return;
+        }
+
+        // Show account information
+        alert(`Informasi Akun Anda:\nNama: ${userData.name}\nEmail: ${userData.email}\nPassword: ${userData.password}\n\nSilakan gunakan informasi ini untuk login.`);
+
+        // Close modal and open login modal
+        closeClaimModal();
+        openLoginModal();
+    }
 
     // Make functions global
     window.togglePassword = togglePassword;
@@ -1413,4 +1752,11 @@ document.addEventListener('DOMContentLoaded', function() {
     window.openRegisterModal = openRegisterModal;
     window.closeRegisterModal = closeRegisterModal;
     window.registerAccount = registerAccount;
+    window.openLoginModal = openLoginModal;
+    window.closeLoginModal = closeLoginModal;
+    window.loginAccount = loginAccount;
+    window.selectUserSuggestion = selectUserSuggestion;
+    window.openClaimModal = openClaimModal;
+    window.closeClaimModal = closeClaimModal;
+    window.claimAccount = claimAccount;
 });

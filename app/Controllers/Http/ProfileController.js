@@ -109,6 +109,46 @@ class ProfileController {
             })
         }
     }
+
+    // Handle logout
+    async logout({ response, session }) {
+        try {
+            // Clear server-side session if you're using it
+            // session.clear()
+            
+            return response.json({
+                success: true,
+                message: 'Logout successful'
+            })
+        } catch (error) {
+            console.error('Logout error:', error)
+            return response.status(500).json({
+                success: false,
+                message: 'Server error'
+            })
+        }
+    }
+
+    // Handle account deletion
+    async deleteAccount({ response, session }) {
+        try {
+            // Here you would typically delete from database
+            // For now, we'll just clear session and return success
+            
+            // session.clear()
+            
+            return response.json({
+                success: true,
+                message: 'Account deleted successfully'
+            })
+        } catch (error) {
+            console.error('Account deletion error:', error)
+            return response.status(500).json({
+                success: false,
+                message: 'Server error'
+            })
+        }
+    }
 }
 
 module.exports = ProfileController
