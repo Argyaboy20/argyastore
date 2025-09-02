@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | Argya Store</title>
+  <link rel="icon" type="image/png" href="/image/store.png">
+  <link rel="stylesheet" href="/nomor.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Side Menu Overlay -->
+  <div class="side-menu-overlay" id="sideMenuOverlay" onclick="closeSideMenu()"></div>
+  
+  <!-- Side Menu -->
+  <div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+      <h3>Pengaturan</h3>
+      <button class="close-menu-btn" onclick="closeSideMenu()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="side-menu-content">
+      <a href="/profile" class="menu-item">
+        <i class="fas fa-user-circle"></i>
+        <span>Informasi Akun</span>
+      </a>
+      <a href="/riwayat" class="menu-item">
+        <i class="fa-solid fa-receipt"></i>
+        <span>Riwayat Transaksi</span>
+      </a>
+      <a href="/voucher" class="menu-item">
+        <i class="fa-solid fa-ticket-simple"></i>
+        <span>Voucher Belanja</span>
+      </a>
+      <a href="/aboutus" class="menu-item">
+        <i class="fas fa-info-circle"></i>
+        <span>Tentang Kami</span>
+      </a>
+      <a href="/faq" class="menu-item">
+        <i class="fas fa-question-circle"></i>
+        <span>FAQ</span>
+      </a>
+      <a href="/privacypolicy" class="menu-item">
+        <i class="fas fa-shield-alt"></i>
+        <span>Kebijakan Privasi</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <button class="menu-toggle" onclick="openSideMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <div class="logo">
+        <div class="logo-image-wrapper">
+          <img src="image/logo.png" alt="Argya Store">
+        </div>
+        <span>Argya Store</span>
+      </div>
+      
+      <div class="header-spacer"></div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Header Section -->
+      <div class="page-header">
+        <h1>Nomor Favorit</h1>
+        <button class="add-number-btn" onclick="openAddNumberModal()">
+          <i class="fas fa-plus"></i>
+          <span>Tambah Nomor</span>
+        </button>
+      </div>
+
+      <!-- Info Tips -->
+      <div class="info-tips">
+        <div class="tip-icon">
+          <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="tip-content">
+          <h3>Tips Nomor Favorit</h3>
+          <p>Simpan nomor telepon favorit Anda untuk memudahkan transaksi. Nomor akan terisi otomatis atau menjadi pilihan di setiap pembelian.</p>
+        </div>
+      </div>
+
+      <!-- Favorite Numbers Container -->
+      <div class="favorite-numbers-container">
+        <div class="container-header">
+          <h2>Daftar Nomor Favorit</h2>
+          <span class="number-count">(<span id="numberCount">0</span>/8)</span>
+        </div>
+        
+        <div class="numbers-list" id="numbersList">
+          <!-- Numbers will be loaded here -->
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display: none;">
+          <div class="empty-icon">
+            <i class="fas fa-phone-slash"></i>
+          </div>
+          <p>Tidak ada nomor favorit yang disimpan</p>
+          <button class="add-first-number-btn" onclick="openAddNumberModal()">
+            <i class="fas fa-plus"></i>
+            Tambah Nomor Pertama
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Number Modal -->
+  <div class="modal-overlay" id="addNumberModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Tambah Nomor Favorit</h3>
+        <button class="close-modal-btn" onclick="closeAddNumberModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <form class="add-number-form" onsubmit="addFavoriteNumber(event)">
+        <div class="form-group">
+          <label for="numberName">Nama *</label>
+          <input type="text" id="numberName" required maxlength="50" placeholder="Masukkan nama">
+          <div class="input-alert" id="nameAlert"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="phoneNumber">Nomor Telepon *</label>
+          <input type="tel" id="phoneNumber" required placeholder="Contoh: 081234567890" pattern="[0-9]{10,13}">
+          <div class="input-alert" id="phoneAlert"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="ownershipStatus">Status Kepemilikan *</label>
+          <select id="ownershipStatus" required>
+            <option value="">Pilih Status</option>
+            <option value="diri-sendiri">Diri Sendiri</option>
+            <option value="ayah">Ayah</option>
+            <option value="ibu">Ibu</option>
+            <option value="istri">Istri</option>
+            <option value="suami">Suami</option>
+            <option value="kerabat">Kerabat</option>
+          </select>
+          <div class="input-alert" id="statusAlert"></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="cancel-btn" onclick="closeAddNumberModal()">Batal</button>
+          <button type="submit" class="save-btn">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Number Modal -->
+  <div class="modal-overlay" id="editNumberModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit Nomor Favorit</h3>
+        <button class="close-modal-btn" onclick="closeEditNumberModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <form class="add-number-form" onsubmit="updateFavoriteNumber(event)">
+        <div class="form-group">
+          <label for="editNumberName">Nama *</label>
+          <input type="text" id="editNumberName" required maxlength="50">
+          <div class="input-alert" id="editNameAlert"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="editPhoneNumber">Nomor Telepon *</label>
+          <input type="tel" id="editPhoneNumber" required pattern="[0-9]{10,13}">
+          <div class="input-alert" id="editPhoneAlert"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="editOwnershipStatus">Status Kepemilikan *</label>
+          <select id="editOwnershipStatus" required>
+            <option value="">Pilih Status</option>
+            <option value="diri-sendiri">Diri Sendiri</option>
+            <option value="ayah">Ayah</option>
+            <option value="ibu">Ibu</option>
+            <option value="istri">Istri</option>
+            <option value="suami">Suami</option>
+            <option value="kerabat">Kerabat</option>
+          </select>
+          <div class="input-alert" id="editStatusAlert"></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="cancel-btn" onclick="closeEditNumberModal()">Batal</button>
+          <button type="submit" class="save-btn">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/nomor.js"></script>
+</body>
+</html>
