@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | Argya Store</title>
+  <link rel="icon" type="image/png" href="/image/store.png">
+  <link rel="stylesheet" href="/aboutus.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Side Menu Overlay -->
+  <div class="side-menu-overlay" id="sideMenuOverlay" onclick="closeSideMenu()"></div>
+  
+  <!-- Side Menu -->
+  <div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+      <h3>Pengaturan</h3>
+      <button class="close-menu-btn" onclick="closeSideMenu()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="side-menu-content">
+      <a href="/profile" class="menu-item">
+        <i class="fas fa-user-circle"></i>
+        <span>Informasi Akun</span>
+      </a>
+      <a href="/nomor" class="menu-item">
+        <i class="fas fa-star"></i>
+        <span>Nomor Favorit</span>
+      </a>
+      <a href="/riwayat" class="menu-item">
+        <i class="fa-solid fa-receipt"></i>
+        <span>Riwayat Transaksi</span>
+      </a>
+      <a href="/voucher" class="menu-item">
+        <i class="fa-solid fa-ticket-simple"></i>
+        <span>Voucher Belanja</span>
+      </a>
+      <a href="/faq" class="menu-item">
+        <i class="fas fa-question-circle"></i>
+        <span>FAQ</span>
+      </a>
+      <a href="/privacypolicy" class="menu-item">
+        <i class="fas fa-shield-alt"></i>
+        <span>Kebijakan Privasi</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <button class="menu-toggle" onclick="openSideMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <div class="logo">
+        <div class="logo-image-wrapper">
+          <img src="image/logo.png" alt="Argya Store">
+        </div>
+        <span>Argya Store</span>
+      </div>
+      
+      <div class="header-spacer"></div>
+    </div>
+  </header>
+
+  <script src="/js/aboutus.js"></script>
+</body>
+</html>
