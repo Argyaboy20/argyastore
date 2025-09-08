@@ -17,6 +17,8 @@
 const Route = use('Route')
 
 Route.get('/', 'HomeController.index')
+Route.get('/beranda', 'HomeController.index')
+
 Route.get('/game', 'GameController.game')
 Route.get('/entertainment', 'EntertainmentController.entertainment')
 Route.get('/support', 'SupportController.support')

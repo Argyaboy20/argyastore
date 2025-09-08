@@ -839,8 +839,132 @@ function buyTokenListrik() {
     closeModal('tokenModal');
 }
 
+function getTimeGreeting() {
+    const now = new Date();
+    const hour = now.getHours();
+    
+    if (hour >= 4 && hour < 5) {
+        return "Selamat mengawali aktivitas";
+    } else if (hour >= 5 && hour < 11) {
+        return "Selamat pagi";
+    } else if (hour >= 11 && hour < 15) {
+        return "Selamat siang";
+    } else if (hour >= 15 && hour < 18) {
+        return "Selamat sore";
+    } else {
+        return "Selamat malam";
+    }
+}
+
+// Array kalimat untuk sliding text
+const slidingTexts = [
+    "Beli pulsa, paket data, top up game, dan produk digital lainnya dengan mudah dan aman!",
+    "Belanja di Argya Store aja yuk, dijamin murah meriah dan untuuunggg teruss",
+    "Nantikan promo promo menarik hanya di Argya Store! Yuk belanja sekarang!",
+    "Segala kebutuhan digitalmu ada di Argya Store, solusi praktis untuk hidup lebih mudah!",
+    "Lagi cari belanja murah dicombo dengan promo menarik? Argya Store aja!"
+];
+
+let currentTextIndex = 0;
+
+// Fungsi untuk mengganti text dengan animasi
+function changeSlideText() {
+    const paragraph = document.getElementById('heroParagraph');
+    if (paragraph) {
+        // Fade out
+        paragraph.style.opacity = '0';
+        paragraph.style.transition = 'opacity 0.5s ease-in-out';
+        
+        setTimeout(() => {
+            // Ganti text
+            currentTextIndex = (currentTextIndex + 1) % slidingTexts.length;
+            paragraph.textContent = slidingTexts[currentTextIndex];
+            
+            // Fade in
+            paragraph.style.opacity = '1';
+        }, 500);
+    }
+}
+
+
 // Event listener DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
+    // Cek apakah di halaman beranda dan ada user session
+    if (window.location.pathname === '/beranda') {
+        const userSession = localStorage.getItem('userSession');
+        const userAccount = localStorage.getItem('userAccount');
+        
+        if (userSession && userAccount) {
+            const sessionData = JSON.parse(userSession);
+            const userData = JSON.parse(userAccount);
+            
+            if (sessionData.isLoggedIn) {
+                const titleElement = document.getElementById('personalizedTitle');
+                const paragraphElement = document.getElementById('heroParagraph');
+                
+                if (titleElement) {
+                    const timeGreeting = getTimeGreeting();
+                    
+                    // Cek apakah user baru atau returning user
+                    if (sessionData.isNewUser) {
+                        titleElement.textContent = `${timeGreeting}, ${userData.name}! Selamat bergabung di Argya Store`;
+                        
+                        // Update paragraph untuk user baru
+                        if (paragraphElement) {
+                            paragraphElement.textContent = 'Terima kasih sudah bergabung! Nikmati kemudahan berbelanja produk digital di sini.';
+                        }
+                        
+                        // Hapus flag isNewUser setelah ditampilkan
+                        sessionData.isNewUser = false;
+                        localStorage.setItem('userSession', JSON.stringify(sessionData));
+                        
+                        // Mulai sliding text setelah 5 detik untuk user baru
+                        setTimeout(() => {
+                            if (paragraphElement) {
+                                paragraphElement.textContent = slidingTexts[0];
+                                setInterval(changeSlideText, 5000); // Ganti setiap 5 detik
+                            }
+                        }, 5000);
+                        
+                    } else {
+                        // User yang sudah pernah login sebelumnya
+                        titleElement.textContent = `${timeGreeting}, ${userData.name}!`;
+                        
+                        // Langsung mulai sliding text
+                        if (paragraphElement) {
+                            paragraphElement.textContent = slidingTexts[0];
+                            setInterval(changeSlideText, 5000); // Ganti setiap 5 detik
+                        }
+                    }
+                }
+            }
+        } else {
+            // Jika tidak ada session di /beranda, redirect ke home
+            window.location.href = '/';
+        }
+    } else {
+        // Untuk halaman home biasa ("/"), juga tambahkan sliding text
+        const paragraphElement = document.querySelector('.hero-content p');
+        if (paragraphElement && !paragraphElement.id) { // Pastikan bukan yang di beranda
+            // Set text awal dan mulai sliding
+            paragraphElement.textContent = slidingTexts[0];
+            paragraphElement.style.transition = 'opacity 0.5s ease-in-out';
+            setInterval(() => {
+                // Fade out
+                paragraphElement.style.opacity = '0';
+                
+                setTimeout(() => {
+                    // Ganti text
+                    currentTextIndex = (currentTextIndex + 1) % slidingTexts.length;
+                    paragraphElement.textContent = slidingTexts[currentTextIndex];
+                    
+                    // Fade in
+                    paragraphElement.style.opacity = '1';
+                }, 500);
+            }, 5000);
+        }
+    }
+
     // Generate token listrik HTML dinamis
     generateTokenListrikHTML();
 
@@ -1187,13 +1311,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // User menu click handler
     function handleUserMenuClick(event) {
-        // Prevent any default behavior or bubbling
         if (event) {
             event.preventDefault();
             event.stopPropagation();
         }
 
-        // Cek status login session, bukan hanya userAccount
         const userSession = localStorage.getItem('userSession');
         const userAccount = checkUserAccount();
 
@@ -1206,13 +1328,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // User belum login
+        // User belum login - cek apakah di halaman beranda
+        if (window.location.pathname === '/beranda') {
+            // Jika di beranda tapi belum login, redirect ke home dulu
+            window.location.href = '/';
+            return;
+        }
+
+        // Logic yang sudah ada untuk handle user menu
         if (userAccount) {
-            // User punya akun tapi belum login
             alert('Anda belum login. Silakan login terlebih dahulu.');
             openLoginModal();
         } else {
-            // User belum memiliki akun
             const confirmRegister = confirm('Anda belum memiliki akun. Daftar sekarang untuk menikmati fitur lengkap Argya Store?');
             if (confirmRegister) {
                 openRegisterModal();
@@ -1387,12 +1514,22 @@ document.addEventListener('DOMContentLoaded', function () {
         // Save to localStorage
         localStorage.setItem('userAccount', JSON.stringify(userAccount));
 
-        // Show success message
-        alert(`Selamat ${name}! Akun Anda berhasil dibuat. Selamat berbelanja di Argya Store!`);
+        // TAMBAHAN BARU: Langsung buat session login untuk pendaftar baru
+        const loginSession = {
+            isLoggedIn: true,
+            loginTime: new Date().toISOString(),
+            userData: userAccount,
+            isNewUser: true // Flag untuk pendaftar baru
+        };
 
-        // Close modal and redirect to profile
+        localStorage.setItem('userSession', JSON.stringify(loginSession));
+
+        // Show success message
+        alert(`Selamat ${name}! Akun Anda berhasil dibuat dan Anda sudah masuk ke akun. Selamat berbelanja di Argya Store!`);
+
+        // Close modal and redirect to beranda
         closeRegisterModal();
-        window.location.href = '/profile';
+        window.location.href = '/beranda';
     }
 
     // Close register modal when clicking outside
@@ -1614,7 +1751,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Close modal and redirect to profile
         closeLoginModal();
-        window.location.href = '/profile';
+        window.location.href = '/beranda';
     }
 
     // Enhanced open login modal

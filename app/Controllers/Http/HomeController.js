@@ -2,6 +2,9 @@
 
 class HomeController {
   async index({ request, response, view }) {
+
+    const currentPath = request.url() // Mendapatkan path saat ini
+
     const products = {
       pulsa: {
         indosat: [
@@ -111,7 +114,16 @@ class HomeController {
       ]
     }
 
-    return view.render('welcome', { products })
+     // Tentukan status user berdasarkan route
+    const userContext = {
+      hasAccount: currentPath === '/beranda',
+      currentPath: currentPath
+    }
+
+    return view.render('welcome', { 
+      products,
+      userContext
+    })
   }
 }
 

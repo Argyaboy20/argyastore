@@ -30,8 +30,14 @@
     <section class="hero">
       <div class="container">
         <div class="hero-content">
-          <h1>Toko Produk Digital Termurah di Indonesia</h1>
-          <p>Beli pulsa, paket data, top up game, dan produk digital lainnya dengan mudah dan aman!</p>
+          @if(userContext.hasAccount)
+            <h1 id="personalizedTitle">Selamat datang kembali di Argya Store!</h1>
+            <p id="heroParagraph">Lanjutkan berbelanja produk digital favorit Anda dengan mudah dan aman!</p>
+          @else
+            <h1>Toko Produk Digital Termurah di Indonesia</h1>
+            <p>Beli pulsa, paket data, top up game, dan produk digital lainnya dengan mudah dan aman!</p>
+          @endif
+          
           <div class="hero-stats">
             <div class="stat">
               <i class="fas fa-wallet"></i>
