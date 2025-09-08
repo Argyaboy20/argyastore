@@ -1,7 +1,7 @@
 'use strict'
 
 class PrivacyPolicyController {
-     async privacypolicy ({ view }) {
+    async privacypolicy ({ view }) {
         return view.render('privacypolicy')
     }
 }

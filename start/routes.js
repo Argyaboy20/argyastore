@@ -27,3 +27,5 @@ Route.get('/voucher', 'VoucherController.voucher')
 Route.get('/aboutus', 'AboutUsController.aboutus')
 Route.get('/faq', 'FaqController.faq')
 Route.get('/privacypolicy', 'PrivacyPolicyController.privacypolicy')
+
+Route.get('/dashboard', 'AdminStoreController.adminstore')
